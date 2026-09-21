@@ -10,12 +10,11 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Color(0xFF1f4e4c),
         foregroundColor: Color(0xFFFFF8F0),
         toolbarHeight: 125,
-        //A menu that contains the user's profile, settings, favorites
         leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
 
-        title: Text('Explore Heritage'),
+        title: Text('Zanyar, your go-to travel guide!!'),
 
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        //actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
     );
   }
