@@ -21,7 +21,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Please Login to continue to the app')
+            Text('Please Login to continue to the app'),
+            SizedBox(height: 5),
             Text(
               'Login Screen',
               style: TextStyle(
