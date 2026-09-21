@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                   border: OutlineInputBorder(),
                   hintText: "Enter Your Password",
                   labelText: "Password",
-                  prefixIcon: Icon(Icons.key),
+                  prefixIcon: Icon(Icons.lock),
                 ),
               ),
             ),
@@ -108,17 +108,17 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text('If you forgot your password,'),
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Register',
+                    'Sign up',
                     style: TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Text('into your account'),
               ],
             ),
           ],
