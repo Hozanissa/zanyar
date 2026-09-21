@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Please Login to continue to the app')
             Text(
               'Login Screen',
               style: TextStyle(
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: "Enter Your Username (Mix of letters, numbers, characters, etc..)",
+                  hintText: "Enter Your Username",
                   labelText: "Username",
                   prefixIcon: Icon(Icons.person),
                 ),
