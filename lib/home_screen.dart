@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF1f4e4c),
         foregroundColor: Color(0xFFFFF8F0),
-        toolbarHeight: 125,
+        toolbarHeight: 110,
         leading: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
 
         title: Text('Zanyar, your go-to travel guide!!'),
@@ -21,15 +21,35 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Please Login to continue to the app'),
-            SizedBox(height: 5),
-            Text(
-              'Login Screen',
-              style: TextStyle(
-                fontSize: 25,
-                color: Color(0xFF1f4e4c),
-                fontWeight: FontWeight.bold,
-              ),
+            Column(
+              children: [
+                Text(
+                  'Welcome to Zanyar',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Login to continue',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF1F4E4C),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Your journey starts here.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 10),
             Padding(
