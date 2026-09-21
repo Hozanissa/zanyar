@@ -13,8 +13,9 @@ class HomeScreen extends StatelessWidget {
         leading: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
 
         title: Text('Zanyar, your go-to travel guide!!'),
+        centerTitle: true,
 
-        //actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Center(
         child: Column(
@@ -24,17 +25,18 @@ class HomeScreen extends StatelessWidget {
               'Login Screen',
               style: TextStyle(
                 fontSize: 25,
-                color: Colors.teal,
+                color: Color(0xFF1f4e4c),
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: "Enter Your Username (Must be, letters, numbers, characters, etc..)",
+                  hintText: "Enter Your Username (Mix of letters, numbers, characters, etc..)",
                   labelText: "Username",
                   prefixIcon: Icon(Icons.person),
                 ),
@@ -58,7 +60,10 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text('Login')),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Login', style: TextStyle(color: Colors.red)),
+                ),
               ],
             ),
             Row(
