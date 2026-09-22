@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('If you forgot your password,'),
+                Text('Forgot your password?'),
                 TextButton(
                   onPressed: () {},
                   child: Text(
