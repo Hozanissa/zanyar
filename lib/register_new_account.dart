@@ -15,10 +15,15 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
         backgroundColor: Color(0xFF1f4e4c),
         foregroundColor: Color(0xFFFFF8F0),
         toolbarHeight: 110,
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.home),
+        ),
         title: Text('Zanyar, your go-to travel guide!!'),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        //actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -59,7 +64,8 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Email
+              SizedBox(height: 20),
+              // Email
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextField(
@@ -72,7 +78,8 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Phone Number
+              SizedBox(height: 20),
+              // Phone Number
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextField(

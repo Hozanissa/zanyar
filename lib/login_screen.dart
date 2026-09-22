@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
         title: Text('Zanyar, your go-to travel guide!!'),
         centerTitle: true,
 
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        //actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Center(
         child: Column(
@@ -74,7 +74,6 @@ class LoginScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
-                //controller: , //this needs to have a class. controller is used to accept data into the textfield.
                 obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
