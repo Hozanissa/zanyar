@@ -1,3 +1,6 @@
+//This class shows a page to the users who already have an
+//account and want to login, or they can create a new account
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -88,6 +91,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 10),
+            Text('Or'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -101,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text('to forget your password'),
+                Text('to register a new account'),
               ],
             ),
 
@@ -112,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Sign up',
+                    'Reset password',
                     style: TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
