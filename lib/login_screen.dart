@@ -3,8 +3,11 @@
 
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import 'register_new_account.dart';
+import 'reset_password.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +100,14 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterNewAccount(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Click here',
                     style: TextStyle(
@@ -115,7 +125,14 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text('Forgot your password?'),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ResetPassword(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Reset password',
                     style: TextStyle(

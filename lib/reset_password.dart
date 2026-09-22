@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ResetPassword extends StatefulWidget {
-  const new({super.key});
+  const ResetPassword({super.key});
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
