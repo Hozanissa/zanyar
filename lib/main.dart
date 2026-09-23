@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'login_screen.dart';
+import 'admin/admin_panel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +12,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AdminPanel(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        useMaterial3: true,
+      ),
+    );
   }
 }
