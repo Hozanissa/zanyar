@@ -120,25 +120,34 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 15),
 
               // Container that changes based on selected role
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                child: isAdmin
-                    ? _buildAdminForm(key: const ValueKey('admin'))
-                    : _buildUserForm(key: const ValueKey('user')),
-              ),
-
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      isAdmin ? 'Login as Admin' : 'Login',
-                      style: const TextStyle(color: Colors.red),
-                    ),
+              // Bordered container holding the form fields + login button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Color(0xFF1F4E4C), width: 1.2),
                   ),
-                ],
+                  child: Column(
+                    children: [
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child: isAdmin
+                            ? _buildAdminForm(key: const ValueKey('admin'))
+                            : _buildUserForm(key: const ValueKey('user')),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          isAdmin ? 'Login as Admin' : 'Login',
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
 
               if (!isAdmin) ...[
@@ -199,68 +208,54 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Regular user login fields
   Widget _buildUserForm({Key? key}) {
     return Column(
       key: key,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: TextField(
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "Enter Your Username",
-              labelText: "Username",
-              prefixIcon: const Icon(Icons.person),
-            ),
+        TextField(
+          keyboardType: TextInputType.name,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: "Enter Your Username",
+            labelText: "Username",
+            prefixIcon: const Icon(Icons.person),
           ),
         ),
         const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "Enter Your Password",
-              labelText: "Password",
-              prefixIcon: const Icon(Icons.lock),
-            ),
+        TextField(
+          obscureText: true,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: "Enter Your Password",
+            labelText: "Password",
+            prefixIcon: const Icon(Icons.lock),
           ),
         ),
       ],
     );
   }
 
-  // Admin login fields (e.g. admin ID + password)
   Widget _buildAdminForm({Key? key}) {
     return Column(
       key: key,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: TextField(
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "Enter Admin ID",
-              labelText: "Admin ID",
-              prefixIcon: const Icon(Icons.admin_panel_settings),
-            ),
+        TextField(
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: "Enter Admin ID",
+            labelText: "Admin ID",
+            prefixIcon: const Icon(Icons.admin_panel_settings),
           ),
         ),
         const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "Enter Admin Password",
-              labelText: "Password",
-              prefixIcon: const Icon(Icons.lock),
-            ),
+        TextField(
+          obscureText: true,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: "Enter Admin Password",
+            labelText: "Password",
+            prefixIcon: const Icon(Icons.lock),
           ),
         ),
       ],

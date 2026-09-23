@@ -47,76 +47,78 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: TextField(
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: "Enter Your First Name",
-                          labelText: "First Name",
-                          prefixIcon: const Icon(Icons.person),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Color(0xFF1F4E4C),
+                            width: 1.2,
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: TextField(
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: "Enter Your Last Name",
-                          labelText: "Last Name",
-                          prefixIcon: const Icon(Icons.person),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: "Enter Your Email",
-                          labelText: "Email",
-                          prefixIcon: const Icon(Icons.email),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: TextField(
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: "Enter Your Phone Number",
-                          labelText: "Phone Number",
-                          prefixIcon: const Icon(Icons.phone),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: "Enter Your Password",
-                          labelText: "Password",
-                          prefixIcon: const Icon(Icons.lock),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Create Account',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
+                        child: Column(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.name,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: "Enter Your First Name",
+                                labelText: "First Name",
+                                prefixIcon: const Icon(Icons.person),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            TextField(
+                              keyboardType: TextInputType.name,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: "Enter Your Last Name",
+                                labelText: "Last Name",
+                                prefixIcon: const Icon(Icons.person),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            TextField(
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: "Enter Your Email",
+                                labelText: "Email",
+                                prefixIcon: const Icon(Icons.email),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            TextField(
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: "Enter Your Phone Number",
+                                labelText: "Phone Number",
+                                prefixIcon: const Icon(Icons.phone),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: "Enter Your Password",
+                                labelText: "Password",
+                                prefixIcon: const Icon(Icons.lock),
+                              ),
+                            ),
+                            const SizedBox(height: 25),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Create Account',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
