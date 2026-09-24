@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BMB extends StatefulWidget {
-  const BMB({super.key});
+class BNB extends StatefulWidget {
+  const BNB({super.key});
 
   @override
-  State<BMB> createState() => _BMBState();
+  State<BNB> createState() => _BNBState();
 }
 
-class _BMBState extends State<BMB> {
+class _BNBState extends State<BNB> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _BMBState extends State<BMB> {
           index = c;
         });
       },
-      backgroundColor: Color(0xFF1F4E4C),
+      backgroundColor: Colors.grey,
     );
   }
 }

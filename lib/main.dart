@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'admin/admin_panel.dart';
+import 'package:zanyar_app/admin/admin_panel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AdminPanel(),
+
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1F4E4C)),
         useMaterial3: true,
       ),
+      home: AdminPanel(),
     );
   }
 }

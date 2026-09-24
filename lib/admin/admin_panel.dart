@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zanyar_app/bmb.dart';
+import 'package:zanyar_app/bnb.dart';
 
 class AdminPanel extends StatefulWidget {
   const AdminPanel({super.key});
@@ -67,7 +67,7 @@ class _AdminPanelState extends State<AdminPanel> {
           ),
         ],
       ),
-      bottomNavigationBar: const BMB(),
+      bottomNavigationBar: const BNB(),
     );
   }
 }
