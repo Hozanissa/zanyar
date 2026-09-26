@@ -7,6 +7,7 @@ class RegisterNewAccount extends StatefulWidget {
 }
 
 class _RegisterNewAccountState extends State<RegisterNewAccount> {
+  String dValue = "Slemani";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,16 +80,6 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                             ),
                             const SizedBox(height: 20),
                             TextField(
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                hintText: "Enter Your Email",
-                                labelText: "Email",
-                                prefixIcon: const Icon(Icons.email),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
                               keyboardType: TextInputType.phone,
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
@@ -97,6 +88,56 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 prefixIcon: const Icon(Icons.phone),
                               ),
                             ),
+                            const SizedBox(height: 20),
+                            DropdownButton(
+                              value: dValue,
+                              items: [
+                                DropdownMenuItem(
+                                  value: "Select your city",
+                                  child: Text("Select your city"),
+                                ),
+                                DropdownMenuItem(
+                                  value: "Slemani",
+                                  child: Text("Slemani"),
+                                ),
+                                DropdownMenuItem(
+                                  value: "Erbil",
+                                  child: Text("Hawler"),
+                                ),
+                                DropdownMenuItem(
+                                  value: "Duhok",
+                                  child: Text("Duhok"),
+                                ),
+                                DropdownMenuItem(
+                                  value: "Halabja",
+                                  child: Text("Halabja"),
+                                ),
+                                DropdownMenuItem(
+                                  value: "Kerkuk",
+                                  child: Text("Kerkuk"),
+                                ),
+                                DropdownMenuItem(
+                                  value: "Qamishlo",
+                                  child: Text("Qamishlo"),
+                                ),
+                              ],
+                              onChanged: (d) {
+                                setState(() {
+                                  dValue = d!;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            TextField(
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: "Enter Your Email",
+                                labelText: "Email",
+                                prefixIcon: const Icon(Icons.email),
+                              ),
+                            ),
+
                             const SizedBox(height: 20),
                             TextField(
                               obscureText: true,
