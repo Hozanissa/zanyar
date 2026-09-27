@@ -12,6 +12,14 @@ class Archive extends StatefulWidget {
 class _ArchiveState extends State<Archive> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(bottomNavigationBar: const BNB());
+    return Scaffold(
+      body: Column(
+        children: [
+          Text("Cultural Archive ", style: TextStyle(color: Colors.grey[400])),
+          Text("Kurdish Heritage", style: TextStyle(fontSize: 25)),
+        ],
+      ),
+      bottomNavigationBar: const BNB(),
+    );
   }
 }

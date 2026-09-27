@@ -11,6 +11,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(bottomNavigationBar: const BNB());
+    return Scaffold(
+      body: Column(
+        children: [
+          Text("زانيار-Zanyar", style: TextStyle(color: Colors.grey[500])),
+          Text("Kurdistan", style: TextStyle(fontSize: 25)),
+          Text("Historical Sites", style: TextStyle(fontSize: 25)),
+        ],
+      ),
+      bottomNavigationBar: const BNB(),
+    );
   }
 }

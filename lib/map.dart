@@ -12,6 +12,14 @@ class Map extends StatefulWidget {
 class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(bottomNavigationBar: const BNB());
+    return Scaffold(
+      body: Column(
+        children: [
+          Text("Interactive Map", style: TextStyle(color: Colors.grey[400])),
+          Text("All Sites", style: TextStyle(fontSize: 25)),
+        ],
+      ),
+      bottomNavigationBar: const BNB(),
+    );
   }
 }
