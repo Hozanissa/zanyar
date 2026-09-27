@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'bnb.dart';
+
 class Archive extends StatefulWidget {
   const Archive({super.key});
 
@@ -10,6 +12,6 @@ class Archive extends StatefulWidget {
 class _ArchiveState extends State<Archive> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(bottomNavigationBar: const BNB());
   }
 }
