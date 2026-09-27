@@ -7,7 +7,6 @@ class RegisterNewAccount extends StatefulWidget {
 }
 
 class _RegisterNewAccountState extends State<RegisterNewAccount> {
-  String dValue = "Slemani";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,45 +86,6 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 labelText: "Phone Number",
                                 prefixIcon: const Icon(Icons.phone),
                               ),
-                            ),
-                            const SizedBox(height: 20),
-                            DropdownButton(
-                              value: dValue,
-                              items: [
-                                DropdownMenuItem(
-                                  value: "Select your city",
-                                  child: Text("Select your city"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "Slemani",
-                                  child: Text("Slemani"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "Erbil",
-                                  child: Text("Hawler"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "Duhok",
-                                  child: Text("Duhok"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "Halabja",
-                                  child: Text("Halabja"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "Kerkuk",
-                                  child: Text("Kerkuk"),
-                                ),
-                                DropdownMenuItem(
-                                  value: "Qamishlo",
-                                  child: Text("Qamishlo"),
-                                ),
-                              ],
-                              onChanged: (d) {
-                                setState(() {
-                                  dValue = d!;
-                                });
-                              },
                             ),
                             const SizedBox(height: 20),
                             TextField(
