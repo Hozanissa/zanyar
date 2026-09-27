@@ -214,17 +214,24 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       key: key,
       children: [
-        TextField(
+        TextFormField(
           keyboardType: TextInputType.name,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             hintText: "Enter Your Username",
             labelText: "Username",
             prefixIcon: const Icon(Icons.person),
           ),
+          validator: (t) {
+            if (t == null || t.trim().isEmpty) {
+              return "Please Enter Username";
+            }
+          },
         ),
         const SizedBox(height: 20),
-        TextField(
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: true,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
@@ -232,6 +239,11 @@ class _LoginScreenState extends State<LoginScreen> {
             labelText: "Password",
             prefixIcon: const Icon(Icons.lock),
           ),
+          validator: (t) {
+            if (t == null || t.trim().isEmpty) {
+              return "Please Enter Password";
+            }
+          },
         ),
       ],
     );
