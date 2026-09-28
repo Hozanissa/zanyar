@@ -15,7 +15,7 @@ class _ArchiveState extends State<Archive> {
     return Scaffold(
       body: Column(
         children: [
-          Text("Cultural Archive ", style: TextStyle(color: Colors.grey[400])),
+          Text("CULTURAL ARCHIVE", style: TextStyle(color: Colors.grey[400])),
           Text("Kurdish Heritage", style: TextStyle(fontSize: 25)),
         ],
       ),

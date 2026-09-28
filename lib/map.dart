@@ -15,7 +15,7 @@ class _MapState extends State<Map> {
     return Scaffold(
       body: Column(
         children: [
-          Text("Interactive Map", style: TextStyle(color: Colors.grey[400])),
+          Text("INTERACTIVE MAP", style: TextStyle(color: Colors.grey[400])),
           Text("All Sites", style: TextStyle(fontSize: 25)),
         ],
       ),

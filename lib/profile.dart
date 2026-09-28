@@ -15,8 +15,8 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       body: Column(
         children: [
-          Text("Interactive Map", style: TextStyle(color: Colors.grey[400])),
-          Text("All Sites", style: TextStyle(fontSize: 25)),
+          Text("ACCOUNT", style: TextStyle(color: Colors.grey[400])),
+          Text("Profile", style: TextStyle(fontSize: 25)),
         ],
       ),
       bottomNavigationBar: const BNB(),
