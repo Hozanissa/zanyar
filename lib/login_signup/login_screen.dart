@@ -102,25 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Role selector
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildRoleButton(
-                    role: UserRole.user,
-                    icon: Icons.person,
-                    label: 'User',
-                  ),
-                  const SizedBox(width: 20),
-                  _buildRoleButton(
-                    role: UserRole.admin,
-                    icon: Icons.admin_panel_settings,
-                    label: 'Admin',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 15),
-
               // Container that changes based on selected role
               // Bordered container holding the form fields + login button
               Padding(
