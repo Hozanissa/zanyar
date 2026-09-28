@@ -225,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           validator: (t) {
             if (t == null || t.trim().isEmpty) {
-              return "Please Enter Username";
+              return "Please Enter a Valid Username";
             }
           },
         ),
@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           validator: (t) {
             if (t == null || t.trim().isEmpty) {
-              return "Please Enter Password";
+              return "Please Enter a Valid Password";
             }
           },
         ),
@@ -253,7 +253,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       key: key,
       children: [
-        TextField(
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
@@ -261,9 +262,14 @@ class _LoginScreenState extends State<LoginScreen> {
             labelText: "Admin ID",
             prefixIcon: const Icon(Icons.admin_panel_settings),
           ),
+          validator: (t) {
+            if (t == null || t.trim().isEmpty) {
+              return "Please Enter a Valid ID";
+            }
+          },
         ),
         const SizedBox(height: 20),
-        TextField(
+        TextFormField(
           obscureText: true,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
@@ -271,6 +277,12 @@ class _LoginScreenState extends State<LoginScreen> {
             labelText: "Password",
             prefixIcon: const Icon(Icons.lock),
           ),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (t) {
+            if (t == null || t.trim().isEmpty) {
+              return "Please Enter a Valid ID";
+            }
+          },
         ),
       ],
     );
