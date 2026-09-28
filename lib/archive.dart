@@ -16,7 +16,10 @@ class _ArchiveState extends State<Archive> {
       body: Column(
         children: [
           Text("CULTURAL ARCHIVE", style: TextStyle(color: Colors.grey[400])),
-          Text("Kurdish Heritage", style: TextStyle(fontSize: 25)),
+          Text(
+            "Kurdish Heritage",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
       bottomNavigationBar: const BNB(),

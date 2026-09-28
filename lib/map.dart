@@ -16,7 +16,10 @@ class _MapState extends State<Map> {
       body: Column(
         children: [
           Text("INTERACTIVE MAP", style: TextStyle(color: Colors.grey[400])),
-          Text("All Sites", style: TextStyle(fontSize: 25)),
+          Text(
+            "All Sites",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
       bottomNavigationBar: const BNB(),

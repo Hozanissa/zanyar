@@ -14,9 +14,13 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text("ACCOUNT", style: TextStyle(color: Colors.grey[400])),
-          Text("Profile", style: TextStyle(fontSize: 25)),
+          Text(
+            "Profile",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
       bottomNavigationBar: const BNB(),

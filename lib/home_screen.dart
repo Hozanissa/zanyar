@@ -15,8 +15,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Text("زانيار-ZANYAR", style: TextStyle(color: Colors.grey[500])),
-          Text("Kurdistan", style: TextStyle(fontSize: 25)),
-          Text("Historical Sites", style: TextStyle(fontSize: 25)),
+          Text(
+            "Kurdistan",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            "Historical Sites",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
       bottomNavigationBar: const BNB(),
