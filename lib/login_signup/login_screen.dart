@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'register_new_account.dart';
 import 'reset_password.dart';
 
-enum UserRole { user, admin }
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -15,55 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  UserRole _selectedRole = UserRole.user;
-
-  Widget _buildRoleButton({
-    required UserRole role,
-    required IconData icon,
-    required String label,
-  }) {
-    final bool isSelected = _selectedRole == role;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedRole = role;
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1F4E4C) : Colors.grey[200],
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? const Color(0xFF1F4E4C) : Colors.grey[400]!,
-            width: 1.5,
-          ),
-        ),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              size: 30,
-              color: isSelected ? Colors.white : Colors.grey[700],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.grey[700],
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final bool isAdmin = _selectedRole == UserRole.admin;
-
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -100,41 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-
-              // Container that changes based on selected role
-              // Bordered container holding the form fields + login button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Color(0xFF1F4E4C), width: 1.2),
-                  ),
-                  child: Column(
-                    children: [
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 250),
-                        child: isAdmin
-                            ? _buildAdminForm(key: const ValueKey('admin'))
-                            : _buildUserForm(key: const ValueKey('user')),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          isAdmin ? 'Login as Admin' : 'Login',
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              if (!isAdmin) ...[
-                const SizedBox(height: 10),
+              const SizedBox(height: 20),          
                 const Text('Or'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -184,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-            ],
+          ], 
           ),
         ),
       ),
