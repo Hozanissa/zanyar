@@ -51,33 +51,66 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),          
-                const Text('Or'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterNewAccount(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Click here',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
+              Column(
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.name,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: "Enter Your Username",
+                      labelText: "Username",
+                      prefixIcon: const Icon(Icons.person),
+                    ),
+                    validator: (t) {
+                      if (t == null || t.trim().isEmpty) {
+                        return "Please Enter a Valid Username";
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: "Enter Your Password",
+                      labelText: "Password",
+                      prefixIcon: const Icon(Icons.lock),
+                    ),
+                    validator: (t) {
+                      if (t == null || t.trim().isEmpty) {
+                        return "Please Enter a Valid Password";
+                      }
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text('Or'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterNewAccount(),
                         ),
+                      );
+                    },
+                    child: const Text(
+                      'Click here',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text('to register a new account'),
-                  ],
-                ),
-              ],
-
+                  ),
+                  const Text('to register a new account'),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -101,88 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-          ], 
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildUserForm({Key? key}) {
-    return Column(
-      key: key,
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.name,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: "Enter Your Username",
-            labelText: "Username",
-            prefixIcon: const Icon(Icons.person),
-          ),
-          validator: (t) {
-            if (t == null || t.trim().isEmpty) {
-              return "Please Enter a Valid Username";
-            }
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          obscureText: true,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: "Enter Your Password",
-            labelText: "Password",
-            prefixIcon: const Icon(Icons.lock),
-          ),
-          validator: (t) {
-            if (t == null || t.trim().isEmpty) {
-              return "Please Enter a Valid Password";
-            }
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAdminForm({Key? key}) {
-    return Column(
-      key: key,
-      children: [
-        TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: "Enter Admin ID",
-            labelText: "Admin ID",
-            prefixIcon: const Icon(Icons.admin_panel_settings),
-          ),
-          validator: (t) {
-            if (t == null || t.trim().isEmpty) {
-              return "Please Enter a Valid ID";
-            }
-          },
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          obscureText: true,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: "Enter Admin Password",
-            labelText: "Password",
-            prefixIcon: const Icon(Icons.lock),
-          ),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (t) {
-            if (t == null || t.trim().isEmpty) {
-              return "Please Enter a Valid ID";
-            }
-          },
-        ),
-      ],
     );
   }
 }
