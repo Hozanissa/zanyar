@@ -14,9 +14,9 @@ class _BNBState extends State<BNB> {
     return BottomNavigationBar(
       currentIndex: index,
       items: [
-        BottomNavigationBarItem(label: 'home', icon: Icon(Icons.home)),
-        BottomNavigationBarItem(label: 'map', icon: Icon(Icons.map)),
-        BottomNavigationBarItem(label: 'archive', icon: Icon(Icons.shelves)),
+        BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
+        BottomNavigationBarItem(label: 'Map', icon: Icon(Icons.map)),
+        BottomNavigationBarItem(label: 'Archive', icon: Icon(Icons.shelves)),
         BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings)),
       ],
       type: BottomNavigationBarType.fixed,
@@ -25,7 +25,7 @@ class _BNBState extends State<BNB> {
           index = c;
         });
       },
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.grey[400],
     );
   }
 }
