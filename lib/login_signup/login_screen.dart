@@ -39,11 +39,14 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (emailController.text == "hozanissa98@gmail.com" &&
           passwordController.text != "123456") {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Color(0xFF1F4E4C),
+          SnackBar(
+            backgroundColor: Colors.grey[400],
             content: Text(
               "Incorrect Password",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Color(0xFF1F4E4C),
+                fontWeight: FontWeight.bold,
+              ),
             ),
             duration: Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
@@ -52,13 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Color(0xFF1F4E4C),
-            content: Text(
+          SnackBar(
+            backgroundColor: Colors.grey[400],
+            content: const Text(
               "Invalid email or password",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Color(0xFF1F4E4c),
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
             //action
           ),
