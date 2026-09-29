@@ -7,6 +7,7 @@ class RegisterNewAccount extends StatefulWidget {
 }
 
 class _RegisterNewAccountState extends State<RegisterNewAccount> {
+  bool _obsecureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,12 +101,24 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
 
                             const SizedBox(height: 20),
                             TextField(
-                              obscureText: true,
+                              obscureText: _obsecureText,
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 hintText: "Enter Your Password",
                                 labelText: "Password",
                                 prefixIcon: const Icon(Icons.lock),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obsecureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obsecureText = !_obsecureText;
+                                    });
+                                  },
+                                ),
                               ),
                             ),
                             const SizedBox(height: 25),

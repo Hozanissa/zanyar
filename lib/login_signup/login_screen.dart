@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zanyar_app/home_screen.dart';
 
 //import 'package:zanyar_app/admin/admin_panel.dart';
 
@@ -13,6 +14,40 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //variable used to hide/show password.
+  bool _obsecureText = true;
+
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void login() {
+    if (_formKey.currentState!.validate()) {
+      if (emailController.text == "hozanissa98@gmail.com" &&
+          passwordController.text == "123456") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else if (emailController.text == "hozanissa98@gmail.com" &&
+          passwordController.text != "123456") {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Incorrect Password")));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Invalid email or password")),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,41 +86,87 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  TextFormField(
-                    keyboardType: TextInputType.name,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: "Enter Your Username",
-                      labelText: "Username",
-                      prefixIcon: const Icon(Icons.person),
+              SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Color(0xFF1F4E4C), width: 1.2),
                     ),
-                    validator: (t) {
-                      if (t == null || t.trim().isEmpty) {
-                        return "Please Enter a Valid Username";
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: "Enter Your Password",
-                      labelText: "Password",
-                      prefixIcon: const Icon(Icons.lock),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: "Enter Your Username",
+                            labelText: "Username",
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email is required';
+                            }
+
+                            if (!value.endsWith('@gmail.com')) {
+                              return 'Email must end with @gmail.com';
+                            }
+
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: passwordController,
+                          obscureText: _obsecureText,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: "Enter Your Password",
+                            labelText: "Password",
+                            prefixIcon: const Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obsecureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obsecureText = !_obsecureText;
+                                });
+                              },
+                            ),
+                          ),
+                          //
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Password is required';
+                            }
+
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: login,
+                          child: Text(
+                            "Login",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
                     ),
-                    validator: (t) {
-                      if (t == null || t.trim().isEmpty) {
-                        return "Please Enter a Valid Password";
-                      }
-                    },
                   ),
-                ],
+                ),
               ),
+
+              //two other button that lead you to the reset_assword page and
+              //register_new_account page.
               const SizedBox(height: 20),
               const Text('Or'),
               Row(
@@ -101,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                     child: const Text(
-                      'Click here',
+                      'Sign up',
                       style: TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
