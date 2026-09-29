@@ -38,11 +38,30 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else if (emailController.text == "hozanissa98@gmail.com" &&
           passwordController.text != "123456") {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Incorrect Password")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Color(0xFF1F4E4C),
+            content: Text(
+              "Incorrect Password",
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: Duration(seconds: 5),
+            behavior: SnackBarBehavior.floating,
+            //action
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Invalid email or password")),
+          const SnackBar(
+            backgroundColor: Color(0xFF1F4E4C),
+            content: Text(
+              "Invalid email or password",
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: Duration(seconds: 5),
+            behavior: SnackBarBehavior.floating,
+            //action
+          ),
         );
       }
     }
