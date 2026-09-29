@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               "Incorrect Password",
               style: TextStyle(color: Colors.white),
             ),
-            duration: Duration(seconds: 5),
+            duration: Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
             //action
           ),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               "Invalid email or password",
               style: TextStyle(color: Colors.white),
             ),
-            duration: Duration(seconds: 5),
+            duration: Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
             //action
           ),
