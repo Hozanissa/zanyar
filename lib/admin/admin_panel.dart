@@ -26,7 +26,7 @@ class _AdminPanelState extends State<AdminPanel> {
               "Used to view user accounts, suspend/ban user who violate rules, reset account or handle account-related support.",
             ),
             leading: CircleAvatar(
-              backgroundColor: Color(0xFF1F4E4C).withOpacity(0.10),
+              backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),
               child: Icon(Icons.person, color: Color(0xFF1F4E4C)),
             ),
 
@@ -39,7 +39,7 @@ class _AdminPanelState extends State<AdminPanel> {
               "Used to manage sites, archive, and approve/reject trip listings",
             ),
             leading: CircleAvatar(
-              backgroundColor: Color(0xFF1F4E4C).withOpacity(0.10),
+              backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),
               child: Icon(Icons.fact_check, color: Color(0xFF1F4E4C)),
             ),
             trailing: Icon(Icons.chevron_right),
@@ -51,7 +51,7 @@ class _AdminPanelState extends State<AdminPanel> {
               "Used to approve new travel companies, remove companies with bad reating/reviews, and manage company profile with their trips.",
             ),
             leading: CircleAvatar(
-              backgroundColor: Color(0xFF1F4E4C).withOpacity(0.10),
+              backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),
               child: Icon(Icons.business, color: Color(0xFF1F4E4C)),
             ),
             trailing: Icon(Icons.chevron_right),
@@ -64,7 +64,7 @@ class _AdminPanelState extends State<AdminPanel> {
               "Review and moderate reviews/ratings, handle reported content and reported users",
             ),
             leading: CircleAvatar(
-              backgroundColor: Color(0xFF1F4E4C).withOpacity(0.10),
+              backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),
               child: Icon(Icons.gavel_outlined, color: Color(0xFF1F4E4C)),
             ),
             //leading: Icon(Icons.gavel, color: Color(0xFF1F4E4C)),
@@ -79,7 +79,7 @@ class _AdminPanelState extends State<AdminPanel> {
             ),
 
             leading: CircleAvatar(
-              backgroundColor: Color(0xFF1F4E4C).withOpacity(0.10),
+              backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),
               child: Icon(Icons.analytics, color: Color(0xFF1F4E4C)),
             ),
             trailing: Icon(Icons.chevron_right),
