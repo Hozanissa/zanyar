@@ -25,7 +25,7 @@ class _BNBState extends State<BNB> {
           index = c;
         });
       },
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.white,
     );
   }
 }
