@@ -17,11 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
           Text("زانيار-ZANYAR", style: TextStyle(color: Colors.grey[500])),
           Text(
             "Kurdistan",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
             "Historical Sites",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),

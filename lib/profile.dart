@@ -19,7 +19,7 @@ class _ProfileState extends State<Profile> {
           Text("ACCOUNT", style: TextStyle(color: Colors.grey[400])),
           Text(
             "Profile",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Divider(),
           Expanded(

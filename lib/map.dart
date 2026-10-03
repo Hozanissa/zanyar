@@ -18,7 +18,7 @@ class _MapState extends State<Map> {
           Text("INTERACTIVE MAP", style: TextStyle(color: Colors.grey[400])),
           Text(
             "All Sites",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),
