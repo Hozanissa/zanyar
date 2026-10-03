@@ -24,7 +24,7 @@ class _ProfileState extends State<Profile> {
           Divider(),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(8),
               children: [
                 Card(
                   child: ListTile(
@@ -49,22 +49,19 @@ class _ProfileState extends State<Profile> {
 
                 Card(
                   child: ListTile(
-                    leading: Icon(Icons.notification_add),
-                    title: Text("Notifications"),
-                    subtitle: Icon(Icons.chevron_right),
-                  ),
-                ),
-                Card(
-                  child: ListTile(
-                    leading: Icon(Icons.favorite),
                     title: Text("Favorites"),
                     subtitle: Icon(Icons.chevron_right),
                   ),
                 ),
                 Card(
                   child: ListTile(
-                    leading: Icon(Icons.trip_origin),
                     title: Text("My trip requests"),
+                    subtitle: Icon(Icons.chevron_right),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text("Notifications"),
                     subtitle: Icon(Icons.chevron_right),
                   ),
                 ),
