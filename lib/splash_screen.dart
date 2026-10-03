@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'home_screen.dart';
+import 'package:zanyar_app/login_signup/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void route() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
     );
   }
 
