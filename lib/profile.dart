@@ -26,17 +26,20 @@ class _ProfileState extends State<Profile> {
             child: ListView(
               padding: EdgeInsets.all(8),
               children: [
-                Card(
-                  child: ListTile(
-                    leading: CircleAvatar(child: Text("S")),
-                    title: Text("Sarwar Karim"),
-                    subtitle: Text("sarwar@example.com"),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Card(
+                    child: ListTile(
+                      leading: CircleAvatar(child: Text("S")),
+                      title: Text("Hozan Issa"),
+                      subtitle: Text("hozan@example.com"),
+                    ),
                   ),
                 ),
                 Card(
                   child: ListTile(
-                    title: Text("Language"),
-                    subtitle: SwitchListTile(
+                    title: Text("Theme"),
+                    trailing: Switch(
                       value: theme,
                       onChanged: (value) {
                         setState(() {
@@ -50,25 +53,26 @@ class _ProfileState extends State<Profile> {
                 Card(
                   child: ListTile(
                     title: Text("Favorites"),
-                    subtitle: Icon(Icons.chevron_right),
+                    trailing: Icon(Icons.chevron_right),
                   ),
                 ),
                 Card(
                   child: ListTile(
                     title: Text("My trip requests"),
-                    subtitle: Icon(Icons.chevron_right),
+                    trailing: Icon(Icons.chevron_right),
                   ),
                 ),
                 Card(
                   child: ListTile(
                     title: Text("Notifications"),
-                    subtitle: Icon(Icons.chevron_right),
+                    trailing: Icon(Icons.chevron_right),
                   ),
                 ),
                 Card(
                   child: ListTile(
                     title: Text("Sign out"),
-                    subtitle: Icon(Icons.chevron_right),
+                    trailing: Icon(Icons.chevron_right, color: Colors.red),
+                    textColor: Colors.red,
                   ),
                 ),
               ],
