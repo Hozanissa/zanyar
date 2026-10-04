@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-            Divider(),
+            Divider(color: Color(0xFF1F4E4C)),
             Expanded(
               child: ListView(
                 padding: EdgeInsets.all(8),
