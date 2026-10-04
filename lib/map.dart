@@ -34,7 +34,7 @@ class _MapState extends State<Map> {
                 ],
               ),
             ),
-            Divider(),
+            Divider(color: Color(0xFF1F4E4C)),
           ],
         ),
       ),
