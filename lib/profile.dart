@@ -22,6 +22,7 @@ class _ProfileState extends State<Profile> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                //The padding widget contain the header text for the page.
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                   child: Column(

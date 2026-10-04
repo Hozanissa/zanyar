@@ -17,6 +17,7 @@ class _MapState extends State<Map> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //The padding widget contain the header text for the page.
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 0.0),
               child: Column(

@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //this is the top text defining what this page is for.
+            //The padding widget contain the header text for the page.
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 0.0),
               child: Column(
