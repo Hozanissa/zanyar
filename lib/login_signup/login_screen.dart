@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: const OutlineInputBorder(),
                             hintText: "Enter Your Email",
                             labelText: "Email",
-                            prefixIcon: const Icon(Icons.person),
+                            prefixIcon: const Icon(Icons.email),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
