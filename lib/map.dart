@@ -13,15 +13,31 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text("INTERACTIVE MAP", style: TextStyle(color: Colors.grey[400])),
-          Text(
-            "All Sites",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "INTERACTIVE MAP",
+                    style: TextStyle(color: Colors.grey[400]),
+                  ),
+                  Text(
+                    "All Sites",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Divider(),
+          ],
+        ),
       ),
+
       bottomNavigationBar: const BNB(),
     );
   }
