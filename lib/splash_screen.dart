@@ -13,12 +13,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i <= 5; i++) {
+  }
+
+  void startProgress() async {
+    for (int i = 0; i <= 100; i++) {
       if (!mounted) return;
       setState(() {
         counter = i;
       });
-      Future.delayed(Duration(seconds: 5));
+      Future.delayed(Duration(milliseconds: 50));
     }
     Future.delayed(Duration(seconds: 5), route);
   }

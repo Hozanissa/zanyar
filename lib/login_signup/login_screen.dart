@@ -127,8 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
-                            hintText: "Enter Your Username",
-                            labelText: "Username",
+                            hintText: "Enter Your Email",
+                            labelText: "Email",
                             prefixIcon: const Icon(Icons.person),
                           ),
                           validator: (value) {

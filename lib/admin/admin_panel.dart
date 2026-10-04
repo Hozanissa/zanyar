@@ -22,6 +22,7 @@ class _AdminPanelState extends State<AdminPanel> {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
+            // Use InkWell to wrap each card and make it clickable
             Card(
               child: ListTile(
                 title: Text("User Management"),
