@@ -13,14 +13,30 @@ class _ArchiveState extends State<Archive> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text("CULTURAL ARCHIVE", style: TextStyle(color: Colors.grey[400])),
-          Text(
-            "Kurdish Heritage",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              //The padding widget contain the header text for the page.
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "CULTURAL ARCHIVE",
+                    style: TextStyle(color: Colors.grey[400]),
+                  ),
+                  Text(
+                    "Kurdish Heritage",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Divider(color: Color(0xFF1F4E4C)),
+          ],
+        ),
       ),
       bottomNavigationBar: const BNB(),
     );
