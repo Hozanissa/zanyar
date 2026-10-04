@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    startProgress();
   }
 
   void startProgress() async {
@@ -21,9 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
       setState(() {
         counter = i;
       });
-      Future.delayed(Duration(milliseconds: 50));
+      await Future.delayed(Duration(milliseconds: 50));
     }
-    Future.delayed(Duration(seconds: 5), route);
+    route();
   }
 
   void route() {
@@ -36,13 +38,21 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Welcome to my Application", style: TextStyle(fontSize: 20)),
-            SizedBox(height: 20),
-            LinearProgressIndicator(value: counter / 5),
+            SvgPicture.asset('assets/image/Zanyar-logo.svg', width: 140),
+            SizedBox(height: 24),
+            Text("Welcome to Zanyar!", style: TextStyle(fontSize: 20)),
+            SizedBox(height: 24),
+            LinearProgressIndicator(
+              value: counter / 100,
+              minHeight: 10,
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFF1F4E4C),
+            ),
           ],
         ),
       ),
