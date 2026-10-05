@@ -29,7 +29,11 @@ class _ArchiveState extends State<Archive> {
                   ),
                   Text(
                     "Kurdish Heritage",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFC4704B),
+                    ),
                   ),
                 ],
               ),

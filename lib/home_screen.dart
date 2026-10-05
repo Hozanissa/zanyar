@@ -28,11 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Text(
                     "Kurdistan",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFC4704B),
+                    ),
                   ),
                   Text(
                     "Historical Sites",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFC4704B),
+                    ),
                   ),
                 ],
               ),

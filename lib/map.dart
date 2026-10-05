@@ -29,7 +29,11 @@ class _MapState extends State<Map> {
                   ),
                   Text(
                     "All Sites",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFC4704B),
+                    ),
                   ),
                 ],
               ),
