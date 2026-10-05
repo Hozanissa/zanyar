@@ -20,11 +20,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(Icons.arrow_back, color: Color(0xFF1F4E4C)),
+                icon: const Icon(Icons.arrow_back, color: Color(0xFFC4704B)),
                 label: const Text(
                   'Back to login',
                   style: TextStyle(
-                    color: Color(0xFF1F4E4C),
+                    color: Color(0xFFC4704B),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -75,7 +75,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       child: const Text(
                         'Send Link',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Color(0xFFC4704B),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

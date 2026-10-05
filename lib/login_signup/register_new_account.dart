@@ -21,11 +21,11 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(Icons.arrow_back, color: Color(0xFF1F4E4C)),
+                icon: const Icon(Icons.arrow_back, color: Color(0xFFC4704B)),
                 label: const Text(
                   'Back to login',
                   style: TextStyle(
-                    color: Color(0xFF1F4E4C),
+                    color: Color(0xFFC4704B),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -120,13 +120,15 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 labelText: "Password",
                                 prefixIcon: const Icon(
                                   Icons.lock,
-                                  color: Color(0xFF1F4E4c),
+                                  color: Color(0xFF1F4E4C),
                                 ),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     _obsecureText
                                         ? Icons.visibility_off
                                         : Icons.visibility,
+
+                                    color: Color(0xFF1F4E4C),
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -142,7 +144,7 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                               child: const Text(
                                 'Create Account',
                                 style: TextStyle(
-                                  color: Colors.red,
+                                  color: Color(0xFFC4704B),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
