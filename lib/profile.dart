@@ -35,6 +35,7 @@ class _ProfileState extends State<Profile> {
                       Text(
                         "Profile",
                         style: TextStyle(
+                          color: Color(0xFFC4704B),
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -77,19 +78,28 @@ class _ProfileState extends State<Profile> {
                   Card(
                     child: ListTile(
                       title: Text("Favorites"),
-                      trailing: Icon(Icons.chevron_right),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: Color(0xFF1F4E4c),
+                      ),
                     ),
                   ),
                   Card(
                     child: ListTile(
                       title: Text("My trip requests"),
-                      trailing: Icon(Icons.chevron_right),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: Color(0xFF1F4E4c),
+                      ),
                     ),
                   ),
                   Card(
                     child: ListTile(
                       title: Text("Notifications"),
-                      trailing: Icon(Icons.chevron_right),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: Color(0xFF1F4E4c),
+                      ),
                     ),
                   ),
                   Card(

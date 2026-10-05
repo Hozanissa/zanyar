@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: login,
                           child: Text(
                             "Login",
-                            style: TextStyle(color: Colors.red),
+                            style: TextStyle(color: Color(0xFFC4704b)),
                           ),
                         ),
                       ],
@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text(
                       'Sign up',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color(0xFFC4704B),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -237,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text(
                       'Reset password',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color(0xFFC4704b),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
