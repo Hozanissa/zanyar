@@ -129,7 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: const OutlineInputBorder(),
                             hintText: "Enter Your Email",
                             labelText: "Email",
-                            prefixIcon: const Icon(Icons.email),
+                            prefixIcon: const Icon(
+                              Icons.email,
+                              color: Color(0xFF1F4E4c),
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -151,7 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: const OutlineInputBorder(),
                             hintText: "Enter Your Password",
                             labelText: "Password",
-                            prefixIcon: const Icon(Icons.lock),
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: Color(0xFF1F4E4c),
+                            ),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _obsecureText
