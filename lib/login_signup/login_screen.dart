@@ -30,10 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       if (emailController.text == "hozanissa98@gmail.com" &&
           passwordController.text == "123456") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const HomeScreen()),
+        // );
       } else if (emailController.text == "hozanissa98@gmail.com" &&
           passwordController.text != "123456") {
         ScaffoldMessenger.of(context).showSnackBar(
