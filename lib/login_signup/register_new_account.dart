@@ -65,7 +65,10 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 border: const OutlineInputBorder(),
                                 hintText: "Enter Your First Name",
                                 labelText: "First Name",
-                                prefixIcon: const Icon(Icons.person),
+                                prefixIcon: const Icon(
+                                  Icons.person,
+                                  color: Color(0xFF1F4E4c),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -75,7 +78,10 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 border: const OutlineInputBorder(),
                                 hintText: "Enter Your Last Name",
                                 labelText: "Last Name",
-                                prefixIcon: const Icon(Icons.person),
+                                prefixIcon: const Icon(
+                                  Icons.person,
+                                  color: Color(0xFF1F4E4c),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -85,7 +91,10 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 border: const OutlineInputBorder(),
                                 hintText: "Enter Your Phone Number",
                                 labelText: "Phone Number",
-                                prefixIcon: const Icon(Icons.phone),
+                                prefixIcon: const Icon(
+                                  Icons.phone,
+                                  color: Color(0xFF1F4E4c),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -95,7 +104,10 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 border: const OutlineInputBorder(),
                                 hintText: "Enter Your Email",
                                 labelText: "Email",
-                                prefixIcon: const Icon(Icons.email),
+                                prefixIcon: const Icon(
+                                  Icons.email,
+                                  color: Color(0xFF1F4E4c),
+                                ),
                               ),
                             ),
 
@@ -106,7 +118,10 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                                 border: const OutlineInputBorder(),
                                 hintText: "Enter Your Password",
                                 labelText: "Password",
-                                prefixIcon: const Icon(Icons.lock),
+                                prefixIcon: const Icon(
+                                  Icons.lock,
+                                  color: Color(0xFF1F4E4c),
+                                ),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     _obsecureText
