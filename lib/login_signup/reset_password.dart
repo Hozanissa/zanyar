@@ -62,7 +62,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                           border: const OutlineInputBorder(),
                           hintText: "Enter Your Email",
                           labelText: "Email",
-                          prefixIcon: const Icon(Icons.email),
+                          prefixIcon: const Icon(
+                            Icons.email,
+                            color: Color(0xFF1F4E4c),
+                          ),
                         ),
                       ),
                     ),
