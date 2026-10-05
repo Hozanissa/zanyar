@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:zanyar_app/home_screen.dart';
 
 import 'register_new_account.dart';
@@ -28,14 +30,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() {
     if (_formKey.currentState!.validate()) {
-      if (emailController.text == "hozanissa98@gmail.com" &&
-          passwordController.text == "123456") {
+      if (emailController.text.trim() == "hozanissa98@gmail.com" &&
+          passwordController.text.trim() == "123456") {
         // Navigator.pushReplacement(
         //   context,
         //   MaterialPageRoute(builder: (context) => const HomeScreen()),
         // );
-      } else if (emailController.text == "hozanissa98@gmail.com" &&
-          passwordController.text != "123456") {
+        Get.off(HomeScreen());
+      } else if (emailController.text.trim() == "hozanissa98@gmail.com" &&
+          passwordController.text.trim() != "123456") {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.grey[400],
