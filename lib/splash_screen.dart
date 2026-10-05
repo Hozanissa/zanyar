@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -43,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/image/Zanyar-logo.svg', width: 140),
+            Image.asset('image/app-icon.png', width: 140),
             SizedBox(height: 24),
             Text("Welcome to Zanyar!", style: TextStyle(fontSize: 20)),
             SizedBox(height: 24),
