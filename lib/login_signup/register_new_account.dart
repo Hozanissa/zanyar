@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RegisterNewAccount extends StatefulWidget {
   const RegisterNewAccount({super.key});
@@ -19,7 +20,8 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
               left: 10,
               child: TextButton.icon(
                 onPressed: () {
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(Icons.arrow_back, color: Color(0xFFC4704B)),
                 label: const Text(
@@ -42,7 +44,7 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1f4e4c),
+                        color: Color(0xFFC4704B),
                       ),
                     ),
                     const SizedBox(height: 20),
