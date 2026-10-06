@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:zanyar_app/bnb.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  String getData = "";
+  String getPass = "";
+  HomeScreen({super.key, required this.getData, required this.getPass});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,6 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Divider(color: Color(0xFF1F4E4C)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Name: ${widget.getData} ",
+                  style: TextStyle(fontSize: 25, color: Colors.red),
+                ),
+                Text(
+                  "Password: ${widget.getPass} ",
+                  style: TextStyle(fontSize: 25, color: Colors.red),
+                ),
+              ],
+            ),
           ],
         ),
       ),

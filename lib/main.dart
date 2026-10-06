@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:zanyar_app/splash_screen.dart';
+import 'package:zanyar_app/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,14 +11,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1F4E4C)),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: Profile(),
     );
   }
 }

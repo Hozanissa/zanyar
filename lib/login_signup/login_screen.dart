@@ -7,7 +7,7 @@ import 'register_new_account.dart';
 import 'reset_password.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -20,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  String email = "hozanissa98@gmail.com";
+  String password = "123456";
 
   @override
   void dispose() {
@@ -30,15 +32,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() {
     if (_formKey.currentState!.validate()) {
-      if (emailController.text.trim() == "hozanissa98@gmail.com" &&
-          passwordController.text.trim() == "123456") {
+      if (emailController.text.trim() == email &&
+          passwordController.text.trim() == password) {
         // Navigator.pushReplacement(
         //   context,
         //   MaterialPageRoute(builder: (context) => const HomeScreen()),
         // );
-        Get.off(HomeScreen());
-      } else if (emailController.text.trim() == "hozanissa98@gmail.com" &&
-          passwordController.text.trim() != "123456") {
+        Get.off(
+          HomeScreen(
+            getData: emailController.text.trim(),
+            getPass: passwordController.text.trim(),
+          ),
+        );
+      } else if (emailController.text.trim() == email &&
+          passwordController.text.trim() != password) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.grey[400],
