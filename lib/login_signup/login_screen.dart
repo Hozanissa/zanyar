@@ -34,10 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       if (emailController.text.trim() == email &&
           passwordController.text.trim() == password) {
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const HomeScreen()),
-        // );
         Get.off(
           HomeScreen(
             getData: emailController.text.trim(),
@@ -48,9 +44,26 @@ class _LoginScreenState extends State<LoginScreen> {
           passwordController.text.trim() != password) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.grey[400],
+            backgroundColor: Colors.grey[300],
             content: Text(
               "Incorrect Password",
+              style: TextStyle(
+                color: Color(0xFF1F4E4C),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            duration: Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            //action
+          ),
+        );
+      } else if (emailController.text.trim() != email &&
+          passwordController.text.trim() == password) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.grey[300],
+            content: Text(
+              "Incorrect email",
               style: TextStyle(
                 color: Color(0xFF1F4E4C),
                 fontWeight: FontWeight.bold,
@@ -64,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.grey[400],
+            backgroundColor: Colors.grey[300],
             content: const Text(
               "Invalid email or password",
               style: TextStyle(
