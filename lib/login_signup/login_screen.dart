@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             content: Text(
               "Incorrect Password",
               style: TextStyle(
-                color: Color(0xFF1F4E4C),
+                color: Color(0xFFC4704B),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
             content: Text(
               "Incorrect email",
               style: TextStyle(
-                color: Color(0xFF1F4E4C),
+                color: Color(0xFFC4704B),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             content: const Text(
               "Invalid email or password",
               style: TextStyle(
-                color: Color(0xFF1F4E4c),
+                color: Color(0xFFC4704B),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1F4E4C),
+                      color: Color(0xFFC4704B),
                     ),
                   ),
                   const SizedBox(height: 8),
