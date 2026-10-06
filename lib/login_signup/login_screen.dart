@@ -7,7 +7,7 @@ import 'register_new_account.dart';
 import 'reset_password.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -186,6 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _obsecureText
                                     ? Icons.visibility_off
                                     : Icons.visibility,
+                                color: Color(0xFF1F4E4c),
                               ),
                               onPressed: () {
                                 setState(() {
