@@ -44,7 +44,6 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset('image/app-icon.png', width: 140),
             SizedBox(height: 24),
-            Text("Welcome to Zanyar!", style: TextStyle(fontSize: 20)),
             SizedBox(height: 24),
             LinearProgressIndicator(
               value: counter / 100,
@@ -52,6 +51,8 @@ class _SplashScreenState extends State<SplashScreen> {
               borderRadius: BorderRadius.circular(10),
               color: Color(0xFF1F4E4C),
             ),
+            SizedBox(height: 24),
+            Text("Loading", style: TextStyle(fontSize: 20)),
           ],
         ),
       ),
