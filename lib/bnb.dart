@@ -22,7 +22,7 @@ class _BNBState extends State<BNB> {
         BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
         BottomNavigationBarItem(label: 'Map', icon: Icon(Icons.map)),
         BottomNavigationBarItem(label: 'Archive', icon: Icon(Icons.shelves)),
-        BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings)),
+        BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.settings)),
       ],
       type: BottomNavigationBarType.fixed,
       onTap: (c) {
