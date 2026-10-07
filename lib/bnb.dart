@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'archive.dart';
-import 'home_screen.dart';
-import 'map_screen.dart';
-import 'profile.dart';
+import 'package:zanyar_app/archive.dart';
+import 'package:zanyar_app/home_screen.dart';
+import 'package:zanyar_app/map_screen.dart';
+import 'package:zanyar_app/profile.dart';
 
 class BNB extends StatefulWidget {
   const BNB({super.key});
@@ -32,7 +31,7 @@ class _BNBState extends State<BNB> {
 
           if (index == 0) {
             Get.to(
-              HomeScreen(getData: "hozanissa98@gmail.com", getPass: "123456"),
+              HomeScreen(getData: 'hozanissa98@gmail.com', getPass: '123456'),
             );
           } else if (index == 1) {
             Get.to(MapScreen());

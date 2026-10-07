@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:zanyar_app/splash_screen.dart';
 
 void main() {
@@ -13,13 +13,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // initialRoute: '/',
+      // getPages: [
+      //   GetPage(name: '/', page: () => SplashScreen()),
+      //   GetPage(name: '/l', page: () => LoginScreen()),
+      //   GetPage(name: '/h', page: () => HomeScreen()),
+      // ],
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
-
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1F4E4C)),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
     );
   }
 }

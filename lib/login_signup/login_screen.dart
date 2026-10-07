@@ -227,12 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterNewAccount(),
-                        ),
-                      );
+                      Get.off(RegisterNewAccount());
                     },
                     child: const Text(
                       'Sign up',
@@ -251,12 +246,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text('Forgot your password?'),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ResetPassword(),
-                        ),
-                      );
+                      Get.off(ResetPassword());
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const ResetPassword(),
+                      //   ),
+                      // );
                     },
                     child: const Text(
                       'Reset password',
