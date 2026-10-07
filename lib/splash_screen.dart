@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
       context,
       MaterialPageRoute(builder: (context) => LoginScreen()),
     );
+    Get.off(LoginScreen());
   }
 
   @override
@@ -54,11 +56,6 @@ class _SplashScreenState extends State<SplashScreen> {
               minHeight: 10,
               borderRadius: BorderRadius.circular(10),
               color: Color(0xFF1F4E4C),
-            ),
-            SizedBox(height: 24),
-            Text(
-              "Loading",
-              style: TextStyle(fontSize: 20, color: Color(0xFFC4704B)),
             ),
           ],
         ),
