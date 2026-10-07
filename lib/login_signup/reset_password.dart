@@ -67,7 +67,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 onPressed: () {
                   // Login opens this page with pushReplacement, so there is
                   // no login screen left to go back to. Open it again.
-                  Get.off(() => LoginScreen());
+                  Get.off(LoginScreen());
                 },
                 icon: const Icon(Icons.arrow_back, color: Color(0xFFC4704B)),
                 label: const Text(

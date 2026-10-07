@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zanyar_app/login_signup/login_screen.dart';
 
 class RegisterNewAccount extends StatefulWidget {
   const RegisterNewAccount({super.key});
@@ -94,7 +95,7 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
               left: 10,
               child: TextButton.icon(
                 onPressed: () {
-                  Get.back();
+                  Get.off(LoginScreen());
                 },
                 icon: const Icon(Icons.arrow_back, color: Color(0xFFC4704B)),
                 label: const Text(
