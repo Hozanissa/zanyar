@@ -5,44 +5,97 @@ import 'package:zanyar_app/home_screen.dart';
 import 'package:zanyar_app/map_screen.dart';
 import 'package:zanyar_app/profile.dart';
 
-class BNB extends StatefulWidget {
-  const BNB({super.key});
+class BNB extends StatelessWidget {
+  final int currentIndex;
 
-  @override
-  State<BNB> createState() => _BNBState();
-}
+  const BNB({super.key, this.currentIndex = 0});
 
-class _BNBState extends State<BNB> {
-  int index = 0;
+  void _onItemTapped(int index) {
+    if (index == currentIndex) return;
+
+    switch (index) {
+      case 0:
+        Get.off(
+          () => HomeScreen(),
+          transition: Transition.noTransition,
+        );
+        break;
+      case 1:
+        Get.off(
+          () => const MapScreen(),
+          transition: Transition.noTransition,
+        );
+        break;
+      case 2:
+        Get.off(
+          () => const Archive(),
+          transition: Transition.noTransition,
+        );
+        break;
+      case 3:
+        Get.off(
+          () => const Profile(),
+          transition: Transition.noTransition,
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: index,
-      items: [
-        BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-        BottomNavigationBarItem(label: 'Map', icon: Icon(Icons.map)),
-        BottomNavigationBarItem(label: 'Archive', icon: Icon(Icons.shelves)),
-        BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.settings)),
-      ],
-      type: BottomNavigationBarType.fixed,
-      onTap: (c) {
-        setState(() {
-          index = c;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    const terracotta = Color(0xFFC4704B);
 
-          if (index == 0) {
-            Get.to(
-              HomeScreen(getData: 'hozanissa98@gmail.com', getPass: '123456'),
-            );
-          } else if (index == 1) {
-            Get.to(MapScreen());
-          } else if (index == 2) {
-            Get.to(Archive());
-          } else {
-            Get.to(Profile());
-          }
-        });
-      },
-      backgroundColor: Colors.grey[300],
+    return Container(
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1A2220) : Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: isDark ? const Color(0xFF2B3633) : const Color(0xFFE8E2DC),
+            width: 1,
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
+        selectedItemColor: terracotta,
+        unselectedItemColor: isDark ? Colors.grey[500] : const Color(0xFF8C8680),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+        elevation: 0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map_outlined),
+            activeIcon: Icon(Icons.map),
+            label: 'Map',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.auto_stories_outlined),
+            activeIcon: Icon(Icons.auto_stories),
+            label: 'Archive',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
     );
   }
 }
