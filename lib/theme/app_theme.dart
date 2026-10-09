@@ -8,7 +8,7 @@ class AppTheme {
   static final light = ThemeData(
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: teal,
+      seedColor: Color(0xFF1F4E4C),
       secondary: terracotta,
       brightness: Brightness.light,
     ),
@@ -18,7 +18,7 @@ class AppTheme {
   static final dark = ThemeData(
     brightness: Brightness.dark,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: teal,
+      seedColor: Color(0xFF1F4E4c),
       secondary: terracotta,
       brightness: Brightness.dark,
     ),
