@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'bnb.dart';
-
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
