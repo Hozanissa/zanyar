@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'bnb.dart';
-
 class Archive extends StatefulWidget {
   const Archive({super.key});
 
@@ -42,7 +40,6 @@ class _ArchiveState extends State<Archive> {
           ],
         ),
       ),
-      bottomNavigationBar: const BNB(),
     );
   }
 }
