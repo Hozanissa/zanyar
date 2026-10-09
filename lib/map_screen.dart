@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zanyar_app/bnb.dart';
 
 class HistoricalSite {
   final String id;
@@ -376,6 +377,7 @@ class _MapScreenState extends State<MapScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: const BNB(currentIndex: 1),
     );
   }
 

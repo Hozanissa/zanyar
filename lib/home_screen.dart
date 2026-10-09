@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:zanyar_app/bnb.dart';
 
 class HomeScreen extends StatefulWidget {
-  String getData = "";
-  String getPass = "";
-  HomeScreen({super.key, required this.getData, required this.getPass});
+  static String savedData = "";
+  static String savedPass = "";
+
+  final String getData;
+  final String getPass;
+
+  HomeScreen({
+    super.key,
+    this.getData = "",
+    this.getPass = "",
+  }) {
+    if (getData.isNotEmpty) savedData = getData;
+    if (getPass.isNotEmpty) savedPass = getPass;
+  }
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -12,12 +24,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final displayName =
+        widget.getData.isNotEmpty ? widget.getData : HomeScreen.savedData;
+    final displayPass =
+        widget.getPass.isNotEmpty ? widget.getPass : HomeScreen.savedPass;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //The padding widget contain the header text for the page.
+            // The padding widget contains the header text for the page.
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 0.0),
               child: Column(
@@ -27,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     "زانيار-ZANYAR",
                     style: TextStyle(color: Colors.grey[500]),
                   ),
-                  Text(
+                  const Text(
                     "Kurdistan",
                     style: TextStyle(
                       fontSize: 20,
@@ -35,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Color(0xFFC4704B),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Historical Sites",
                     style: TextStyle(
                       fontSize: 20,
@@ -46,23 +63,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Divider(color: Color(0xFF1F4E4C)),
+            const Divider(color: Color(0xFF1F4E4C)),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Name: ${widget.getData} ",
-                  style: TextStyle(fontSize: 25, color: Colors.red),
+                  "Name: $displayName ",
+                  style: const TextStyle(fontSize: 25, color: Colors.red),
                 ),
                 Text(
-                  "Password: ${widget.getPass} ",
-                  style: TextStyle(fontSize: 25, color: Colors.red),
+                  "Password: $displayPass ",
+                  style: const TextStyle(fontSize: 25, color: Colors.red),
                 ),
               ],
             ),
           ],
         ),
       ),
+      bottomNavigationBar: const BNB(currentIndex: 0),
     );
   }
 }
