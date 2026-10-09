@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zanyar_app/bnb.dart';
 
 class HomeScreen extends StatefulWidget {
   String getData = "";
