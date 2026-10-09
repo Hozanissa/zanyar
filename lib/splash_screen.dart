@@ -29,11 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void route() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-    Get.off(LoginScreen());
+    Get.off(() => LoginScreen());
   }
 
   @override
@@ -47,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset('image/app-icon.png', width: 140),
             SizedBox(height: 24),
             Text(
-              "Welcome to Zanyar",
+              "Welcome to Zanyar".tr,
               style: TextStyle(fontSize: 20, color: Color(0xFFC4704B)),
             ),
             SizedBox(height: 24),
@@ -55,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
               value: counter / 100,
               minHeight: 10,
               borderRadius: BorderRadius.circular(10),
-              color: Color(0xFF1F4E4C),
+              color: Color(0xFFC4704B),
             ),
           ],
         ),
