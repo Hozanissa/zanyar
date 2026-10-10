@@ -8,11 +8,7 @@ class HomeScreen extends StatefulWidget {
   final String getData;
   final String getPass;
 
-  HomeScreen({
-    super.key,
-    this.getData = "",
-    this.getPass = "",
-  }) {
+  HomeScreen({super.key, this.getData = "", this.getPass = ""}) {
     if (getData.isNotEmpty) savedData = getData;
     if (getPass.isNotEmpty) savedPass = getPass;
   }
@@ -24,10 +20,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final displayName =
-        widget.getData.isNotEmpty ? widget.getData : HomeScreen.savedData;
-    final displayPass =
-        widget.getPass.isNotEmpty ? widget.getPass : HomeScreen.savedPass;
+    final displayName = widget.getData.isNotEmpty
+        ? widget.getData
+        : HomeScreen.savedData;
+    final displayPass = widget.getPass.isNotEmpty
+        ? widget.getPass
+        : HomeScreen.savedPass;
 
     return Scaffold(
       body: SafeArea(
