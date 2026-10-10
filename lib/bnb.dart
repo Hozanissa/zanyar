@@ -15,28 +15,16 @@ class BNB extends StatelessWidget {
 
     switch (index) {
       case 0:
-        Get.off(
-          () => HomeScreen(),
-          transition: Transition.noTransition,
-        );
+        Get.off(() => HomeScreen(), transition: Transition.noTransition);
         break;
       case 1:
-        Get.off(
-          () => const MapScreen(),
-          transition: Transition.noTransition,
-        );
+        Get.off(() => const MapScreen(), transition: Transition.noTransition);
         break;
       case 2:
-        Get.off(
-          () => const Archive(),
-          transition: Transition.noTransition,
-        );
+        Get.off(() => const Archive(), transition: Transition.noTransition);
         break;
       case 3:
-        Get.off(
-          () => const Profile(),
-          transition: Transition.noTransition,
-        );
+        Get.off(() => const Profile(), transition: Transition.noTransition);
         break;
     }
   }
@@ -69,30 +57,38 @@ class BNB extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
         selectedItemColor: terracotta,
-        unselectedItemColor: isDark ? Colors.grey[500] : const Color(0xFF8C8680),
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+        unselectedItemColor: isDark
+            ? Colors.grey[500]
+            : const Color(0xFF8C8680),
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 12,
+        ),
         elevation: 0,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home_outlined),
+            activeIcon: const Icon(Icons.home),
+            label: 'home'.tr,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
-            activeIcon: Icon(Icons.map),
-            label: 'Map',
+            icon: const Icon(Icons.map_outlined),
+            activeIcon: const Icon(Icons.map),
+            label: 'map'.tr,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.auto_stories_outlined),
-            activeIcon: Icon(Icons.auto_stories),
-            label: 'Archive',
+            icon: const Icon(Icons.auto_stories_outlined),
+            activeIcon: const Icon(Icons.auto_stories),
+            label: 'archive'.tr,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person_outline),
+            activeIcon: const Icon(Icons.person),
+            label: 'profile'.tr,
           ),
         ],
       ),

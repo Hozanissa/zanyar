@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset('image/app-icon.png', width: 140),
             SizedBox(height: 24),
             Text(
-              "Welcome to Zanyar".tr,
+              'welcome_to_zanyar'.tr,
               style: TextStyle(fontSize: 20, color: Color(0xFFC4704B)),
             ),
             SizedBox(height: 24),

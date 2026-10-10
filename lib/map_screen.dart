@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zanyar_app/bnb.dart';
+import 'package:zanyar_app/locale/locale_controller.dart';
 
 class HistoricalSite {
   final String id;
@@ -25,6 +26,10 @@ class HistoricalSite {
     required this.location,
     required this.icon,
   });
+
+  /// Main name for the current language, and the other one as the small line.
+  String get displayName => LocaleController.kurdishNow ? kurdishName : name;
+  String get secondaryName => LocaleController.kurdishNow ? name : kurdishName;
 }
 
 class MapScreen extends StatefulWidget {
@@ -49,8 +54,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'قەڵای هەولێر',
       city: 'Erbil',
       category: 'Citadel',
-      description:
-          'One of the oldest continuously inhabited places on Earth, dating back over 6,000 years, and recognized as a UNESCO World Heritage site.',
+      description: 'One of the oldest continuously inhabited places on Earth, dating back over 6,000 years, and recognized as a UNESCO World Heritage site.',
       location: LatLng(36.1911, 44.0091),
       icon: Icons.fort,
     ),
@@ -60,8 +64,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'قەڵای ئامێدی',
       city: 'Duhok',
       category: 'Citadel',
-      description:
-          'An ancient cliff-top fortress town founded around 800 BC, perched on a mesa mountain with spectacular historical gates.',
+      description: 'An ancient cliff-top fortress town founded around 800 BC, perched on a mesa mountain with spectacular historical gates.',
       location: LatLng(37.0911, 43.4878),
       icon: Icons.location_city,
     ),
@@ -71,8 +74,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'ئەشکەوتی شانەدەر',
       city: 'Erbil (Bradost)',
       category: 'Cave',
-      description:
-          'World-famous archaeological site containing Neanderthal remains and early funeral flower burial evidence in the Bradost Mountain.',
+      description: 'World-famous archaeological site containing Neanderthal remains and early funeral flower burial evidence in the Bradost Mountain.',
       location: LatLng(36.8333, 44.2167),
       icon: Icons.landscape,
     ),
@@ -82,8 +84,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'پەرستگای لالش',
       city: 'Shekhan (Duhok)',
       category: 'Sanctuary',
-      description:
-          'The holiest site of the Yazidi community, a peaceful mountain sanctuary with iconic conical spires and centuries-old stone pathways.',
+      description: 'The holiest site of the Yazidi community, a peaceful mountain sanctuary with iconic conical spires and centuries-old stone pathways.',
       location: LatLng(36.7719, 43.3039),
       icon: Icons.account_balance,
     ),
@@ -93,8 +94,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'قەڵای شێروانە',
       city: 'Kalar (Garmian)',
       category: 'Castle',
-      description:
-          'Historic 19th-century palace fortress built by Muhammad Pasha Jaff on top of an ancient tell overlooking the Sirwan river.',
+      description: 'Historic 19th-century palace fortress built by Muhammad Pasha Jaff on top of an ancient tell overlooking the Sirwan river.',
       location: LatLng(34.6247, 45.3125),
       icon: Icons.castle,
     ),
@@ -104,8 +104,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'قەڵای خانزاد',
       city: 'Erbil',
       category: 'Castle',
-      description:
-          'A stone fortress constructed in the 16th century during the Soran Emirate by Princess Khanzad along the historic road to Soran.',
+      description: 'A stone fortress constructed in the 16th century during the Soran Emirate by Princess Khanzad along the historic road to Soran.',
       location: LatLng(36.3375, 44.1167),
       icon: Icons.shield,
     ),
@@ -115,8 +114,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'قەڵای دوین',
       city: 'Erbil',
       category: 'Castle',
-      description:
-          'Ancient medieval fortress linked to the ancestry of Sultan Saladin (Salah ad-Din), offering panoramic views of historical trade routes.',
+      description: 'Ancient medieval fortress linked to the ancestry of Sultan Saladin (Salah ad-Din), offering panoramic views of historical trade routes.',
       location: LatLng(36.4250, 44.2056),
       icon: Icons.castle,
     ),
@@ -126,8 +124,7 @@ class _MapScreenState extends State<MapScreen> {
       kurdishName: 'شوێنەواری سلێمانی',
       city: 'Sulaymaniyah',
       category: 'Heritage',
-      description:
-          'The cultural heart of southern Kurdistan, celebrated for traditional grand bazaars, Goyzha viewpoints, and heritage archives.',
+      description: 'The cultural heart of southern Kurdistan, celebrated for traditional grand bazaars, Goyzha viewpoints, and heritage archives.',
       location: LatLng(35.5558, 45.4351),
       icon: Icons.museum,
     ),
@@ -172,15 +169,15 @@ class _MapScreenState extends State<MapScreen> {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         Get.snackbar(
-          'Error',
-          'Could not open Google Maps',
+          'error'.tr,
+          'maps_error'.tr,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
     } catch (_) {
       Get.snackbar(
-        'Error',
-        'Could not open maps application',
+        'error'.tr,
+        'maps_app_error'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     }
@@ -232,7 +229,7 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   IconButton.filledTonal(
                     onPressed: _resetView,
-                    tooltip: 'Reset Map View',
+                    tooltip: 'reset_map_view'.tr,
                     icon: const Icon(Icons.my_location, color: primaryTeal),
                   ),
                 ],
@@ -251,7 +248,7 @@ class _MapScreenState extends State<MapScreen> {
                   final cat = _categories[index];
                   final isSelected = _selectedCategory == cat;
                   return ChoiceChip(
-                    label: Text(cat),
+                    label: Text(cat.tr),
                     selected: isSelected,
                     onSelected: (selected) {
                       if (selected) {
@@ -268,8 +265,9 @@ class _MapScreenState extends State<MapScreen> {
                     selectedColor: primaryTeal,
                     labelStyle: TextStyle(
                       color: isSelected ? Colors.white : null,
-                      fontWeight:
-                          isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   );
                 },
@@ -408,7 +406,7 @@ class _MapScreenState extends State<MapScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        site.name,
+                        site.displayName,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -417,7 +415,7 @@ class _MapScreenState extends State<MapScreen> {
                       Row(
                         children: [
                           Text(
-                            site.kurdishName,
+                            site.secondaryName,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -435,7 +433,7 @@ class _MapScreenState extends State<MapScreen> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              site.city,
+                              site.city.tr,
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: primaryTeal,
@@ -478,7 +476,7 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     onPressed: () => _openExternalDirections(site),
                     icon: const Icon(Icons.directions, size: 18),
-                    label: const Text('Directions'),
+                    label: Text('directions'.tr),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -493,7 +491,7 @@ class _MapScreenState extends State<MapScreen> {
                   onPressed: () {
                     _mapController.move(site.location, 14.5);
                   },
-                  child: const Text('Focus'),
+                  child: Text('focus'.tr),
                 ),
               ],
             ),
@@ -524,7 +522,10 @@ class _MapScreenState extends State<MapScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -539,14 +540,14 @@ class _MapScreenState extends State<MapScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          site.name,
+                          site.displayName,
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          site.city,
+                          site.city.tr,
                           style: TextStyle(
                             fontSize: 11,
                             color: Colors.grey[600],

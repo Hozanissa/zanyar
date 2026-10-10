@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zanyar_app/bnb.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,17 +43,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     "زانيار-ZANYAR",
                     style: TextStyle(color: Colors.grey[500]),
                   ),
-                  const Text(
-                    "Kurdistan",
-                    style: TextStyle(
+                  Text(
+                    'kurdistan'.tr,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFC4704B),
                     ),
                   ),
-                  const Text(
-                    "Historical Sites",
-                    style: TextStyle(
+                  Text(
+                    'historical_sites'.tr,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFC4704B),
@@ -66,11 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Name: $displayName ",
+                  "${'name_label'.tr}: $displayName ",
                   style: const TextStyle(fontSize: 25, color: Colors.red),
                 ),
                 Text(
-                  "Password: $displayPass ",
+                  "${'password'.tr}: $displayPass ",
                   style: const TextStyle(fontSize: 25, color: Colors.red),
                 ),
               ],

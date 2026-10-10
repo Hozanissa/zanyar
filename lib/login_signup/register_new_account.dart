@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
+import 'package:zanyar_app/theme/app_theme.dart';
+import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 class RegisterNewAccount extends StatefulWidget {
   const RegisterNewAccount({super.key});
@@ -37,7 +39,7 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
         content: Text(
           message,
           style: const TextStyle(
-            color: Color(0xFFC4704B),
+            color: AppTheme.terracotta,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -55,26 +57,26 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
     final password = passwordController.text.trim();
 
     if (firstName.isEmpty) {
-      _showMessage("First name is required");
+      _showMessage('first_name_required'.tr);
     } else if (lastName.isEmpty) {
-      _showMessage("Last name is required");
+      _showMessage('last_name_required'.tr);
     } else if (phone.isEmpty) {
-      _showMessage("Phone number is required");
+      _showMessage('phone_required'.tr);
     } else if (!RegExp(r'^[0-9]+$').hasMatch(phone)) {
-      _showMessage("Phone number must contain digits only");
+      _showMessage('phone_digits'.tr);
     } else if (phone.length < 10) {
-      _showMessage("Phone number is too short");
+      _showMessage('phone_short'.tr);
     } else if (email.isEmpty) {
-      _showMessage("Email is required");
+      _showMessage('email_required'.tr);
     } else if (!email.contains('@') || !email.contains('.')) {
-      _showMessage("Please enter a valid email");
+      _showMessage('invalid_email'.tr);
     } else if (password.isEmpty) {
-      _showMessage("Password is required");
+      _showMessage('password_required'.tr);
     } else if (password.length < 6) {
-      _showMessage("Password must be at least 6 characters");
+      _showMessage('password_short'.tr);
     } else {
       // Every field passed, so the account is "created".
-      _showMessage("Account created, go back to login screen");
+      _showMessage('account_created'.tr);
 
       firstNameController.clear();
       lastNameController.clear();
@@ -86,154 +88,158 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accent = isDark ? AppTheme.teal : AppTheme.teal;
+
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: Column(
           children: [
-            Positioned(
-              top: 10,
-              left: 10,
-              child: TextButton.icon(
-                onPressed: () {
-                  Get.off(LoginScreen());
-                },
-                icon: const Icon(Icons.arrow_back, color: Color(0xFFC4704B)),
-                label: const Text(
-                  'Back to login',
-                  style: TextStyle(
-                    color: Color(0xFFC4704B),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+            // Back button on the start side, switches on the end side.
+            // (Start/end flip automatically in right-to-left Kurdish.)
+            Padding(
+              padding: const EdgeInsetsDirectional.only(
+                start: 10,
+                end: 8,
+                top: 4,
               ),
-            ),
-            Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 40),
-                    const Text(
-                      "Create a new account",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFC4704B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: const Color(0xFF1F4E4C),
-                            width: 1.2,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: TextButton.icon(
+                        onPressed: () => Get.off(const LoginScreen()),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: AppTheme.terracotta,
+                        ),
+                        label: Text(
+                          'back_to_login'.tr,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: AppTheme.terracotta,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: firstNameController,
-                              keyboardType: TextInputType.name,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Enter Your First Name",
-                                labelText: "First Name",
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  color: Color(0xFF1F4E4C),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
-                              controller: lastNameController,
-                              keyboardType: TextInputType.name,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Enter Your Last Name",
-                                labelText: "Last Name",
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  color: Color(0xFF1F4E4C),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
-                              controller: phoneController,
-                              keyboardType: TextInputType.phone,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Enter Your Phone Number",
-                                labelText: "Phone Number",
-                                prefixIcon: Icon(
-                                  Icons.phone,
-                                  color: Color(0xFF1F4E4C),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: "Enter Your Email",
-                                labelText: "Email",
-                                prefixIcon: Icon(
-                                  Icons.email,
-                                  color: Color(0xFF1F4E4C),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextField(
-                              controller: passwordController,
-                              obscureText: _obsecureText,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                hintText: "Enter Your Password",
-                                labelText: "Password",
-                                prefixIcon: const Icon(
-                                  Icons.lock,
-                                  color: Color(0xFF1F4E4C),
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obsecureText
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: const Color(0xFF1F4E4C),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obsecureText = !_obsecureText;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 25),
-                            ElevatedButton(
-                              onPressed: register,
-                              child: const Text(
-                                'Create Account',
-                                style: TextStyle(
-                                  color: Color(0xFFC4704B),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                  ],
+                  ),
+                  const AuthToggles(),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'create_account_title'.tr,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.terracotta,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: accent, width: 1.2),
+                          ),
+                          child: Column(
+                            children: [
+                              TextField(
+                                controller: firstNameController,
+                                keyboardType: TextInputType.name,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'enter_first_name'.tr,
+                                  labelText: 'first_name'.tr,
+                                  prefixIcon: Icon(Icons.person, color: accent),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextField(
+                                controller: lastNameController,
+                                keyboardType: TextInputType.name,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'enter_last_name'.tr,
+                                  labelText: 'last_name'.tr,
+                                  prefixIcon: Icon(Icons.person, color: accent),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextField(
+                                controller: phoneController,
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'enter_phone'.tr,
+                                  labelText: 'phone'.tr,
+                                  prefixIcon: Icon(Icons.phone, color: accent),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextField(
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'enter_email'.tr,
+                                  labelText: 'email'.tr,
+                                  prefixIcon: Icon(Icons.email, color: accent),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextField(
+                                controller: passwordController,
+                                obscureText: _obsecureText,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  hintText: 'enter_password'.tr,
+                                  labelText: 'password'.tr,
+                                  prefixIcon: Icon(Icons.lock, color: accent),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obsecureText
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: accent,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obsecureText = !_obsecureText;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 25),
+                              ElevatedButton(
+                                onPressed: register,
+                                child: Text(
+                                  'create_account'.tr,
+                                  style: const TextStyle(
+                                    color: AppTheme.terracotta,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),

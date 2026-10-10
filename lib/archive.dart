@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
+import 'package:zanyar_app/locale/locale_controller.dart';
 
 class ArchiveItem {
   final String id;
@@ -24,6 +26,9 @@ class ArchiveItem {
     required this.story,
     required this.significance,
   });
+
+  /// Kurdish title in Kurdish mode, English title otherwise.
+  String get displayTitle => LocaleController.kurdishNow ? kurdishTitle : title;
 }
 
 const Color _primaryTeal = Color(0xFF1F4E4C);
@@ -195,7 +200,7 @@ class _ArchiveState extends State<Archive> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'CULTURAL ARCHIVE',
+                    'cultural_archive'.tr,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -205,7 +210,7 @@ class _ArchiveState extends State<Archive> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Kurdish Heritage',
+                    'kurdish_heritage'.tr,
                     style: GoogleFonts.lora(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -240,7 +245,9 @@ class _ArchiveState extends State<Archive> {
                     color: isDark ? Colors.white : Colors.black87,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Search ${_selectedCategory.toLowerCase()}...',
+                    hintText: 'search_hint'.trParams({
+                      'cat': _selectedCategory.tr.toLowerCase(),
+                    }),
                     hintStyle: TextStyle(
                       fontSize: 15,
                       color: isDark
@@ -313,7 +320,7 @@ class _ArchiveState extends State<Archive> {
                           ),
                         ),
                         child: Text(
-                          cat,
+                          cat.tr,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: isSelected
@@ -348,7 +355,7 @@ class _ArchiveState extends State<Archive> {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            'No items found',
+                            'no_items'.tr,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -417,7 +424,7 @@ class _ArchiveState extends State<Archive> {
                   children: [
                     Expanded(
                       child: Text(
-                        item.title,
+                        item.displayTitle,
                         style: GoogleFonts.lora(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -486,7 +493,7 @@ class _ArchiveState extends State<Archive> {
                 Row(
                   children: [
                     Text(
-                      'Read more',
+                      'read_more'.tr,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -544,7 +551,9 @@ class ArchiveDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 2),
                       Text(
-                        'Back to ${item.category.toLowerCase()}',
+                        'back_to'.trParams({
+                          'cat': item.category.tr.toLowerCase(),
+                        }),
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -598,7 +607,7 @@ class ArchiveDetailScreen extends StatelessWidget {
 
               // Title and Subtitle
               Text(
-                item.title,
+                item.displayTitle,
                 style: GoogleFonts.lora(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -618,7 +627,7 @@ class ArchiveDetailScreen extends StatelessWidget {
 
               // The Story Heading & Body
               Text(
-                'The story',
+                'the_story'.tr,
                 style: GoogleFonts.lora(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -656,7 +665,7 @@ class ArchiveDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Cultural significance',
+                      'cultural_significance'.tr,
                       style: GoogleFonts.lora(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

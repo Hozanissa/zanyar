@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 import 'package:zanyar_app/home_screen.dart';
+import 'package:zanyar_app/theme/app_theme.dart';
+import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 import 'register_new_account.dart';
 import 'reset_password.dart';
@@ -30,242 +31,226 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  // One place for the snack bar style.
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.grey[300],
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: AppTheme.terracotta,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   void login() {
     if (_formKey.currentState!.validate()) {
-      if (emailController.text.trim() == email &&
-          passwordController.text.trim() == password) {
-        Get.off(
-          HomeScreen(
-            getData: emailController.text.trim(),
-            getPass: passwordController.text.trim(),
-          ),
-        );
-      } else if (emailController.text.trim() == email &&
-          passwordController.text.trim() != password) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.grey[300],
-            content: Text(
-              "Incorrect Password",
-              style: TextStyle(
-                color: Color(0xFFC4704B),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            duration: Duration(seconds: 3),
-            behavior: SnackBarBehavior.floating,
-            //action
-          ),
-        );
-      } else if (emailController.text.trim() != email &&
-          passwordController.text.trim() == password) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.grey[300],
-            content: Text(
-              "Incorrect email",
-              style: TextStyle(
-                color: Color(0xFFC4704B),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            duration: Duration(seconds: 3),
-            behavior: SnackBarBehavior.floating,
-            //action
-          ),
-        );
+      final enteredEmail = emailController.text.trim();
+      final enteredPassword = passwordController.text.trim();
+
+      if (enteredEmail == email && enteredPassword == password) {
+        Get.off(HomeScreen(getData: enteredEmail, getPass: enteredPassword));
+      } else if (enteredEmail == email) {
+        _showMessage('incorrect_password'.tr);
+      } else if (enteredPassword == password) {
+        _showMessage('incorrect_email'.tr);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.grey[300],
-            content: const Text(
-              "Invalid email or password",
-              style: TextStyle(
-                color: Color(0xFFC4704B),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            duration: const Duration(seconds: 3),
-            behavior: SnackBarBehavior.floating,
-            //action
-          ),
-        );
+        _showMessage('invalid_credentials'.tr);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    // Dark teal is hard to see on a dark background, so use a lighter teal.
+    final accent = isDark ? AppTheme.teal : AppTheme.teal;
+    final subtitleColor = isDark ? Colors.grey[400] : Colors.grey[700];
+    final captionColor = isDark ? Colors.grey[500] : Colors.grey[600];
+
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Welcome to Zanyar',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[700],
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    'Login to continue',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFC4704B),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Your journey starts here.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Language + dark/light switches
+            const Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(end: 8, top: 4),
+                child: AuthToggles(),
               ),
-              SizedBox(height: 20),
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Color(0xFF1F4E4C), width: 1.2),
-                    ),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: "Enter Your Email",
-                            labelText: "Email",
-                            prefixIcon: const Icon(
-                              Icons.email,
-                              color: Color(0xFF1F4E4c),
+            ),
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'welcome_to_zanyar'.tr,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: subtitleColor,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Email is required';
-                            }
-
-                            if (!value.endsWith('@gmail.com')) {
-                              return 'Email must end with @gmail.com';
-                            }
-
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          controller: passwordController,
-                          obscureText: _obsecureText,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: "Enter Your Password",
-                            labelText: "Password",
-                            prefixIcon: const Icon(
-                              Icons.lock,
-                              color: Color(0xFF1F4E4c),
+                          const SizedBox(height: 5),
+                          Text(
+                            'login_to_continue'.tr,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: AppTheme.terracotta,
                             ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obsecureText
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: Color(0xFF1F4E4c),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'journey_starts'.tr,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: captionColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: accent, width: 1.2),
+                            ),
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    hintText: 'enter_email'.tr,
+                                    labelText: 'email'.tr,
+                                    prefixIcon: Icon(
+                                      Icons.email,
+                                      color: accent,
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'email_required'.tr;
+                                    }
+                                    if (!value.endsWith('@gmail.com')) {
+                                      return 'email_must_gmail'.tr;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                TextFormField(
+                                  controller: passwordController,
+                                  obscureText: _obsecureText,
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    hintText: 'enter_password'.tr,
+                                    labelText: 'password'.tr,
+                                    prefixIcon: Icon(Icons.lock, color: accent),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _obsecureText
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
+                                        color: accent,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obsecureText = !_obsecureText;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'password_required'.tr;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: login,
+                                  child: Text(
+                                    'login'.tr,
+                                    style: const TextStyle(
+                                      color: AppTheme.terracotta,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //two other buttons that lead you to the reset_password page and
+                      //register_new_account page.
+                      const SizedBox(height: 20),
+                      Text('or'.tr),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () =>
+                                Get.off(const RegisterNewAccount()),
+                            child: Text(
+                              'sign_up'.tr,
+                              style: const TextStyle(
+                                color: AppTheme.terracotta,
+                                fontWeight: FontWeight.bold,
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _obsecureText = !_obsecureText;
-                                });
-                              },
                             ),
                           ),
-                          //
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Password is required';
-                            }
-
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: login,
-                          child: Text(
-                            "Login",
-                            style: TextStyle(color: Color(0xFFC4704b)),
+                          Text('to_register'.tr),
+                        ],
+                      ),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text('forgot_password'.tr),
+                          TextButton(
+                            onPressed: () => Get.off(const ResetPassword()),
+                            child: Text(
+                              'reset_password'.tr,
+                              style: const TextStyle(
+                                color: AppTheme.terracotta,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                    ],
                   ),
                 ),
               ),
-
-              //two other button that lead you to the reset_assword page and
-              //register_new_account page.
-              const SizedBox(height: 20),
-              const Text('Or'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Get.off(RegisterNewAccount());
-                    },
-                    child: const Text(
-                      'Sign up',
-                      style: TextStyle(
-                        color: Color(0xFFC4704B),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const Text('to register a new account'),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Forgot your password?'),
-                  TextButton(
-                    onPressed: () {
-                      Get.off(ResetPassword());
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const ResetPassword(),
-                      //   ),
-                      // );
-                    },
-                    child: const Text(
-                      'Reset password',
-                      style: TextStyle(
-                        color: Color(0xFFC4704b),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
