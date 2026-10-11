@@ -23,6 +23,8 @@ class AppTranslations extends Translations {
       'favorites': 'Favorites',
       'trip_requests': 'My trip requests',
       'notifications': 'Notifications',
+      'contact': 'Contact us',
+      'About_us': 'About us',
       'sign_out': 'Sign out',
 
       // Splash / login
@@ -124,6 +126,8 @@ class AppTranslations extends Translations {
       'favorites': 'دڵخوازەکان',
       'trip_requests': 'داواکارییەکانی گەشتم',
       'notifications': 'ئاگادارکردنەوەکان',
+      'contact': 'پەیوەندیمان پێوە بکە.',
+      'about': 'دەربارەی ئێمە',
       'sign_out': 'چوونەدەرەوە',
 
       // Splash / login

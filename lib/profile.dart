@@ -120,6 +120,25 @@ class _ProfileState extends State<Profile> {
                   ),
                   Card(
                     child: ListTile(
+                      title: Text('Contact us'.tr),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: scheme.primary,
+                      ),
+                    ),
+                  ),
+                  Card(
+                    child: ListTile(
+                      title: Text('About us'.tr),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: scheme.primary,
+                      ),
+                    ),
+                  ),
+
+                  Card(
+                    child: ListTile(
                       title: Text(
                         'sign_out'.tr,
                         style: const TextStyle(color: Colors.red),
