@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});
+
+  static const String phone = '+9647501234567';
+  static const String githubUrl = 'https://github.com/Hozanissa';
+
+  Future<void> _open(BuildContext context, Uri uri) async {
+    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!ok && context.mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Could not open the app')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +60,36 @@ class ContactUs extends StatelessWidget {
                 }
               },
               icon: const Icon(Icons.email, color: Colors.redAccent, size: 45),
+            ),
+            // Phone call
+            IconButton(
+              onPressed: () => _open(context, Uri(scheme: 'tel', path: phone)),
+              icon: const Icon(Icons.call, color: Colors.green, size: 45),
+            ),
+
+            // SMS
+            IconButton(
+              onPressed: () => _open(
+                context,
+                Uri(
+                  scheme: 'sms',
+                  path: phone,
+                  queryParameters: {
+                    'body': 'Hello, I would like to ask about...',
+                  },
+                ),
+              ),
+              icon: const Icon(Icons.sms, color: Colors.orange, size: 45),
+            ),
+
+            // GitHub
+            IconButton(
+              onPressed: () => _open(context, Uri.parse(githubUrl)),
+              icon: FaIcon(
+                FontAwesomeIcons.github,
+                color: Colors.purple,
+                size: 45,
+              ),
             ),
           ],
         ),
