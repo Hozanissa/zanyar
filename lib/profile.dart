@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zanyar_app/bnb.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
+import 'package:zanyar_app/profile_list/contact_us.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
 
 class Profile extends StatefulWidget {
@@ -125,6 +126,7 @@ class _ProfileState extends State<Profile> {
                         Icons.chevron_right,
                         color: scheme.primary,
                       ),
+                      onTap: () => Get.to(() => ContactUs()),
                     ),
                   ),
                   Card(
@@ -134,6 +136,7 @@ class _ProfileState extends State<Profile> {
                         Icons.chevron_right,
                         color: scheme.primary,
                       ),
+                      onTap: () => Get.to(() => ()),
                     ),
                   ),
 
