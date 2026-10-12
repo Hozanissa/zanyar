@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUs extends StatelessWidget {
@@ -20,76 +22,116 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Contact us")),
+      appBar: AppBar(
+        title: Text(
+          'Contact Us'.tr,
+          style: GoogleFonts.lora(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.teal,
+          ),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Facebook url launcher.
-            IconButton(
-              onPressed: () async {
-                final Uri url = Uri.parse(
-                  'https://www.facebook.com/profile.php?id=61581997766044',
-                );
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-              icon: Icon(Icons.facebook, color: Colors.blue, size: 45),
-            ),
-            //email
-            IconButton(
-              onPressed: () async {
-                final Uri urlEmail = Uri(
-                  scheme: 'mailto',
-                  path: 'hozanissa98@gmail.com',
-                  query:
-                      'subject=${Uri.encodeComponent("Training Course")}'
-                      '&body=${Uri.encodeComponent("Thanks GIZ for this training course")}',
-                );
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 20),
+                //Facebook url launcher.
 
-                final ok = await launchUrl(urlEmail);
-                if (!ok && context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Could not open the email app'),
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 30,
+                  child: IconButton(
+                    onPressed: () async {
+                      final Uri url = Uri.parse(
+                        'https://www.facebook.com/profile.php?id=61581997766044',
+                      );
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    icon: Icon(Icons.facebook, color: Colors.blue, size: 45),
+                  ),
+                ),
+                SizedBox(width: 20),
+                //email
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 30,
+                  child: IconButton(
+                    onPressed: () async {
+                      final Uri urlEmail = Uri(
+                        scheme: 'mailto',
+                        path: 'hozanissa98@gmail.com',
+                      );
+
+                      final ok = await launchUrl(urlEmail);
+                      if (!ok && context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Could not open the email app'),
+                          ),
+                        );
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.email,
+                      color: Colors.redAccent,
+                      size: 45,
                     ),
-                  );
-                }
-              },
-              icon: const Icon(Icons.email, color: Colors.redAccent, size: 45),
-            ),
-            // Phone call
-            IconButton(
-              onPressed: () => _open(context, Uri(scheme: 'tel', path: phone)),
-              icon: const Icon(Icons.call, color: Colors.green, size: 45),
+                  ),
+                ),
+                SizedBox(width: 20),
+                // Phone call
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 30,
+                  child: IconButton(
+                    onPressed: () =>
+                        _open(context, Uri(scheme: 'tel', path: phone)),
+                    icon: const Icon(Icons.call, color: Colors.green, size: 40),
+                  ),
+                ),
+              ],
             ),
 
             // SMS
-            IconButton(
-              onPressed: () => _open(
-                context,
-                Uri(
-                  scheme: 'sms',
-                  path: phone,
-                  queryParameters: {
-                    'body': 'Hello, I would like to ask about...',
-                  },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 20),
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 30,
+                  child: IconButton(
+                    onPressed: () =>
+                        _open(context, Uri(scheme: 'sms', path: phone)),
+                    icon: const Icon(Icons.sms, color: Colors.orange, size: 40),
+                  ),
                 ),
-              ),
-              icon: const Icon(Icons.sms, color: Colors.orange, size: 45),
-            ),
-
-            // GitHub
-            IconButton(
-              onPressed: () => _open(context, Uri.parse(githubUrl)),
-              icon: FaIcon(
-                FontAwesomeIcons.github,
-                color: Colors.purple,
-                size: 45,
-              ),
+                SizedBox(width: 20),
+                // GitHub
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 30,
+                  child: IconButton(
+                    onPressed: () => _open(context, Uri.parse(githubUrl)),
+                    icon: FaIcon(
+                      FontAwesomeIcons.github,
+                      color: Colors.purple,
+                      size: 40,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
