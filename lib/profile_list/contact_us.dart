@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUs extends StatelessWidget {
-  const new({super.key});
+  const ContactUs({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,28 +12,41 @@ class ContactUs extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.facebook, color: Colors.blue, size: 30),
-            ),
+            //Facebook url launcher.
             IconButton(
               onPressed: () async {
-                String subject = Uri.encodeComponent("Training Course");
-                String body = Uri.encodeComponent(
-                  "Thanks GIZ for this training course",
+                final Uri url = Uri.parse(
+                  'https://www.facebook.com/profile.php?id=61581997766044',
                 );
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              icon: Icon(Icons.facebook, color: Colors.blue, size: 45),
+            ),
+            //email
+            IconButton(
+              onPressed: () async {
                 final Uri urlEmail = Uri(
                   scheme: 'mailto',
                   path: 'hozanissa98@gmail.com',
-                  queryParameters: {'subject': subject, 'body': body},
+                  query:
+                      'subject=${Uri.encodeComponent("Training Course")}'
+                      '&body=${Uri.encodeComponent("Thanks GIZ for this training course")}',
                 );
-                if (await canLaunchUrl(urlEmail)) {
-                  await launchUrl(urlEmail);
-                } else {
-                  throw 'Could not launch $urlEmail';
+
+                final ok = await launchUrl(urlEmail);
+                if (!ok && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Could not open the email app'),
+                    ),
+                  );
                 }
               },
-              icon: Icon(Icons.email, color: Colors.redAccent, size: 50),
+              icon: const Icon(Icons.email, color: Colors.redAccent, size: 45),
             ),
           ],
         ),
