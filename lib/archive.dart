@@ -212,7 +212,7 @@ class _ArchiveState extends State<Archive> {
                   Text(
                     'kurdish_heritage'.tr,
                     style: GoogleFonts.lora(
-                      fontSize: 28,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: isDark ? Colors.white : _primaryTeal,
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zanyar_app/bnb.dart';
@@ -209,19 +210,21 @@ class _MapScreenState extends State<MapScreen> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
+                            letterSpacing: 1.6,
                             color: theme.brightness == Brightness.dark
                                 ? Colors.grey[400]
-                                : Colors.grey[600],
+                                : terracotta,
                           ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           'all_sites'.tr.isEmpty ? 'All Sites' : 'all_sites'.tr,
-                          style: const TextStyle(
-                            fontSize: 22,
+                          style: GoogleFonts.lora(
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: terracotta,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],

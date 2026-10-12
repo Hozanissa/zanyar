@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
+
+const Color _terracotta = Color(0xFFC4704B);
 
 class HomeScreen extends StatefulWidget {
   static String savedData = "";
@@ -21,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final displayName = widget.getData.isNotEmpty
         ? widget.getData
         : HomeScreen.savedData;
@@ -41,22 +45,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     "زانيار-ZANYAR",
-                    style: TextStyle(color: Colors.grey[500]),
-                  ),
-                  Text(
-                    'kurdistan'.tr,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFC4704B),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.6,
+                      color: isDark ? Colors.grey[400] : _terracotta,
                     ),
                   ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Kurdistan'.tr,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.6,
+                      color: isDark ? Colors.grey[400] : _terracotta,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
                   Text(
                     'historical_sites'.tr,
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: GoogleFonts.lora(
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFC4704B),
+                      color: isDark
+                          ? Colors.white
+                          : Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

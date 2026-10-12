@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
 import 'package:zanyar_app/profile_list/about_us.dart';
 import 'package:zanyar_app/profile_list/contact_us.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
+
+const Color _terracotta = Color(0xFFB76E50);
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -20,6 +23,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       body: SafeArea(
@@ -31,13 +35,22 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('account'.tr, style: TextStyle(color: Colors.grey[400])),
                   Text(
-                    'profile'.tr,
-                    style: const TextStyle(
-                      color: Color(0xFFC4704B),
-                      fontSize: 20,
+                    'Profile'.tr,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.6,
+                      color: isDark ? Colors.grey[400] : _terracotta,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Account'.tr,
+                    style: GoogleFonts.lora(
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : scheme.primary,
                     ),
                   ),
                 ],
