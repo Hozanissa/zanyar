@@ -540,7 +540,8 @@ class ArchiveDetailScreen extends StatelessWidget {
                 onTap: () => Navigator.of(context).pop(),
                 borderRadius: BorderRadius.circular(12),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
