@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             'login_to_continue'.tr,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.lora(
-                              fontSize: 28,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: AppTheme.terracotta,
                             ),

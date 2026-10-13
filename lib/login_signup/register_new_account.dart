@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
@@ -138,8 +139,8 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                       Text(
                         'create_account_title'.tr,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 22,
+                        style: GoogleFonts.lora(
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: AppTheme.terracotta,
                         ),

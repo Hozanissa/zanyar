@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
 
@@ -109,10 +110,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                       Text(
                         'reset_your_password'.tr,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 22,
+                        style: GoogleFonts.lora(
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: accent,
+                          color: AppTheme.terracotta,
                         ),
                       ),
                       const SizedBox(height: 10),
