@@ -109,35 +109,26 @@ class _ProfileState extends State<Profile> {
                   Card(
                     child: ListTile(
                       title: Text('favorites'.tr),
-                      trailing: Icon(
-                        Icons.chevron_right,
-                        color: scheme.primary,
-                      ),
+                      leading: Icon(Icons.favorite, color: scheme.primary),
                     ),
                   ),
                   Card(
                     child: ListTile(
                       title: Text('trip_requests'.tr),
-                      trailing: Icon(
-                        Icons.chevron_right,
-                        color: scheme.primary,
-                      ),
+                      leading: Icon(Icons.pending, color: scheme.primary),
                     ),
                   ),
                   Card(
                     child: ListTile(
                       title: Text('notifications'.tr),
-                      trailing: Icon(
-                        Icons.chevron_right,
-                        color: scheme.primary,
-                      ),
+                      leading: Icon(Icons.notifications, color: scheme.primary),
                     ),
                   ),
                   Card(
                     child: ListTile(
                       title: Text('Contact us'.tr),
-                      trailing: Icon(
-                        Icons.chevron_right,
+                      leading: Icon(
+                        Icons.quick_contacts_dialer,
                         color: scheme.primary,
                       ),
                       onTap: () => Get.to(() => ContactUs()),
@@ -146,10 +137,7 @@ class _ProfileState extends State<Profile> {
                   Card(
                     child: ListTile(
                       title: Text('About us'.tr),
-                      trailing: Icon(
-                        Icons.chevron_right,
-                        color: scheme.primary,
-                      ),
+                      leading: Icon(Icons.info, color: scheme.primary),
                       onTap: () => Get.to(() => AboutUs()),
                     ),
                   ),
@@ -160,10 +148,7 @@ class _ProfileState extends State<Profile> {
                         'sign_out'.tr,
                         style: const TextStyle(color: Colors.red),
                       ),
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                        color: Colors.red,
-                      ),
+                      leading: const Icon(Icons.logout, color: Colors.red),
                     ),
                   ),
                 ],
