@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,6 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
     startProgress();
   }
 
+  void route() {
+    Get.off(() => LoginScreen());
+  }
+
   void startProgress() async {
     for (int i = 0; i <= 100; i++) {
       if (!mounted) return;
@@ -26,12 +31,27 @@ class _SplashScreenState extends State<SplashScreen> {
       await Future.delayed(Duration(milliseconds: 50));
     }
     route();
+
+    //New Code goes here: Shared Preferences
+    //to make it work. uncomment this new code and comment out the route() method.
+    //I also commented out some code in login_screen.dart for the login feature. you
+    //have to add all four if else condition of login to it. and then the there's the logout button
+    //use it in the signout listTile in profile.dart to logout/signout of the app.
+    //   final prefs = await SharedPreferences.getInstance();
+    //   bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    //   if (!mounted) return;
+
+    //   if (isLoggedIn) {
+    //     //navigate to home_screen.dart if the user is already logged in
+    //     Get.offNamed('/homeScreen/hozanissa98@gmail.com/123456');
+    //     //navigate to login screen if the user is not logged in.
+    //   } else {
+    //     Get.offNamed('/loginScreen');
+    //   }
   }
 
-  void route() {
-    Get.off(() => LoginScreen());
-  }
-
+  //ends here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +64,9 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 24),
             Text(
               'welcome_to_zanyar'.tr,
-              style: TextStyle(fontSize: 20, color: Color(0xFFC4704B)),
+              style: GoogleFonts.lora(fontSize: 20, color: Color(0xFFC4704B)),
             ),
+
             SizedBox(height: 24),
             LinearProgressIndicator(
               value: counter / 100,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/home_screen.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
@@ -67,6 +68,35 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  // Future<void> login() async {
+  //   final enteredEmail = emailController.text.trim();
+  //   final enteredPassword = passwordController.text.trim();
+  //   if (enteredEmail == email && enteredPassword == password) {
+  //     return;
+  //   }
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setBool('isLoggedIn', true);
+
+  //   if (mounted) {
+  //     Get.offNamed('/homeScreen/hozanissa98@gmail.com/123456');
+  //   }
+  // }
+
+  // void logout() async {
+  //   final SharedPreferences pr = await SharedPreferences.getInstance();
+  //   await pr.remove("isLoggedIn");
+
+  //   Get.offAllNamed('/loginScreen');
+  // }
+
+  //the logout button i will be adding to the logout button in profile screen
+  // IconButton(
+  //   onPressed: logout,
+  //   icon: Icon(Icons.logout),
+  //   color: Colors.red,
+  //   iconSize: 50,
+  // ),
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -107,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             'login_to_continue'.tr,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: GoogleFonts.lora(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
                               color: AppTheme.terracotta,
