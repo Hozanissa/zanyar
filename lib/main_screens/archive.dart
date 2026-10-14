@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
+import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 class ArchiveItem {
   final String id;
@@ -195,28 +196,35 @@ class _ArchiveState extends State<Archive> {
           children: [
             // Top Header Section
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-              child: Column(
+              padding: const EdgeInsets.fromLTRB(20, 12, 16, 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'cultural_archive'.tr,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.6,
-                      color: isDark ? Colors.grey[400] : _terracotta,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'cultural_archive'.tr,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.6,
+                          color: isDark ? Colors.grey[400] : _terracotta,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'kurdish_heritage'.tr,
+                        style: GoogleFonts.lora(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : _primaryTeal,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'kurdish_heritage'.tr,
-                    style: GoogleFonts.lora(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : _primaryTeal,
-                    ),
-                  ),
+                  const AuthToggles(),
                 ],
               ),
             ),

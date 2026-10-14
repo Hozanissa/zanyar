@@ -14,7 +14,7 @@ class AuthToggles extends StatelessWidget {
     final themeCtrl = Get.find<ThemeController>();
     final localeCtrl = Get.find<LocaleController>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accent = isDark ? AppTheme.teal : AppTheme.teal;
+    final accent = isDark ? const Color(0xFF7CB8AE) : AppTheme.teal;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -23,9 +23,9 @@ class AuthToggles extends StatelessWidget {
           () => TextButton.icon(
             onPressed: localeCtrl.toggle,
             icon: Icon(Icons.language, color: accent, size: 20),
-            // Shows the language you will switch TO.
+            // Shows the active language in its own script.
             label: Text(
-              localeCtrl.isKurdish.value ? 'English' : 'کوردی',
+              localeCtrl.isKurdish.value ? 'کوردی' : 'English',
               style: TextStyle(color: accent, fontWeight: FontWeight.bold),
             ),
           ),

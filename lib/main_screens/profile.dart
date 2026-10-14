@@ -6,6 +6,7 @@ import 'package:zanyar_app/locale/locale_controller.dart';
 import 'package:zanyar_app/profile_list/about_us.dart';
 import 'package:zanyar_app/profile_list/contact_us.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
+import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 const Color _terracotta = Color(0xFFB76E50);
 
@@ -32,27 +33,34 @@ class _ProfileState extends State<Profile> {
           children: [
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Profile'.tr,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.6,
-                      color: isDark ? Colors.grey[400] : _terracotta,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile'.tr,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.6,
+                          color: isDark ? Colors.grey[400] : _terracotta,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Account'.tr,
+                        style: GoogleFonts.lora(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : scheme.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Account'.tr,
-                    style: GoogleFonts.lora(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : scheme.primary,
-                    ),
-                  ),
+                  const AuthToggles(),
                 ],
               ),
             ),

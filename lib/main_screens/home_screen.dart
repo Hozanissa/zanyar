@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
+import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 const Color _terracotta = Color(0xFFC4704B);
 
@@ -28,9 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final displayName = widget.getData.isNotEmpty
         ? widget.getData
         : HomeScreen.savedData;
-    final displayPass = widget.getPass.isNotEmpty
-        ? widget.getPass
-        : HomeScreen.savedPass;
 
     return Scaffold(
       body: SafeArea(
@@ -39,40 +37,47 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             // The padding widget contains the header text for the page.
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0.0),
-              child: Column(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "زانيار-ZANYAR",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.6,
-                      color: isDark ? Colors.grey[400] : _terracotta,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "زانيار-ZANYAR",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.6,
+                          color: isDark ? Colors.grey[400] : _terracotta,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'kurdistan'.tr,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.6,
+                          color: isDark ? Colors.grey[400] : _terracotta,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'historical_sites'.tr,
+                        style: GoogleFonts.lora(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: isDark
+                              ? Colors.white
+                              : Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Kurdistan'.tr,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.6,
-                      color: isDark ? Colors.grey[400] : _terracotta,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'historical_sites'.tr,
-                    style: GoogleFonts.lora(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: isDark
-                          ? Colors.white
-                          : Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
+                  const AuthToggles(),
                 ],
               ),
             ),
@@ -81,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "${'name_label'.tr}: Hey $displayName ",
+                  "${'name_label'.tr}: $displayName",
                   style: GoogleFonts.lora(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

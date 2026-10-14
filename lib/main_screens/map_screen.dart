@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zanyar_app/bnb.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
+import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 class HistoricalSite {
   final String id;
@@ -235,6 +236,8 @@ class _MapScreenState extends State<MapScreen> {
                     tooltip: 'reset_map_view'.tr,
                     icon: const Icon(Icons.my_location, color: primaryTeal),
                   ),
+                  const SizedBox(width: 4),
+                  const AuthToggles(),
                 ],
               ),
             ),
