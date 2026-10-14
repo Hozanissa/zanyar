@@ -83,6 +83,79 @@ class AppTranslations extends Translations {
     'Historical Sites': 'Historical Sites',
     'name_label': 'Name',
     'password_label': 'Password',
+    'search_sites_hint': 'Search historical sites...',
+    'sites_count': 'Sites',
+    'no_sites_found': 'No sites found',
+
+    // Site detail
+    'hours': 'HOURS',
+    'entry': 'ENTRY',
+    'period': 'PERIOD',
+    'status': 'STATUS',
+    'reviews': 'Reviews',
+    'open_map': 'Open interactive map',
+    'join_a_trip': 'Join a trip',
+
+    // Trip booking
+    'trip_booking': 'Trip Booking',
+    'available_trips': 'Available Trips',
+    'spots_available': 'spots available',
+    'select_trip_above': 'Select a trip above',
+    'confirm_booking': 'Confirm Booking',
+    'selected': 'Selected',
+
+    // Booking confirmed
+    'booking_confirmed': 'Booking Confirmed!',
+    'booking_confirmed_sub': 'Your trip has been booked. Check your trip requests in your profile.',
+    'site': 'Site',
+    'company': 'Company',
+    'date': 'Date',
+    'trip_type': 'Type',
+    'price': 'Price',
+    'back_to_home': 'Back to Home',
+
+    // Profile sub-screens
+    'no_favorites': 'No favorites yet. Tap ♡ on a site to save it.',
+    'no_trips': 'No trip requests yet.',
+    'no_notifications': 'No notifications yet.',
+    'cancel_trip': 'Cancel Trip',
+    'cancel_trip_confirm_title': 'Cancel Trip',
+    'cancel_trip_confirm_msg': 'Are you sure you want to cancel your trip to @site?',
+    'cancel_trip_success': 'Your trip has been cancelled',
+    'trip_cancelled_notif': 'Trip cancelled: @site with @company',
+    'favorite_added_notif': '"@site" added to favorites',
+    'favorite_removed_notif': '"@site" removed from favorites',
+    'trip_booked_notif': 'Trip booked: @site with @company on @date',
+    'confirm': 'Confirm',
+    'cancel': 'Cancel',
+    'dismiss': 'Dismiss',
+
+    // Site periods & hours
+    'Neolithic – present': 'Neolithic – present',
+    '2nd century CE – present': '2nd century CE – present',
+    'Palaeolithic': 'Palaeolithic',
+    '19th century': '19th century',
+    '16th century': '16th century',
+    '18th century – present': '18th century – present',
+    '8 am – 6 pm': '8 am – 6 pm',
+    'Sunrise – Sunset': 'Sunrise – Sunset',
+    '9 am – 5 pm': '9 am – 5 pm',
+    '10 am – 4 pm': '10 am – 4 pm',
+    'All day': 'All day',
+
+    // Companies
+    'Zagros Tours': 'Zagros Tours',
+    'Mesopotamia Expeditions': 'Mesopotamia Expeditions',
+    'Dukan Travel & Guide': 'Dukan Travel & Guide',
+    'Bradost Adventures': 'Bradost Adventures',
+
+    // City names (already in map section below)
+    'Free': 'Free',
+    'UNESCO': 'UNESCO',
+    'Sacred Site': 'Sacred Site',
+    'Cultural District': 'Cultural District',
+    'Full day': 'Full day',
+    'Half day': 'Half day',
 
     // Archive
     'cultural_archive': 'CULTURAL ARCHIVE',
@@ -224,6 +297,79 @@ class AppTranslations extends Translations {
     'Historical Sites': 'شوێنەوارە مێژووییەکان',
     'name_label': 'ناو',
     'password_label': 'وشەی نهێنی',
+    'search_sites_hint': 'گەڕان لە شوێنەوارەکان...',
+    'sites_count': 'شوێن',
+    'no_sites_found': 'هیچ شوێنێک نەدۆزرایەوە',
+
+    // Site detail
+    'hours': 'کاتی کارکردن',
+    'entry': 'داخڵبوون',
+    'period': 'سەردەم',
+    'status': 'دۆخ',
+    'reviews': 'ڕای کەسان',
+    'open_map': 'کردنەوەی نەخشەی کارلێکبەر',
+    'join_a_trip': 'بەشداری گەشتێک بکە',
+
+    // Trip booking
+    'trip_booking': 'تۆمارکردنی گەشت',
+    'available_trips': 'گەشتە بەردەستەکان',
+    'spots_available': 'شوێن بەردەستە',
+    'select_trip_above': 'گەشتێک ھەڵبژێرە',
+    'confirm_booking': 'پشتڕاستکردنەوەی تۆمار',
+    'selected': 'هەڵبژێردراوە',
+
+    // Booking confirmed
+    'booking_confirmed': 'تۆمار پشتڕاست کرایەوە!',
+    'booking_confirmed_sub': 'گەشتەکەت تۆمار کرا. داواکارییەکانی گەشتت لە پرۆفایلەکەت ببینە.',
+    'site': 'شوێن',
+    'company': 'کۆمپانیا',
+    'date': 'بەروار',
+    'trip_type': 'جۆر',
+    'price': 'نرخ',
+    'back_to_home': 'گەڕانەوە بۆ سەرەکی',
+
+    // Profile sub-screens
+    'no_favorites': 'هیچ دڵخوازێک نییە. ♡ لەسەر شوێنێک بکە بۆ پاشکەوتکردن.',
+    'no_trips': 'هیچ داواکارییەکی گەشت نییە.',
+    'no_notifications': 'هیچ ئاگادارکردنەوەیەک نییە.',
+    'cancel_trip': 'هەڵوەشاندنەوەی گەشت',
+    'cancel_trip_confirm_title': 'هەڵوەشاندنەوەی گەشت',
+    'cancel_trip_confirm_msg': 'دڵنیایت لە هەڵوەشاندنەوەی گەشتەکەت بۆ @site؟',
+    'cancel_trip_success': 'گەشتەکەت بە سەرکەوتوویی هەڵوەشێندرایەوە',
+    'trip_cancelled_notif': 'گەشت هەڵوەشێندرایەوە: @site لەگەڵ @company',
+    'favorite_added_notif': '"@site" زیادکرا بۆ دڵخوازەکان',
+    'favorite_removed_notif': '"@site" لابردرا لە دڵخوازەکان',
+    'trip_booked_notif': 'گەشت تۆمارکرا: @site لەگەڵ @company لە @date',
+    'confirm': 'پشتڕاستکردنەوە',
+    'cancel': 'پاشگەزبوونەوە',
+    'dismiss': 'داخستن',
+
+    // Site periods & hours
+    'Neolithic – present': 'چەرخی بەردینی نوێ – ئێستا',
+    '2nd century CE – present': 'سەدەی دووەمی زایینی – ئێستا',
+    'Palaeolithic': 'چەرخی بەردینی کۆن',
+    '19th century': 'سەدەی نۆزدەهەم',
+    '16th century': 'سەدەی شازدەهەم',
+    '18th century – present': 'سەدەی هەژدەهەم – ئێستا',
+    '8 am – 6 pm': '٨ی بەیانی – ٦ی ئێوارە',
+    'Sunrise – Sunset': 'ڕۆژهەڵاتن – ڕۆژئاوابوون',
+    '9 am – 5 pm': '٩ی بەیانی – ٥ی ئێوارە',
+    '10 am – 4 pm': '١٠ی بەیانی – ٤ی ئێوارە',
+    'All day': 'هەموو ڕۆژەکە',
+
+    // Companies
+    'Zagros Tours': 'گەشتەکانی زاگرۆس',
+    'Mesopotamia Expeditions': 'گەشتەکانی میسۆپۆتامیا',
+    'Dukan Travel & Guide': 'ڕێبەری و گەشتیاری دووکان',
+    'Bradost Adventures': 'سەرکێشییەکانی برادۆست',
+
+    // Misc
+    'Free': 'بەخۆڕایی',
+    'UNESCO': 'یونسکۆ',
+    'Sacred Site': 'شوێنی پیرۆز',
+    'Cultural District': 'ناوچەی کولتووری',
+    'Full day': 'ڕۆژی تەواو',
+    'Half day': 'نیوەی ڕۆژ',
 
     // Archive
     'cultural_archive': 'ئەرشیفی کولتووری',
