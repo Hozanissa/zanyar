@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zanyar_app/archive.dart';
-import 'package:zanyar_app/home_screen.dart';
-import 'package:zanyar_app/map_screen.dart';
-import 'package:zanyar_app/profile.dart';
+import 'package:zanyar_app/locale/locale_controller.dart';
+import 'package:zanyar_app/main_screens/archive.dart';
+import 'package:zanyar_app/main_screens/home_screen.dart';
+import 'package:zanyar_app/main_screens/map_screen.dart';
+import 'package:zanyar_app/main_screens/profile.dart';
 
 class BNB extends StatelessWidget {
   final int currentIndex;
@@ -51,7 +52,9 @@ class BNB extends StatelessWidget {
           ),
         ],
       ),
-      child: BottomNavigationBar(
+      child: Obx(() {
+        Get.find<LocaleController>().isKurdish.value;
+        return BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
@@ -91,7 +94,8 @@ class BNB extends StatelessWidget {
             label: 'profile'.tr,
           ),
         ],
-      ),
+      );
+      }),
     );
   }
 }
