@@ -81,13 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "${'name_label'.tr}: $displayName ",
-                  style: const TextStyle(fontSize: 25, color: Colors.red),
+                  "${'name_label'.tr}: Hey $displayName ",
+                  style: GoogleFonts.lora(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : Colors.teal,
+                  ),
                 ),
-                Text(
-                  "${'password'.tr}: $displayPass ",
-                  style: const TextStyle(fontSize: 25, color: Colors.red),
-                ),
+                // Text(
+                //   "${'password'.tr}: $displayPass ",
+                //   style: const TextStyle(fontSize: 25, color: Colors.red),
+                // ),
               ],
             ),
           ],
