@@ -88,10 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: isDark ? Colors.white : Colors.teal,
                   ),
                 ),
-                // Text(
-                //   "${'password'.tr}: $displayPass ",
-                //   style: const TextStyle(fontSize: 25, color: Colors.red),
-                // ),
               ],
             ),
           ],
