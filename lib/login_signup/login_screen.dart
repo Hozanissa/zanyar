@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/home_screen.dart';
+import 'package:zanyar_app/main_screens/home_screen.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
 
@@ -69,16 +69,23 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // Future<void> login() async {
+  //   if (_formKey.currentState!.validate()) {}
   //   final enteredEmail = emailController.text.trim();
   //   final enteredPassword = passwordController.text.trim();
   //   if (enteredEmail == email && enteredPassword == password) {
   //     return;
+  //   } else if (enteredEmail == email) {
+  //     _showMessage('incorrect_password'.tr);
+  //   } else if (enteredPassword == password) {
+  //     _showMessage('incorrect_email'.tr);
+  //   } else {
+  //     _showMessage('invalid_credentials'.tr);
   //   }
   //   final prefs = await SharedPreferences.getInstance();
   //   await prefs.setBool('isLoggedIn', true);
 
   //   if (mounted) {
-  //     Get.offNamed('/homeScreen/hozanissa98@gmail.com/123456');
+  //     Get.offNamed('/homeScreen');
   //   }
   // }
 
@@ -88,14 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //   Get.offAllNamed('/loginScreen');
   // }
-
-  //the logout button i will be adding to the logout button in profile screen
-  // IconButton(
-  //   onPressed: logout,
-  //   icon: Icon(Icons.logout),
-  //   color: Colors.red,
-  //   iconSize: 50,
-  // ),
 
   @override
   Widget build(BuildContext context) {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
-import 'package:zanyar_app/controllers/app_controller.dart';
-import 'package:zanyar_app/models/site_model.dart';
-import 'package:zanyar_app/screens/site_detail_screen.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar_app/notification/app_controller.dart';
+import 'package:zanyar_app/trip_booking/site_detail_screen.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
@@ -34,15 +34,21 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedCity = 'All';
 
   final List<String> _cities = [
-    'All', 'Erbil', 'Duhok', 'Sulaymaniyah',
-    'Erbil (Bradost)', 'Shekhan (Duhok)', 'Kalar (Garmian)',
+    'All',
+    'Erbil',
+    'Duhok',
+    'Sulaymaniyah',
+    'Erbil (Bradost)',
+    'Shekhan (Duhok)',
+    'Kalar (Garmian)',
   ];
 
   List<HistoricalSite> get _filtered {
     return kAllSites.where((s) {
       final matchCity = _selectedCity == 'All' || s.city == _selectedCity;
       final q = _search.toLowerCase().trim();
-      final matchSearch = q.isEmpty ||
+      final matchSearch =
+          q.isEmpty ||
           s.name.toLowerCase().contains(q) ||
           s.kurdishName.toLowerCase().contains(q) ||
           s.category.toLowerCase().contains(q) ||
@@ -103,7 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: GoogleFonts.lora(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          color: isDark ? Colors.white70 : _teal.withValues(alpha: 0.85),
+                          color: isDark
+                              ? Colors.white70
+                              : _teal.withValues(alpha: 0.85),
                         ),
                       ),
                     ],
@@ -133,7 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextField(
                   controller: _searchCtrl,
                   onChanged: (v) => setState(() => _search = v),
-                  style: TextStyle(color: isDark ? Colors.white : Colors.black87),
+                  style: TextStyle(
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
                   decoration: InputDecoration(
                     hintText: 'search_sites_hint'.tr,
                     hintStyle: TextStyle(
@@ -154,8 +164,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : null,
                     border: InputBorder.none,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 14, horizontal: 4),
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 4,
+                    ),
                   ),
                 ),
               ),
@@ -177,14 +189,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     label: Text(city.tr, style: const TextStyle(fontSize: 13)),
                     selected: sel,
                     selectedColor: _teal,
-                    backgroundColor:
-                        isDark ? const Color(0xFF1E2724) : Colors.white,
+                    backgroundColor: isDark
+                        ? const Color(0xFF1E2724)
+                        : Colors.white,
                     labelStyle: TextStyle(
-                      color: sel ? Colors.white : (isDark ? Colors.white70 : Colors.black87),
+                      color: sel
+                          ? Colors.white
+                          : (isDark ? Colors.white70 : Colors.black87),
                       fontWeight: sel ? FontWeight.bold : FontWeight.normal,
                     ),
                     side: BorderSide(
-                      color: sel ? _teal : (isDark ? Colors.grey[700]! : Colors.grey[300]!),
+                      color: sel
+                          ? _teal
+                          : (isDark ? Colors.grey[700]! : Colors.grey[300]!),
                     ),
                     onSelected: (_) => setState(() => _selectedCity = city),
                   );
@@ -213,11 +230,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.search_off, size: 48,
-                              color: isDark ? Colors.grey[600] : Colors.grey[400]),
+                          Icon(
+                            Icons.search_off,
+                            size: 48,
+                            color: isDark ? Colors.grey[600] : Colors.grey[400],
+                          ),
                           const SizedBox(height: 8),
-                          Text('no_sites_found'.tr,
-                              style: TextStyle(color: Colors.grey[500])),
+                          Text(
+                            'no_sites_found'.tr,
+                            style: TextStyle(color: Colors.grey[500]),
+                          ),
                         ],
                       ),
                     )
@@ -283,7 +305,9 @@ class _SiteCard extends StatelessWidget {
                           style: GoogleFonts.lora(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : const Color(0xFF1F4E4C),
+                            color: isDark
+                                ? Colors.white
+                                : const Color(0xFF1F4E4C),
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -353,17 +377,18 @@ class _SiteHeroImage extends StatelessWidget {
   const _SiteHeroImage({required this.site});
 
   static final Map<String, List<Color>> _gradients = {
-    'Citadel':  [Color(0xFF2E5E5B), Color(0xFF8BA888)],
-    'Sanctuary':[Color(0xFF3D4B6B), Color(0xFF7B90B2)],
-    'Cave':     [Color(0xFF4A3728), Color(0xFF8C7B6A)],
-    'Castle':   [Color(0xFF2C3E40), Color(0xFF6B8C6A)],
+    'Citadel': [Color(0xFF2E5E5B), Color(0xFF8BA888)],
+    'Sanctuary': [Color(0xFF3D4B6B), Color(0xFF7B90B2)],
+    'Cave': [Color(0xFF4A3728), Color(0xFF8C7B6A)],
+    'Castle': [Color(0xFF2C3E40), Color(0xFF6B8C6A)],
     'Heritage': [Color(0xFF4A3218), Color(0xFF9C7A48)],
   };
 
   @override
   Widget build(BuildContext context) {
     final colors =
-        _gradients[site.category] ?? [const Color(0xFF2E5E5B), const Color(0xFF6B8C6A)];
+        _gradients[site.category] ??
+        [const Color(0xFF2E5E5B), const Color(0xFF6B8C6A)];
 
     return Stack(
       children: [
@@ -396,7 +421,10 @@ class _SiteHeroImage extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.transparent, Colors.black.withValues(alpha: 0.45)],
+                colors: [
+                  Colors.transparent,
+                  Colors.black.withValues(alpha: 0.45),
+                ],
               ),
             ),
           ),
@@ -415,14 +443,21 @@ class _SiteHeroImage extends StatelessWidget {
             child: Text(
               site.category.tr,
               style: const TextStyle(
-                  color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
         // Icon center
         Positioned.fill(
           child: Center(
-            child: Icon(site.icon, color: Colors.white.withValues(alpha: 0.3), size: 64),
+            child: Icon(
+              site.icon,
+              color: Colors.white.withValues(alpha: 0.3),
+              size: 64,
+            ),
           ),
         ),
       ],

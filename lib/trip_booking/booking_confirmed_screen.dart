@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/main_screens/home_screen.dart';
-import 'package:zanyar_app/models/site_model.dart';
-import 'package:zanyar_app/models/travel_company.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar_app/trip_site_info/travel_company.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
 const Color _terracotta = Color(0xFFC4704B);
@@ -130,13 +130,16 @@ class BookingConfirmedScreen extends StatelessWidget {
                     backgroundColor: _teal,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14)),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                     elevation: 0,
                   ),
                   child: Text(
                     'back_to_home'.tr,
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

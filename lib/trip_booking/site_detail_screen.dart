@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/controllers/app_controller.dart';
-import 'package:zanyar_app/models/site_model.dart';
-import 'package:zanyar_app/screens/trip_booking_screen.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar_app/notification/app_controller.dart';
+import 'package:zanyar_app/trip_booking/trip_booking_screen.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
 const Color _terracotta = Color(0xFFC4704B);
@@ -34,7 +34,11 @@ class SiteDetailScreen extends StatelessWidget {
                   color: Colors.black.withValues(alpha: 0.35),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               onPressed: () => Get.back(),
             ),
@@ -52,7 +56,9 @@ class SiteDetailScreen extends StatelessWidget {
                       appCtrl.isFavorite(site.id)
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: appCtrl.isFavorite(site.id) ? Colors.red : Colors.white,
+                      color: appCtrl.isFavorite(site.id)
+                          ? Colors.red
+                          : Colors.white,
                       size: 20,
                     ),
                   ),
@@ -61,9 +67,7 @@ class SiteDetailScreen extends StatelessWidget {
               ),
               const SizedBox(width: 8),
             ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: _HeroImage(site: site),
-            ),
+            flexibleSpace: FlexibleSpaceBar(background: _HeroImage(site: site)),
           ),
 
           // ── Body ─────────────────────────────────────────────────────────
@@ -75,7 +79,10 @@ class SiteDetailScreen extends StatelessWidget {
                 children: [
                   // Category badge + name
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _teal.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(20),
@@ -83,7 +90,10 @@ class SiteDetailScreen extends StatelessWidget {
                     child: Text(
                       site.category.tr,
                       style: const TextStyle(
-                          color: _teal, fontSize: 12, fontWeight: FontWeight.w700),
+                        color: _teal,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -100,7 +110,11 @@ class SiteDetailScreen extends StatelessWidget {
                   // Location + rating row
                   Row(
                     children: [
-                      const Icon(Icons.location_on, size: 16, color: _terracotta),
+                      const Icon(
+                        Icons.location_on,
+                        size: 16,
+                        color: _terracotta,
+                      ),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -178,21 +192,28 @@ class SiteDetailScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(14),
                     child: Container(
                       height: 160,
-                      color: isDark ? const Color(0xFF1E2724) : const Color(0xFFDDE8DD),
+                      color: isDark
+                          ? const Color(0xFF1E2724)
+                          : const Color(0xFFDDE8DD),
                       child: Stack(
                         children: [
                           Center(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.map, size: 48,
-                                    color: _teal.withValues(alpha: 0.4)),
+                                Icon(
+                                  Icons.map,
+                                  size: 48,
+                                  color: _teal.withValues(alpha: 0.4),
+                                ),
                                 const SizedBox(height: 4),
                                 Text(
                                   '${site.lat.toStringAsFixed(4)}, ${site.lng.toStringAsFixed(4)}',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: isDark ? Colors.grey[500] : Colors.grey[600],
+                                    color: isDark
+                                        ? Colors.grey[500]
+                                        : Colors.grey[600],
                                   ),
                                 ),
                               ],
@@ -210,12 +231,16 @@ class SiteDetailScreen extends StatelessWidget {
                                   foregroundColor: _teal,
                                   shape: const StadiumBorder(),
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 18, vertical: 8),
+                                    horizontal: 18,
+                                    vertical: 8,
+                                  ),
                                   elevation: 2,
                                 ),
                                 icon: const Icon(Icons.map_outlined, size: 16),
-                                label: Text('open_map'.tr,
-                                    style: const TextStyle(fontSize: 13)),
+                                label: Text(
+                                  'open_map'.tr,
+                                  style: const TextStyle(fontSize: 13),
+                                ),
                               ),
                             ),
                           ),
@@ -236,7 +261,9 @@ class SiteDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  ...site.reviews.map((r) => _ReviewCard(review: r, isDark: isDark)),
+                  ...site.reviews.map(
+                    (r) => _ReviewCard(review: r, isDark: isDark),
+                  ),
 
                   const SizedBox(height: 100), // padding for bottom button
                 ],
@@ -258,13 +285,17 @@ class SiteDetailScreen extends StatelessWidget {
                 backgroundColor: _teal,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14)),
+                  borderRadius: BorderRadius.circular(14),
+                ),
                 elevation: 0,
               ),
               child: Text(
                 'join_a_trip'.tr,
                 style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
               ),
             ),
           ),
@@ -275,8 +306,10 @@ class SiteDetailScreen extends StatelessWidget {
 
   List<Widget> _buildStars(double r) {
     return List.generate(5, (i) {
-      if (i < r.floor()) return const Icon(Icons.star, color: _terracotta, size: 15);
-      if (i < r) return const Icon(Icons.star_half, color: _terracotta, size: 15);
+      if (i < r.floor())
+        return const Icon(Icons.star, color: _terracotta, size: 15);
+      if (i < r)
+        return const Icon(Icons.star_half, color: _terracotta, size: 15);
       return const Icon(Icons.star_border, color: _terracotta, size: 15);
     });
   }
@@ -289,16 +322,18 @@ class _HeroImage extends StatelessWidget {
   const _HeroImage({required this.site});
 
   static final Map<String, List<Color>> _grads = {
-    'Citadel':  [Color(0xFF2E5E5B), Color(0xFF8BA888)],
-    'Sanctuary':[Color(0xFF3D4B6B), Color(0xFF7B90B2)],
-    'Cave':     [Color(0xFF4A3728), Color(0xFF8C7B6A)],
-    'Castle':   [Color(0xFF2C3E40), Color(0xFF6B8C6A)],
+    'Citadel': [Color(0xFF2E5E5B), Color(0xFF8BA888)],
+    'Sanctuary': [Color(0xFF3D4B6B), Color(0xFF7B90B2)],
+    'Cave': [Color(0xFF4A3728), Color(0xFF8C7B6A)],
+    'Castle': [Color(0xFF2C3E40), Color(0xFF6B8C6A)],
     'Heritage': [Color(0xFF4A3218), Color(0xFF9C7A48)],
   };
 
   @override
   Widget build(BuildContext context) {
-    final colors = _grads[site.category] ?? [const Color(0xFF2E5E5B), const Color(0xFF6B8C6A)];
+    final colors =
+        _grads[site.category] ??
+        [const Color(0xFF2E5E5B), const Color(0xFF6B8C6A)];
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -315,7 +350,8 @@ class _HeroImage extends StatelessWidget {
           Image.network(
             site.imageUrls.first,
             fit: BoxFit.cover,
-            loadingBuilder: (_, c, p) => p == null ? c : const SizedBox.shrink(),
+            loadingBuilder: (_, c, p) =>
+                p == null ? c : const SizedBox.shrink(),
             errorBuilder: (_, _, _) => const SizedBox.shrink(),
           ),
         Container(
@@ -383,21 +419,25 @@ class _InfoTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(label,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.8,
-                      color: isDark ? Colors.grey[500] : Colors.grey[500],
-                    )),
-                Text(value,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : const Color(0xFF1F4E4C),
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.8,
+                    color: isDark ? Colors.grey[500] : Colors.grey[500],
+                  ),
+                ),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : const Color(0xFF1F4E4C),
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ],
             ),
           ),
@@ -441,7 +481,10 @@ class _ReviewCard extends StatelessWidget {
                 child: Text(
                   review.author[0],
                   style: const TextStyle(
-                    color: _teal, fontWeight: FontWeight.bold, fontSize: 14),
+                    color: _teal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -449,14 +492,18 @@ class _ReviewCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(review.author,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: isDark ? Colors.white : Colors.black87,
-                        )),
-                    Text(review.date,
-                        style: TextStyle(fontSize: 11, color: Colors.grey[500])),
+                    Text(
+                      review.author,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: isDark ? Colors.white : Colors.black87,
+                      ),
+                    ),
+                    Text(
+                      review.date,
+                      style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                    ),
                   ],
                 ),
               ),
@@ -473,7 +520,10 @@ class _ReviewCard extends StatelessWidget {
               Text(
                 '${review.rating.toInt()}',
                 style: const TextStyle(
-                  fontSize: 13, color: _terracotta, fontWeight: FontWeight.bold),
+                  fontSize: 13,
+                  color: _terracotta,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

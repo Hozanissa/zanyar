@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/controllers/app_controller.dart';
-import 'package:zanyar_app/models/site_model.dart';
-import 'package:zanyar_app/models/travel_company.dart';
-import 'package:zanyar_app/models/trip_booking.dart';
-import 'package:zanyar_app/screens/booking_confirmed_screen.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar_app/trip_site_info/travel_company.dart';
+import 'package:zanyar_app/trip_site_info/trip_booking.dart';
+import 'package:zanyar_app/notification/app_controller.dart';
+import 'package:zanyar_app/trip_booking/booking_confirmed_screen.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
 const Color _terracotta = Color(0xFFC4704B);
@@ -111,24 +111,34 @@ class _TripBookingScreenState extends State<TripBookingScreen> {
                           bookedAt: DateTime.now(),
                         ),
                       );
-                      Get.off(() => BookingConfirmedScreen(
-                            site: widget.site,
-                            company: _selected!,
-                          ));
+                      Get.off(
+                        () => BookingConfirmedScreen(
+                          site: widget.site,
+                          company: _selected!,
+                        ),
+                      );
                     },
               style: ElevatedButton.styleFrom(
                 backgroundColor: _selected == null
                     ? (isDark ? Colors.grey[800] : Colors.grey[300])
                     : _teal,
-                foregroundColor: _selected == null ? Colors.grey[500] : Colors.white,
+                foregroundColor: _selected == null
+                    ? Colors.grey[500]
+                    : Colors.white,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14)),
+                  borderRadius: BorderRadius.circular(14),
+                ),
                 elevation: 0,
               ),
               child: Text(
-                _selected == null ? 'select_trip_above'.tr : 'confirm_booking'.tr,
+                _selected == null
+                    ? 'select_trip_above'.tr
+                    : 'confirm_booking'.tr,
                 style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
               ),
             ),
           ),
@@ -223,26 +233,39 @@ class _CompanyCard extends StatelessWidget {
             const SizedBox(height: 10),
             Row(
               children: [
-                Icon(Icons.calendar_today, size: 13,
-                    color: isDark ? Colors.grey[400] : Colors.grey[500]),
+                Icon(
+                  Icons.calendar_today,
+                  size: 13,
+                  color: isDark ? Colors.grey[400] : Colors.grey[500],
+                ),
                 const SizedBox(width: 4),
-                Text(company.tripDate,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: isDark ? Colors.grey[400] : Colors.grey[600],
-                    )),
+                Text(
+                  company.tripDate,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  ),
+                ),
                 const SizedBox(width: 14),
-                Icon(Icons.access_time, size: 13,
-                    color: isDark ? Colors.grey[400] : Colors.grey[500]),
+                Icon(
+                  Icons.access_time,
+                  size: 13,
+                  color: isDark ? Colors.grey[400] : Colors.grey[500],
+                ),
                 const SizedBox(width: 4),
-                Text(company.tripType.tr,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: isDark ? Colors.grey[400] : Colors.grey[600],
-                    )),
+                Text(
+                  company.tripType.tr,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  ),
+                ),
                 const Spacer(),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: company.spotsAvailable <= 3
                         ? Colors.red.withValues(alpha: 0.12)
@@ -267,9 +290,14 @@ class _CompanyCard extends StatelessWidget {
                 children: [
                   const Icon(Icons.check_circle, color: _teal, size: 16),
                   const SizedBox(width: 6),
-                  Text('selected'.tr,
-                      style: const TextStyle(
-                          color: _teal, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(
+                    'selected'.tr,
+                    style: const TextStyle(
+                      color: _teal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -281,8 +309,10 @@ class _CompanyCard extends StatelessWidget {
 
   List<Widget> _buildStars(double r) {
     return List.generate(5, (i) {
-      if (i < r.floor()) return const Icon(Icons.star, color: _terracotta, size: 14);
-      if (i < r) return const Icon(Icons.star_half, color: _terracotta, size: 14);
+      if (i < r.floor())
+        return const Icon(Icons.star, color: _terracotta, size: 14);
+      if (i < r)
+        return const Icon(Icons.star_half, color: _terracotta, size: 14);
       return const Icon(Icons.star_border, color: _terracotta, size: 14);
     });
   }

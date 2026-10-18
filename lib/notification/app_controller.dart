@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:zanyar_app/models/site_model.dart';
-import 'package:zanyar_app/models/trip_booking.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar_app/trip_site_info/trip_booking.dart';
 
 class AppNotification {
   final String message;
@@ -47,6 +47,9 @@ class AppController extends GetxController {
   }
 
   void _notify(String message) {
-    notifications.insert(0, AppNotification(message: message, time: DateTime.now()));
+    notifications.insert(
+      0,
+      AppNotification(message: message, time: DateTime.now()),
+    );
   }
 }

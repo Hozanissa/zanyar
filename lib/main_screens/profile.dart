@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar_app/bnb.dart';
-import 'package:zanyar_app/controllers/app_controller.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
-import 'package:zanyar_app/models/site_model.dart';
-import 'package:zanyar_app/models/trip_booking.dart';
+import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/profile_list/about_us.dart';
 import 'package:zanyar_app/profile_list/contact_us.dart';
-import 'package:zanyar_app/screens/site_detail_screen.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
+import 'package:zanyar_app/trip_booking/site_detail_screen.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar_app/trip_site_info/trip_booking.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
 
 const Color _terracotta = Color(0xFFB76E50);
@@ -89,13 +89,16 @@ class _ProfileState extends State<Profile> {
                     child: ListTile(
                       title: Text('language'.tr),
                       subtitle: Obx(
-                        () => Text(localeCtrl.isKurdish.value ? 'کوردی' : 'English'),
+                        () => Text(
+                          localeCtrl.isKurdish.value ? 'کوردی' : 'English',
+                        ),
                       ),
                       trailing: Obx(
                         () => Switch(
                           value: localeCtrl.isKurdish.value,
                           onChanged: (v) => localeCtrl.setLanguage(
-                              v ? LocaleController.ckb : LocaleController.en),
+                            v ? LocaleController.ckb : LocaleController.en,
+                          ),
                         ),
                       ),
                     ),
@@ -115,108 +118,126 @@ class _ProfileState extends State<Profile> {
                   ),
 
                   // Favorites – shows count badge
-                  Obx(() => Card(
-                    child: ListTile(
-                      title: Text('favorites'.tr),
-                      leading: Icon(Icons.favorite, color: scheme.primary),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (appCtrl.favoriteSiteIds.isNotEmpty)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: Colors.red.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                '${appCtrl.favoriteSiteIds.length}',
-                                style: const TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                  Obx(
+                    () => Card(
+                      child: ListTile(
+                        title: Text('favorites'.tr),
+                        leading: Icon(Icons.favorite, color: scheme.primary),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (appCtrl.favoriteSiteIds.isNotEmpty)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.red.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  '${appCtrl.favoriteSiteIds.length}',
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
                                 ),
                               ),
-                            ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.chevron_right),
-                        ],
+                            const SizedBox(width: 4),
+                            const Icon(Icons.chevron_right),
+                          ],
+                        ),
+                        onTap: () => Get.to(() => const _FavoritesScreen()),
                       ),
-                      onTap: () => Get.to(() => const _FavoritesScreen()),
                     ),
-                  )),
+                  ),
 
                   // Trip requests – shows count badge
-                  Obx(() => Card(
-                    child: ListTile(
-                      title: Text('trip_requests'.tr),
-                      leading: Icon(Icons.pending, color: scheme.primary),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (appCtrl.bookings.isNotEmpty)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: _teal.withValues(alpha: 0.12),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                '${appCtrl.bookings.length}',
-                                style: const TextStyle(
-                                  color: _teal,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                  Obx(
+                    () => Card(
+                      child: ListTile(
+                        title: Text('trip_requests'.tr),
+                        leading: Icon(Icons.pending, color: scheme.primary),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (appCtrl.bookings.isNotEmpty)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: _teal.withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  '${appCtrl.bookings.length}',
+                                  style: const TextStyle(
+                                    color: _teal,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
                                 ),
                               ),
-                            ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.chevron_right),
-                        ],
+                            const SizedBox(width: 4),
+                            const Icon(Icons.chevron_right),
+                          ],
+                        ),
+                        onTap: () => Get.to(() => const _TripRequestsScreen()),
                       ),
-                      onTap: () => Get.to(() => const _TripRequestsScreen()),
                     ),
-                  )),
+                  ),
 
                   // Notifications – shows unread count
-                  Obx(() => Card(
-                    child: ListTile(
-                      title: Text('notifications'.tr),
-                      leading: Icon(Icons.notifications, color: scheme.primary),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (appCtrl.notifications.isNotEmpty)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: _terracotta.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                '${appCtrl.notifications.length}',
-                                style: const TextStyle(
-                                  color: _terracotta,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                  Obx(
+                    () => Card(
+                      child: ListTile(
+                        title: Text('notifications'.tr),
+                        leading: Icon(
+                          Icons.notifications,
+                          color: scheme.primary,
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (appCtrl.notifications.isNotEmpty)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: _terracotta.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  '${appCtrl.notifications.length}',
+                                  style: const TextStyle(
+                                    color: _terracotta,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
                                 ),
                               ),
-                            ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.chevron_right),
-                        ],
+                            const SizedBox(width: 4),
+                            const Icon(Icons.chevron_right),
+                          ],
+                        ),
+                        onTap: () => Get.to(() => const _NotificationsScreen()),
                       ),
-                      onTap: () => Get.to(() => const _NotificationsScreen()),
                     ),
-                  )),
+                  ),
 
                   Card(
                     child: ListTile(
                       title: Text('Contact us'.tr),
-                      leading: Icon(Icons.quick_contacts_dialer, color: scheme.primary),
+                      leading: Icon(
+                        Icons.quick_contacts_dialer,
+                        color: scheme.primary,
+                      ),
                       onTap: () => Get.to(() => ContactUs()),
                     ),
                   ),
@@ -229,8 +250,10 @@ class _ProfileState extends State<Profile> {
                   ),
                   Card(
                     child: ListTile(
-                      title: Text('sign_out'.tr,
-                          style: const TextStyle(color: Colors.red)),
+                      title: Text(
+                        'sign_out'.tr,
+                        style: const TextStyle(color: Colors.red),
+                      ),
                       leading: const Icon(Icons.logout, color: Colors.red),
                     ),
                   ),
@@ -256,9 +279,14 @@ class _FavoritesScreen extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF141918) : const Color(0xFFF9F6F0),
+      backgroundColor: isDark
+          ? const Color(0xFF141918)
+          : const Color(0xFFF9F6F0),
       appBar: AppBar(
-        title: Text('favorites'.tr, style: GoogleFonts.lora(fontWeight: FontWeight.bold)),
+        title: Text(
+          'favorites'.tr,
+          style: GoogleFonts.lora(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
         foregroundColor: isDark ? Colors.white : _teal,
         elevation: 0,
@@ -273,8 +301,10 @@ class _FavoritesScreen extends StatelessWidget {
               children: [
                 const Icon(Icons.favorite_border, size: 56, color: Colors.grey),
                 const SizedBox(height: 12),
-                Text('no_favorites'.tr,
-                    style: const TextStyle(color: Colors.grey, fontSize: 15)),
+                Text(
+                  'no_favorites'.tr,
+                  style: const TextStyle(color: Colors.grey, fontSize: 15),
+                ),
               ],
             ),
           );
@@ -287,13 +317,21 @@ class _FavoritesScreen extends StatelessWidget {
             final site = sites[i];
             return ListTile(
               tileColor: isDark ? const Color(0xFF1C2422) : Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               leading: CircleAvatar(
                 backgroundColor: _teal.withValues(alpha: 0.1),
                 child: Icon(site.icon, color: _teal, size: 20),
               ),
-              title: Text(site.localizedName, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(site.city.tr, style: TextStyle(color: Colors.grey[500])),
+              title: Text(
+                site.localizedName,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                site.city.tr,
+                style: TextStyle(color: Colors.grey[500]),
+              ),
               trailing: IconButton(
                 icon: const Icon(Icons.favorite, color: Colors.red, size: 20),
                 onPressed: () => appCtrl.toggleFavorite(site),
@@ -318,9 +356,14 @@ class _TripRequestsScreen extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF141918) : const Color(0xFFF9F6F0),
+      backgroundColor: isDark
+          ? const Color(0xFF141918)
+          : const Color(0xFFF9F6F0),
       appBar: AppBar(
-        title: Text('trip_requests'.tr, style: GoogleFonts.lora(fontWeight: FontWeight.bold)),
+        title: Text(
+          'trip_requests'.tr,
+          style: GoogleFonts.lora(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
         foregroundColor: isDark ? Colors.white : _teal,
         elevation: 0,
@@ -334,8 +377,10 @@ class _TripRequestsScreen extends StatelessWidget {
               children: [
                 const Icon(Icons.pending_actions, size: 56, color: Colors.grey),
                 const SizedBox(height: 12),
-                Text('no_trips'.tr,
-                    style: const TextStyle(color: Colors.grey, fontSize: 15)),
+                Text(
+                  'no_trips'.tr,
+                  style: const TextStyle(color: Colors.grey, fontSize: 15),
+                ),
               ],
             ),
           );
@@ -383,24 +428,41 @@ class _TripRequestsScreen extends StatelessWidget {
                   Text(
                     b.company.name.tr,
                     style: TextStyle(
-                        color: isDark ? Colors.grey[400] : Colors.grey[600], fontSize: 13),
+                      color: isDark ? Colors.grey[400] : Colors.grey[600],
+                      fontSize: 13,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      Icon(Icons.calendar_today, size: 12, color: Colors.grey[500]),
+                      Icon(
+                        Icons.calendar_today,
+                        size: 12,
+                        color: Colors.grey[500],
+                      ),
                       const SizedBox(width: 4),
-                      Text(b.company.tripDate,
-                          style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                      Text(
+                        b.company.tripDate,
+                        style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                      ),
                       const SizedBox(width: 12),
-                      Icon(Icons.access_time, size: 12, color: Colors.grey[500]),
+                      Icon(
+                        Icons.access_time,
+                        size: 12,
+                        color: Colors.grey[500],
+                      ),
                       const SizedBox(width: 4),
-                      Text(b.company.tripType.tr,
-                          style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                      Text(
+                        b.company.tripType.tr,
+                        style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Divider(color: isDark ? Colors.grey[800] : Colors.grey[200], height: 1),
+                  Divider(
+                    color: isDark ? Colors.grey[800] : Colors.grey[200],
+                    height: 1,
+                  ),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -409,12 +471,18 @@ class _TripRequestsScreen extends StatelessWidget {
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.redAccent,
                           visualDensity: VisualDensity.compact,
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
                         ),
                         icon: const Icon(Icons.cancel_outlined, size: 16),
                         label: Text(
                           'cancel_trip'.tr,
-                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         onPressed: () => _confirmCancel(context, appCtrl, b),
                       ),
@@ -429,7 +497,11 @@ class _TripRequestsScreen extends StatelessWidget {
     );
   }
 
-  void _confirmCancel(BuildContext context, AppController appCtrl, TripBooking booking) {
+  void _confirmCancel(
+    BuildContext context,
+    AppController appCtrl,
+    TripBooking booking,
+  ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     showDialog(
       context: context,
@@ -444,7 +516,9 @@ class _TripRequestsScreen extends StatelessWidget {
           ),
         ),
         content: Text(
-          'cancel_trip_confirm_msg'.trParams({'site': booking.site.localizedName}),
+          'cancel_trip_confirm_msg'.trParams({
+            'site': booking.site.localizedName,
+          }),
           style: TextStyle(
             color: isDark ? Colors.grey[300] : Colors.grey[700],
             fontSize: 14,
@@ -455,14 +529,18 @@ class _TripRequestsScreen extends StatelessWidget {
             onPressed: () => Navigator.of(ctx).pop(),
             child: Text(
               'cancel'.tr,
-              style: TextStyle(color: isDark ? Colors.grey[400] : Colors.grey[600]),
+              style: TextStyle(
+                color: isDark ? Colors.grey[400] : Colors.grey[600],
+              ),
             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.redAccent,
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -471,7 +549,9 @@ class _TripRequestsScreen extends StatelessWidget {
                 'cancel_trip'.tr,
                 'cancel_trip_success'.tr,
                 snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: isDark ? const Color(0xFF2C3E40) : Colors.black87,
+                backgroundColor: isDark
+                    ? const Color(0xFF2C3E40)
+                    : Colors.black87,
                 colorText: Colors.white,
                 margin: const EdgeInsets.all(16),
                 duration: const Duration(seconds: 3),
@@ -496,9 +576,14 @@ class _NotificationsScreen extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF141918) : const Color(0xFFF9F6F0),
+      backgroundColor: isDark
+          ? const Color(0xFF141918)
+          : const Color(0xFFF9F6F0),
       appBar: AppBar(
-        title: Text('notifications'.tr, style: GoogleFonts.lora(fontWeight: FontWeight.bold)),
+        title: Text(
+          'notifications'.tr,
+          style: GoogleFonts.lora(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
         foregroundColor: isDark ? Colors.white : _teal,
         elevation: 0,
@@ -510,10 +595,16 @@ class _NotificationsScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.notifications_none, size: 56, color: Colors.grey),
+                const Icon(
+                  Icons.notifications_none,
+                  size: 56,
+                  color: Colors.grey,
+                ),
                 const SizedBox(height: 12),
-                Text('no_notifications'.tr,
-                    style: const TextStyle(color: Colors.grey, fontSize: 15)),
+                Text(
+                  'no_notifications'.tr,
+                  style: const TextStyle(color: Colors.grey, fontSize: 15),
+                ),
               ],
             ),
           );
@@ -526,16 +617,24 @@ class _NotificationsScreen extends StatelessWidget {
             final n = notes[i];
             return ListTile(
               tileColor: isDark ? const Color(0xFF1C2422) : Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               leading: CircleAvatar(
                 backgroundColor: _terracotta.withValues(alpha: 0.12),
-                child: const Icon(Icons.notifications, color: _terracotta, size: 20),
+                child: const Icon(
+                  Icons.notifications,
+                  color: _terracotta,
+                  size: 20,
+                ),
               ),
-              title: Text(n.message,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: isDark ? Colors.white : Colors.black87,
-                  )),
+              title: Text(
+                n.message,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
               subtitle: Text(
                 _timeAgo(n.time),
                 style: TextStyle(fontSize: 11, color: Colors.grey[500]),
