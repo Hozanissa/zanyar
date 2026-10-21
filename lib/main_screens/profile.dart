@@ -146,7 +146,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                             const SizedBox(width: 4),
-                            const Icon(Icons.chevron_right),
+                            Icon(Icons.chevron_right, color: scheme.primary),
                           ],
                         ),
                         onTap: () => Get.to(() => const _FavoritesScreen()),
@@ -183,7 +183,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                             const SizedBox(width: 4),
-                            const Icon(Icons.chevron_right),
+                            Icon(Icons.chevron_right, color: scheme.primary),
                           ],
                         ),
                         onTap: () => Get.to(() => const _TripRequestsScreen()),
@@ -223,7 +223,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                             const SizedBox(width: 4),
-                            const Icon(Icons.chevron_right),
+                            Icon(Icons.chevron_right, color: scheme.primary),
                           ],
                         ),
                         onTap: () => Get.to(() => const _NotificationsScreen()),
@@ -238,6 +238,11 @@ class _ProfileState extends State<Profile> {
                         Icons.quick_contacts_dialer,
                         color: scheme.primary,
                       ),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: scheme.primary,
+                      ),
+
                       onTap: () => Get.to(() => ContactUs()),
                     ),
                   ),
@@ -245,6 +250,11 @@ class _ProfileState extends State<Profile> {
                     child: ListTile(
                       title: Text('About us'.tr),
                       leading: Icon(Icons.info, color: scheme.primary),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: scheme.primary,
+                      ),
+
                       onTap: () => Get.to(() => AboutUs()),
                     ),
                   ),
