@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/trip_site_info/site_model.dart';
 import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/trip_booking/trip_booking_screen.dart';
+import 'package:zanyar_app/trip_site_info/site_model.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
 const Color _terracotta = Color(0xFFC4704B);
@@ -306,10 +306,12 @@ class SiteDetailScreen extends StatelessWidget {
 
   List<Widget> _buildStars(double r) {
     return List.generate(5, (i) {
-      if (i < r.floor())
+      if (i < r.floor()) {
         return const Icon(Icons.star, color: _terracotta, size: 15);
-      if (i < r)
+      }
+      if (i < r) {
         return const Icon(Icons.star_half, color: _terracotta, size: 15);
+      }
       return const Icon(Icons.star_border, color: _terracotta, size: 15);
     });
   }

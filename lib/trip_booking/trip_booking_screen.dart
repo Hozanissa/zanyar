@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zanyar_app/notification/app_controller.dart';
+import 'package:zanyar_app/trip_booking/booking_confirmed_screen.dart';
 import 'package:zanyar_app/trip_site_info/site_model.dart';
 import 'package:zanyar_app/trip_site_info/travel_company.dart';
 import 'package:zanyar_app/trip_site_info/trip_booking.dart';
-import 'package:zanyar_app/notification/app_controller.dart';
-import 'package:zanyar_app/trip_booking/booking_confirmed_screen.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
 const Color _terracotta = Color(0xFFC4704B);
@@ -309,10 +309,12 @@ class _CompanyCard extends StatelessWidget {
 
   List<Widget> _buildStars(double r) {
     return List.generate(5, (i) {
-      if (i < r.floor())
+      if (i < r.floor()) {
         return const Icon(Icons.star, color: _terracotta, size: 14);
-      if (i < r)
+      }
+      if (i < r) {
         return const Icon(Icons.star_half, color: _terracotta, size: 14);
+      }
       return const Icon(Icons.star_border, color: _terracotta, size: 14);
     });
   }
