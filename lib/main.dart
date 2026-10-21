@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/locale/kurdish_localizations.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
 import 'package:zanyar_app/locale/translations.dart';
 import 'package:zanyar_app/login_signup/login_screen.dart';
 import 'package:zanyar_app/main_screens/home_screen.dart';
+import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/splash_screen.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
