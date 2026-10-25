@@ -35,7 +35,8 @@ class HistoricalSite {
 }
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
+  final String? initialSiteId;
+  const MapScreen({super.key, this.initialSiteId});
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -160,6 +161,17 @@ class _MapScreenState extends State<MapScreen> {
       _selectedSite = null;
     });
     _mapController.move(_kurdistanCenter, _initialZoom);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final id = widget.initialSiteId;
+      if (id == null) return;
+      final match = _sites.where((s) => s.id == id);
+      if (match.isNotEmpty) _moveToSite(match.first);
+    });
   }
 
   Future<void> _openExternalDirections(HistoricalSite site) async {

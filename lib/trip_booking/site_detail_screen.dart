@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zanyar_app/main_screens/map_screen.dart' show MapScreen;
 import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/trip_booking/trip_booking_screen.dart';
 import 'package:zanyar_app/trip_site_info/site_model.dart';
@@ -225,7 +226,9 @@ class SiteDetailScreen extends StatelessWidget {
                             right: 0,
                             child: Center(
                               child: ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () => Get.to(
+                                  () => MapScreen(initialSiteId: site.id),
+                                ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
                                   foregroundColor: _teal,
