@@ -19,13 +19,13 @@ class BNB extends StatelessWidget {
         Get.off(() => HomeScreen(), transition: Transition.noTransition);
         break;
       case 1:
-        Get.off(() => const MapScreen(), transition: Transition.noTransition);
+        Get.off(() => MapScreen(), transition: Transition.noTransition);
         break;
       case 2:
-        Get.off(() => const Archive(), transition: Transition.noTransition);
+        Get.off(() => Archive(), transition: Transition.noTransition);
         break;
       case 3:
-        Get.off(() => const Profile(), transition: Transition.noTransition);
+        Get.off(() => Profile(), transition: Transition.noTransition);
         break;
     }
   }
@@ -55,46 +55,46 @@ class BNB extends StatelessWidget {
       child: Obx(() {
         Get.find<LocaleController>().isKurdish.value;
         return BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
-        selectedItemColor: terracotta,
-        unselectedItemColor: isDark
-            ? Colors.grey[500]
-            : const Color(0xFF8C8680),
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-        ),
-        unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-        elevation: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home_outlined),
-            activeIcon: const Icon(Icons.home),
-            label: 'home'.tr,
+          currentIndex: currentIndex,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: isDark ? const Color(0xFF1A2220) : Colors.white,
+          selectedItemColor: terracotta,
+          unselectedItemColor: isDark
+              ? Colors.grey[500]
+              : const Color(0xFF8C8680),
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.map_outlined),
-            activeIcon: const Icon(Icons.map),
-            label: 'map'.tr,
+          unselectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.auto_stories_outlined),
-            activeIcon: const Icon(Icons.auto_stories),
-            label: 'archive'.tr,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.person_outline),
-            activeIcon: const Icon(Icons.person),
-            label: 'profile'.tr,
-          ),
-        ],
-      );
+          elevation: 0,
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home_outlined),
+              activeIcon: const Icon(Icons.home),
+              label: 'home'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.map_outlined),
+              activeIcon: const Icon(Icons.map),
+              label: 'map'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.auto_stories_outlined),
+              activeIcon: const Icon(Icons.auto_stories),
+              label: 'archive'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.person_outline),
+              activeIcon: const Icon(Icons.person),
+              label: 'profile'.tr,
+            ),
+          ],
+        );
       }),
     );
   }
