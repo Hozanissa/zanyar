@@ -154,6 +154,9 @@ class _ProfileState extends State<Profile> {
                   Obx(
                     () => Card(
                       child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         title: Text('favorites'.tr),
                         leading: Icon(Icons.favorite, color: scheme.primary),
                         trailing: Row(
@@ -191,6 +194,9 @@ class _ProfileState extends State<Profile> {
                   Obx(
                     () => Card(
                       child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         title: Text('trip_requests'.tr),
                         leading: Icon(Icons.pending, color: scheme.primary),
                         trailing: Row(
@@ -228,6 +234,9 @@ class _ProfileState extends State<Profile> {
                   Obx(
                     () => Card(
                       child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         title: Text('notifications'.tr),
                         leading: Icon(
                           Icons.notifications,
@@ -266,6 +275,9 @@ class _ProfileState extends State<Profile> {
                   //Contact us page goes here
                   Card(
                     child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       title: Text('Contact us'.tr),
                       leading: Icon(
                         Icons.quick_contacts_dialer,
@@ -282,6 +294,9 @@ class _ProfileState extends State<Profile> {
                   //About us page goes here
                   Card(
                     child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       title: Text('About us'.tr),
                       leading: Icon(Icons.info, color: scheme.primary),
                       trailing: Icon(
@@ -295,6 +310,9 @@ class _ProfileState extends State<Profile> {
                   //Sign out option goes here at the end of the profile list
                   Card(
                     child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       onTap: () => _confirmLogout(),
                       title: Text(
                         'sign_out'.tr,
