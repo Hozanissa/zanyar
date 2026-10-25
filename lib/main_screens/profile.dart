@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zanyar_app/bnb.dart';
 import 'package:zanyar_app/locale/locale_controller.dart';
 import 'package:zanyar_app/notification/app_controller.dart';
@@ -26,6 +27,38 @@ class _ProfileState extends State<Profile> {
   final themeCtrl = Get.find<ThemeController>();
   final localeCtrl = Get.find<LocaleController>();
   final appCtrl = Get.find<AppController>();
+
+  Future<void> _logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('isLoggedIn');
+
+    Get.offAllNamed('/loginScreen');
+  }
+
+  void _confirmLogout() {
+    Get.dialog(
+      AlertDialog(
+        title: Text('sign_out'.tr),
+        content: Text('logout_confirm'.tr),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(), // closes the dialog only
+            child: Text('cancel'.tr),
+          ),
+          TextButton(
+            onPressed: () async {
+              Get.back(); // close the dialog first
+              await _logout();
+            },
+            child: Text(
+              'sign_out'.tr,
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -262,6 +295,7 @@ class _ProfileState extends State<Profile> {
                   //Sign out option goes here at the end of the profile list
                   Card(
                     child: ListTile(
+                      onTap: () => _confirmLogout(),
                       title: Text(
                         'sign_out'.tr,
                         style: const TextStyle(color: Colors.red),

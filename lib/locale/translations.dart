@@ -28,6 +28,8 @@ class AppTranslations extends Translations {
     'About_us': 'About us',
     'about_us': 'About us',
     'sign_out': 'Sign out',
+    'logout_confirm': 'Are you sure you want to sign out?',
+    'cancel': 'Cancel',
 
     // Splash / login
     'welcome_to_zanyar': 'Welcome to Zanyar',
@@ -106,7 +108,8 @@ class AppTranslations extends Translations {
 
     // Booking confirmed
     'booking_confirmed': 'Booking Confirmed!',
-    'booking_confirmed_sub': 'Your trip has been booked. Check your trip requests in your profile.',
+    'booking_confirmed_sub':
+        'Your trip has been booked. Check your trip requests in your profile.',
     'site': 'Site',
     'company': 'Company',
     'date': 'Date',
@@ -120,14 +123,15 @@ class AppTranslations extends Translations {
     'no_notifications': 'No notifications yet.',
     'cancel_trip': 'Cancel Trip',
     'cancel_trip_confirm_title': 'Cancel Trip',
-    'cancel_trip_confirm_msg': 'Are you sure you want to cancel your trip to @site?',
+    'cancel_trip_confirm_msg':
+        'Are you sure you want to cancel your trip to @site?',
     'cancel_trip_success': 'Your trip has been cancelled',
     'trip_cancelled_notif': 'Trip cancelled: @site with @company',
     'favorite_added_notif': '"@site" added to favorites',
     'favorite_removed_notif': '"@site" removed from favorites',
     'trip_booked_notif': 'Trip booked: @site with @company on @date',
     'confirm': 'Confirm',
-    'cancel': 'Cancel',
+    //'cancel': 'Cancel',
     'dismiss': 'Dismiss',
 
     // Site periods & hours
@@ -200,17 +204,14 @@ class AppTranslations extends Translations {
     // Admin panel
     'admin_title': 'Admin Control Panel',
     'admin_users': 'User Management',
-    'admin_users_desc':
-        'Used to view user accounts, suspend/ban users who violate rules, reset accounts or handle account-related support.',
+    'admin_users_desc': 'Used to view user accounts, suspend/ban users who violate rules, reset accounts or handle account-related support.',
     'admin_content': 'Content Management',
     'admin_content_desc':
         'Used to manage sites, archive, and approve/reject trip listings.',
     'admin_companies': 'Travel Companies Management',
-    'admin_companies_desc':
-        'Used to approve new travel companies, remove companies with bad ratings/reviews, and manage company profiles with their trips.',
+    'admin_companies_desc': 'Used to approve new travel companies, remove companies with bad ratings/reviews, and manage company profiles with their trips.',
     'admin_moderation': 'Moderation',
-    'admin_moderation_desc':
-        'Review and moderate reviews/ratings, handle reported content and reported users.',
+    'admin_moderation_desc': 'Review and moderate reviews/ratings, handle reported content and reported users.',
     'admin_analytics': 'Analytics',
     'admin_analytics_desc':
         'View number of users, trip requests, and most-viewed sites.',
@@ -241,6 +242,8 @@ class AppTranslations extends Translations {
     'About_us': 'دەربارەی ئێمە',
     'about_us': 'دەربارەی ئێمە',
     'sign_out': 'چوونەدەرەوە',
+    'logout_confirm': 'دڵنیایت لە چوونە دەرەوە؟',
+    //'cancel': 'پاشگەزبوونەوە',
 
     // Splash / login
     'welcome_to_zanyar': 'بەخێربێیت بۆ زانیار',
@@ -320,7 +323,8 @@ class AppTranslations extends Translations {
 
     // Booking confirmed
     'booking_confirmed': 'تۆمار پشتڕاست کرایەوە!',
-    'booking_confirmed_sub': 'گەشتەکەت تۆمار کرا. داواکارییەکانی گەشتت لە پرۆفایلەکەت ببینە.',
+    'booking_confirmed_sub':
+        'گەشتەکەت تۆمار کرا. داواکارییەکانی گەشتت لە پرۆفایلەکەت ببینە.',
     'site': 'شوێن',
     'company': 'کۆمپانیا',
     'date': 'بەروار',
@@ -414,27 +418,23 @@ class AppTranslations extends Translations {
     // Admin panel
     'admin_title': 'پانێڵی کۆنتڕۆڵی ئەدمین',
     'admin_users': 'بەڕێوەبردنی بەکارهێنەران',
-    'admin_users_desc':
-        'بینینی هەژماری بەکارهێنەران، ڕاگرتن یان قەدەغەکردنی ئەوانەی یاسا پێشێل دەکەن، دووبارە دانانەوەی هەژمار و چارەسەرکردنی کێشەی هەژمارەکان.',
+    'admin_users_desc': 'بینینی هەژماری بەکارهێنەران، ڕاگرتن یان قەدەغەکردنی ئەوانەی یاسا پێشێل دەکەن، دووبارە دانانەوەی هەژمار و چارەسەرکردنی کێشەی هەژمارەکان.',
     'admin_content': 'بەڕێوەبردنی ناوەڕۆک',
     'admin_content_desc':
         'بەڕێوەبردنی شوێنەکان و ئەرشیف و پەسەندکردن یان ڕەتکردنەوەی گەشتەکان.',
     'admin_companies': 'بەڕێوەبردنی کۆمپانیاکانی گەشتیاری',
-    'admin_companies_desc':
-        'پەسەندکردنی کۆمپانیا نوێیەکان، لابردنی ئەو کۆمپانیایانەی هەڵسەنگاندنی خراپیان هەیە، و بەڕێوەبردنی پرۆفایلی کۆمپانیا و گەشتەکانیان.',
+    'admin_companies_desc': 'پەسەندکردنی کۆمپانیا نوێیەکان، لابردنی ئەو کۆمپانیایانەی هەڵسەنگاندنی خراپیان هەیە، و بەڕێوەبردنی پرۆفایلی کۆمپانیا و گەشتەکانیان.',
     'admin_moderation': 'چاودێریکردن',
-    'admin_moderation_desc':
-        'پێداچوونەوە بە هەڵسەنگاندن و بۆچوونەکان و چارەسەرکردنی ناوەڕۆک و بەکارهێنەرە ڕاپۆرتکراوەکان.',
+    'admin_moderation_desc': 'پێداچوونەوە بە هەڵسەنگاندن و بۆچوونەکان و چارەسەرکردنی ناوەڕۆک و بەکارهێنەرە ڕاپۆرتکراوەکان.',
     'admin_analytics': 'ئامار',
-    'admin_analytics_desc':
-        'بینینی ژمارەی بەکارهێنەران و داواکارییەکانی گەشت و زۆرترین شوێنی بینراو.',
+    'admin_analytics_desc': 'بینینی ژمارەی بەکارهێنەران و داواکارییەکانی گەشت و زۆرترین شوێنی بینراو.',
   };
 
   @override
   Map<String, Map<String, String>> get keys => {
-        'en_US': _en,
-        'en': _en,
-        'ckb_IQ': _ckb,
-        'ckb': _ckb,
-      };
+    'en_US': _en,
+    'en': _en,
+    'ckb_IQ': _ckb,
+    'ckb': _ckb,
+  };
 }

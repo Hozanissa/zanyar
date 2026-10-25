@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/main_screens/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/widgets/auth_toggles.dart';
 
@@ -51,50 +51,28 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() {
-    if (_formKey.currentState!.validate()) {
-      final enteredEmail = emailController.text.trim();
-      final enteredPassword = passwordController.text.trim();
+  Future<void> login() async {
+    //Stop here if the form is invalid
+    if (!_formKey.currentState!.validate()) return;
 
-      if (enteredEmail == email && enteredPassword == password) {
-        Get.off(HomeScreen(getData: enteredEmail, getPass: enteredPassword));
-      } else if (enteredEmail == email) {
-        _showMessage('incorrect_password'.tr);
-      } else if (enteredPassword == password) {
-        _showMessage('incorrect_email'.tr);
-      } else {
-        _showMessage('invalid_credentials'.tr);
-      }
+    final enteredEmail = emailController.text.trim();
+    final enteredPassword = passwordController.text.trim();
+
+    if (enteredEmail == email && enteredPassword == password) {
+      //Success: remember the login, then navigate
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+
+      if (!mounted) return;
+      Get.offNamed('/homeScreen');
+    } else if (enteredEmail == email) {
+      _showMessage('incorrect_password'.tr);
+    } else if (enteredPassword == password) {
+      _showMessage('incorrect_email'.tr);
+    } else {
+      _showMessage('invalid_credentials'.tr);
     }
   }
-
-  // Future<void> login() async {
-  //   if (_formKey.currentState!.validate()) {}
-  //   final enteredEmail = emailController.text.trim();
-  //   final enteredPassword = passwordController.text.trim();
-  //   if (enteredEmail == email && enteredPassword == password) {
-  //     return;
-  //   } else if (enteredEmail == email) {
-  //     _showMessage('incorrect_password'.tr);
-  //   } else if (enteredPassword == password) {
-  //     _showMessage('incorrect_email'.tr);
-  //   } else {
-  //     _showMessage('invalid_credentials'.tr);
-  //   }
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setBool('isLoggedIn', true);
-
-  //   if (mounted) {
-  //     Get.offNamed('/homeScreen');
-  //   }
-  // }
-
-  // void logout() async {
-  //   final SharedPreferences pr = await SharedPreferences.getInstance();
-  //   await pr.remove("isLoggedIn");
-
-  //   Get.offAllNamed('/loginScreen');
-  // }
 
   @override
   Widget build(BuildContext context) {

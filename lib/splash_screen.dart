@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/login_signup/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,10 +18,6 @@ class _SplashScreenState extends State<SplashScreen> {
     startProgress();
   }
 
-  void route() {
-    Get.off(() => LoginScreen());
-  }
-
   void startProgress() async {
     for (int i = 0; i <= 100; i++) {
       if (!mounted) return;
@@ -30,19 +26,18 @@ class _SplashScreenState extends State<SplashScreen> {
       });
       await Future.delayed(Duration(milliseconds: 50));
     }
-    route();
-    // final prefs = await SharedPreferences.getInstance();
-    // bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-    // if (!mounted) return;
+    if (!mounted) return;
 
-    // if (isLoggedIn) {
-    //   //navigate to home_screen.dart if the user is already logged in
-    //   Get.offNamed('/homeScreen');
-    //   //navigate to login screen if the user is not logged in.
-    // } else {
-    //   Get.offNamed('/loginScreen');
-    // }
+    if (isLoggedIn) {
+      //navigate to home_screen.dart if the user is already logged in
+      Get.offNamed('/homeScreen');
+      //navigate to login screen if the user is not logged in.
+    } else {
+      Get.offNamed('/loginScreen');
+    }
   }
 
   //ends here
