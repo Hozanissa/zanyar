@@ -1,17 +1,26 @@
-# zanyar_app
+# Zanyar
 
-A new Flutter project.
+Zanyar is a Flutter app for discovering Kurdistan's historical places and cultural heritage. It brings site information, maps, trip discovery, and stories about Kurdish history together in one place, helping people explore the region and learn about its heritage.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Browse historical and cultural sites, with search and city filters.
+- View site details, historical periods, visitor information, photos, ratings, and reviews.
+- Find sites on an interactive map and open directions.
+- Explore trips associated with historical sites and proceed through the booking flow.
+- Read a cultural archive covering Kurdish folklore, poets, and scholars.
+- Use the app in English or Kurdish (Sorani).
+- Switch between light and dark themes.
+- Access account, profile, and admin screens.
 
-A few resources to get you started if this is your first Flutter project:
+## Design
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The interface uses a heritage-inspired palette: deep teal (`#1F4E4C`), terracotta (`#C4704B`), and warm cream (`#F9F6F0`), with charcoal backgrounds in dark mode. Serif headings, rounded search and filter controls, and image-led cards give the app a calm, editorial feel while keeping maps and trip actions easy to find.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Built with
+
+- Flutter and Dart
+- GetX for navigation and app state
+- `flutter_map` and `latlong2` for maps
+- Google Fonts for typography
+
