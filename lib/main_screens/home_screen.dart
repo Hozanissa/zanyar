@@ -180,27 +180,36 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
                 itemCount: _cities.length,
                 separatorBuilder: (_, _) => const SizedBox(width: 8),
                 itemBuilder: (_, i) {
                   final city = _cities[i];
                   final sel = city == _selectedCity;
+
+                  // Same colors as the category chips
+                  final selectedBg = isDark ? const Color(0xFF7CB8AE) : _teal;
+                  final selectedFg = isDark
+                      ? const Color(0xFF1F4E4C)
+                      : Colors.white;
+
                   return ChoiceChip(
                     label: Text(city.tr, style: const TextStyle(fontSize: 13)),
                     selected: sel,
-                    selectedColor: _teal,
+                    checkmarkColor: sel ? selectedFg : null,
+                    selectedColor: selectedBg,
                     backgroundColor: isDark
                         ? const Color(0xFF1E2724)
                         : Colors.white,
                     labelStyle: TextStyle(
                       color: sel
-                          ? Colors.white
+                          ? selectedFg
                           : (isDark ? Colors.white70 : Colors.black87),
                       fontWeight: sel ? FontWeight.bold : FontWeight.normal,
                     ),
                     side: BorderSide(
                       color: sel
-                          ? _teal
+                          ? selectedBg
                           : (isDark ? Colors.grey[700]! : Colors.grey[300]!),
                     ),
                     onSelected: (_) => setState(() => _selectedCity = city),
@@ -208,7 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-
             // ── Site count ──────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
