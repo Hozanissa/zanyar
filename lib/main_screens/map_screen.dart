@@ -246,7 +246,12 @@ class _MapScreenState extends State<MapScreen> {
                   IconButton.filledTonal(
                     onPressed: _resetView,
                     tooltip: 'reset_map_view'.tr,
-                    icon: const Icon(Icons.my_location, color: primaryTeal),
+                    icon: Icon(
+                      Icons.my_location,
+                      color: theme.brightness == Brightness.dark
+                          ? Colors.white
+                          : primaryTeal,
+                    ),
                   ),
                   const SizedBox(width: 4),
                   const AuthToggles(),
