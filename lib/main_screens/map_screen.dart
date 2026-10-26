@@ -249,7 +249,7 @@ class _MapScreenState extends State<MapScreen> {
                     icon: Icon(
                       Icons.my_location,
                       color: theme.brightness == Brightness.dark
-                          ? Colors.white
+                          ? Color(0xFF7CB8AE)
                           : primaryTeal,
                     ),
                   ),
@@ -370,14 +370,24 @@ class _MapScreenState extends State<MapScreen> {
                           heroTag: 'map_zoom_in',
                           backgroundColor: theme.colorScheme.surface,
                           onPressed: () => _zoom(1.0),
-                          child: const Icon(Icons.add, color: primaryTeal),
+                          child: Icon(
+                            Icons.add,
+                            color: theme.brightness == Brightness.dark
+                                ? const Color(0xFF7CB8AE)
+                                : primaryTeal,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         FloatingActionButton.small(
                           heroTag: 'map_zoom_out',
                           backgroundColor: theme.colorScheme.surface,
                           onPressed: () => _zoom(-1.0),
-                          child: const Icon(Icons.remove, color: primaryTeal),
+                          child: Icon(
+                            Icons.remove,
+                            color: theme.brightness == Brightness.dark
+                                ? const Color(0xFF7CB8AE)
+                                : primaryTeal,
+                          ),
                         ),
                       ],
                     ),
