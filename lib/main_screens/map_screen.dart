@@ -265,14 +265,19 @@ class _MapScreenState extends State<MapScreen> {
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
                 itemCount: _categories.length,
                 separatorBuilder: (context, index) => const SizedBox(width: 8),
                 itemBuilder: (context, index) {
                   final cat = _categories[index];
                   final isSelected = _selectedCategory == cat;
+                  final isDark = theme.brightness == Brightness.dark;
                   return ChoiceChip(
                     label: Text(cat.tr),
                     selected: isSelected,
+                    checkmarkColor: isSelected
+                        ? (isDark ? const Color(0xFF1F4E4C) : Colors.white)
+                        : null,
                     onSelected: (selected) {
                       if (selected) {
                         setState(() {
@@ -285,9 +290,13 @@ class _MapScreenState extends State<MapScreen> {
                         });
                       }
                     },
-                    selectedColor: primaryTeal,
+                    selectedColor: isDark
+                        ? const Color(0xFF7CB8AE)
+                        : primaryTeal,
                     labelStyle: TextStyle(
-                      color: isSelected ? Colors.white : null,
+                      color: isSelected
+                          ? (isDark ? const Color(0xFF1F4E4C) : Colors.white)
+                          : null,
                       fontWeight: isSelected
                           ? FontWeight.bold
                           : FontWeight.normal,
