@@ -10,10 +10,14 @@ import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/splash_screen.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  //the one line of code where the you initialize the fire in addition to importing the newly created firebase_options.dart file and the firebase_core package.
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final themeCtrl = Get.put(ThemeController());
   final localeCtrl = Get.put(LocaleController());
   Get.put(AppController());

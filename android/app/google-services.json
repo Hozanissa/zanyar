@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "195964284370",
+    "project_id": "zanyar-app",
+    "storage_bucket": "zanyar-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195964284370:android:2fd6d6981e92c7e0ccac0b",
+        "android_client_info": {
+          "package_name": "com.example.zanyar_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrHiAeju5_yda28c2xNCU94ryZamOuyc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
