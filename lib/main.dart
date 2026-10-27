@@ -16,7 +16,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //the one line of code where the you initialize the fire in addition to importing the newly created firebase_options.dart file and the firebase_core package.
+  //the one line of code where you initialize the fire in addition to importing the newly created firebase_options.dart file and the firebase_core package.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final themeCtrl = Get.put(ThemeController());
   final localeCtrl = Get.put(LocaleController());
