@@ -48,7 +48,7 @@ class AboutUs extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 Text(
-                  'Discover Kurdistan with Zanyar',
+                  'discover_kurdistan_title'.tr,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lora(
                     fontSize: 21,
@@ -58,7 +58,7 @@ class AboutUs extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Zanyar helps you explore places across Kurdistan and plan your next trip. Find destinations, connect with travel companies, and keep your plans together in one place.',
+                  'discover_kurdistan_desc'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     height: 1.5,
@@ -73,7 +73,7 @@ class AboutUs extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 4, bottom: 10),
             child: Text(
-              'What you can do',
+              'what_you_can_do'.tr,
               style: GoogleFonts.lora(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -85,29 +85,29 @@ class AboutUs extends StatelessWidget {
             isDark: isDark,
             cardColor: cardColor,
             icon: Icons.place_outlined,
-            title: 'Explore destinations',
-            subtitle: 'Discover cultural and natural places to visit.',
+            title: 'explore_destinations_title'.tr,
+            subtitle: 'explore_destinations_desc'.tr,
           ),
           const SizedBox(height: 8),
           _featureTile(
             isDark: isDark,
             cardColor: cardColor,
             icon: Icons.tour_outlined,
-            title: 'Plan a trip',
-            subtitle: 'Browse travel companies and send trip requests.',
+            title: 'plan_a_trip_title'.tr,
+            subtitle: 'plan_a_trip_desc'.tr,
           ),
           const SizedBox(height: 8),
           _featureTile(
             isDark: isDark,
             cardColor: cardColor,
             icon: Icons.favorite_border,
-            title: 'Save your favorites',
-            subtitle: 'Keep the places you like close at hand.',
+            title: 'save_favorites_title'.tr,
+            subtitle: 'save_favorites_desc'.tr,
           ),
           const SizedBox(height: 16),
           Center(
             child: Text(
-              'Made for discovering Kurdistan',
+              'made_for_discovering'.tr,
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
