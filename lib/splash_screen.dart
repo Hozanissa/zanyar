@@ -49,10 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image(image: AssetImage('app-icon3.png')),
             SizedBox(height: 24),
             Text(
               'welcome_to_zanyar'.tr,
-              style: GoogleFonts.lora(fontSize: 20, color: Color(0xFFC4704B)),
+              style: GoogleFonts.lora(fontSize: 20, color: Colors.white),
             ),
 
             SizedBox(height: 24),
