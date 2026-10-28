@@ -19,9 +19,8 @@ class ContactUs extends StatelessWidget {
   Future<void> _open(BuildContext context, Uri uri) async {
     final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
     if (!ok && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not open the app')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('contact_could_not_open'.tr)));
     }
   }
 
@@ -65,7 +64,7 @@ class ContactUs extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  "We'd love to hear from you",
+                  'contact_header_title'.tr,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lora(
                     fontSize: 20,
@@ -75,7 +74,7 @@ class ContactUs extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'Choose a way to get in touch with our team.',
+                  'contact_header_subtitle'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
@@ -91,7 +90,7 @@ class ContactUs extends StatelessWidget {
             isDark: isDark,
             cardColor: cardColor,
             title: 'Facebook',
-            subtitle: 'Follow us and send us a message',
+            subtitle: 'contact_facebook_subtitle'.tr,
             icon: const Icon(Icons.facebook, color: Color(0xFF1877F2)),
             onTap: () => _open(context, Uri.parse(facebookUrl)),
           ),
@@ -100,20 +99,17 @@ class ContactUs extends StatelessWidget {
             context,
             isDark: isDark,
             cardColor: cardColor,
-            title: 'Email',
+            title: 'email'.tr,
             subtitle: email,
             icon: const Icon(Icons.email_outlined, color: _contactTerracotta),
-            onTap: () => _open(
-              context,
-              Uri(scheme: 'mailto', path: email),
-            ),
+            onTap: () => _open(context, Uri(scheme: 'mailto', path: email)),
           ),
           const SizedBox(height: 8),
           _contactTile(
             context,
             isDark: isDark,
             cardColor: cardColor,
-            title: 'Phone',
+            title: 'contact_phone'.tr,
             subtitle: phone,
             icon: const Icon(Icons.call_outlined, color: _contactTeal),
             onTap: () => _open(context, Uri(scheme: 'tel', path: phone)),
@@ -123,8 +119,8 @@ class ContactUs extends StatelessWidget {
             context,
             isDark: isDark,
             cardColor: cardColor,
-            title: 'SMS',
-            subtitle: 'Send us a text message',
+            title: 'contact_sms'.tr,
+            subtitle: 'contact_sms_subtitle'.tr,
             icon: const Icon(Icons.sms_outlined, color: Colors.orange),
             onTap: () => _open(context, Uri(scheme: 'sms', path: phone)),
           ),
@@ -134,7 +130,7 @@ class ContactUs extends StatelessWidget {
             isDark: isDark,
             cardColor: cardColor,
             title: 'GitHub',
-            subtitle: 'Visit our GitHub profile',
+            subtitle: 'contact_github_subtitle'.tr,
             icon: const FaIcon(FontAwesomeIcons.github, color: _contactTeal),
             onTap: () => _open(context, Uri.parse(githubUrl)),
           ),
