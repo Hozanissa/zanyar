@@ -49,7 +49,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('image/app-icon.png', width: 140),
             SizedBox(height: 24),
             Text(
               'welcome_to_zanyar'.tr,
