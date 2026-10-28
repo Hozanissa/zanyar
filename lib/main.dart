@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,6 @@ import 'package:zanyar_app/notification/app_controller.dart';
 import 'package:zanyar_app/splash_screen.dart';
 import 'package:zanyar_app/theme/app_theme.dart';
 import 'package:zanyar_app/theme/theme_controller.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
 
