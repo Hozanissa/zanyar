@@ -1,6 +1,6 @@
 {
-    "name": "zanyar_app",
-    "short_name": "zanyar_app",
+    "name": "Zanyar",
+    "short_name": "Zanyar",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
