@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zanyar_app/locale/locale_controller.dart';
-import 'package:zanyar_app/theme/app_theme.dart';
-import 'package:zanyar_app/theme/theme_controller.dart';
+import 'package:zanyar/locale/locale_controller.dart';
+import 'package:zanyar/theme/app_theme.dart';
+import 'package:zanyar/theme/theme_controller.dart';
 
 /// Small language + dark/light switch row for screens that have no
 /// bottom navigation bar (login, register, reset password).

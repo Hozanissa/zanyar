@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zanyar_app/theme/app_theme.dart';
-import 'package:zanyar_app/widgets/auth_toggles.dart';
+import 'package:zanyar/theme/app_theme.dart';
+import 'package:zanyar/widgets/auth_toggles.dart';
 
 import 'register_new_account.dart';
 import 'reset_password.dart';

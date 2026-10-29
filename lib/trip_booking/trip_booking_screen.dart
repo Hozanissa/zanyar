@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/notification/app_controller.dart';
-import 'package:zanyar_app/trip_booking/booking_confirmed_screen.dart';
-import 'package:zanyar_app/trip_site_info/site_model.dart';
-import 'package:zanyar_app/trip_site_info/travel_company.dart';
-import 'package:zanyar_app/trip_site_info/trip_booking.dart';
+import 'package:zanyar/notification/app_controller.dart';
+import 'package:zanyar/trip_booking/booking_confirmed_screen.dart';
+import 'package:zanyar/trip_site_info/site_model.dart';
+import 'package:zanyar/trip_site_info/travel_company.dart';
+import 'package:zanyar/trip_site_info/trip_booking.dart';
 
 const Color _teal = Color(0xFF1F4E4C);
 const Color _terracotta = Color(0xFFC4704B);

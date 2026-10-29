@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zanyar_app/locale/locale_controller.dart';
-import 'package:zanyar_app/main_screens/archive.dart';
-import 'package:zanyar_app/main_screens/home_screen.dart';
-import 'package:zanyar_app/main_screens/map_screen.dart';
-import 'package:zanyar_app/main_screens/profile.dart';
+import 'package:zanyar/locale/locale_controller.dart';
+import 'package:zanyar/main_screens/archive.dart';
+import 'package:zanyar/main_screens/home_screen.dart';
+import 'package:zanyar/main_screens/map_screen.dart';
+import 'package:zanyar/main_screens/profile.dart';
 
 class BNB extends StatelessWidget {
   final int currentIndex;

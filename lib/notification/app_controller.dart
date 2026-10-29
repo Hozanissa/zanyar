@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:zanyar_app/trip_site_info/site_model.dart';
-import 'package:zanyar_app/trip_site_info/trip_booking.dart';
+import 'package:zanyar/trip_site_info/site_model.dart';
+import 'package:zanyar/trip_site_info/trip_booking.dart';
 
 class AppNotification {
   final String message;

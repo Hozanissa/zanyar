@@ -6,8 +6,8 @@ import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/notification/app_controller.dart';
-import 'package:zanyar_app/trip_site_info/trip_booking.dart';
+import 'package:zanyar/notification/app_controller.dart';
+import 'package:zanyar/trip_site_info/trip_booking.dart';
 
 const Color _teal = Color(0xFF2A7A70);
 const Color _terracotta = Color(0xFFC66A4A);

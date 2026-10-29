@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/bnb.dart';
-import 'package:zanyar_app/locale/locale_controller.dart';
-import 'package:zanyar_app/widgets/auth_toggles.dart';
+import 'package:zanyar/bnb.dart';
+import 'package:zanyar/locale/locale_controller.dart';
+import 'package:zanyar/widgets/auth_toggles.dart';
 
 class ArchiveItem {
   final String id;

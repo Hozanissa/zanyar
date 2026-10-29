@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zanyar_app/notification/app_controller.dart';
-import 'package:zanyar_app/trip_booking/site_detail_screen.dart';
-import 'package:zanyar_app/trip_site_info/site_model.dart';
+import 'package:zanyar/notification/app_controller.dart';
+import 'package:zanyar/trip_booking/site_detail_screen.dart';
+import 'package:zanyar/trip_site_info/site_model.dart';
 
 const Color _teal = Color(0xFF008080);
 
