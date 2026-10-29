@@ -116,9 +116,8 @@ class _SplashScreenState extends State<SplashScreen> {
                           child: LinearProgressIndicator(
                             value: counter / 100,
                             minHeight: 8,
-                            color: const Color(
-                              0xFFC4704B,
-                            ), // Warm terracotta clay
+                            color: niceGold,
+                            // Warm terracotta clay
                             backgroundColor: Colors.white.withOpacity(
                               0.12,
                             ), // Subtle translucent track
