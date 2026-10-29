@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/main_screens/map_screen.dart' show MapScreen;
@@ -126,16 +128,7 @@ class SiteDetailScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ..._buildStars(site.rating),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${site.rating}  (${site.reviewCount})',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: _terracotta,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      _ReviewSummary(siteId: site.id),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -264,9 +257,7 @@ class SiteDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  ...site.reviews.map(
-                    (r) => _ReviewCard(review: r, isDark: isDark),
-                  ),
+                  _SiteReviewSection(siteId: site.id, isDark: isDark),
 
                   const SizedBox(height: 100), // padding for bottom button
                 ],
@@ -307,17 +298,177 @@ class SiteDetailScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildStars(double r) {
-    return List.generate(5, (i) {
-      if (i < r.floor()) {
-        return const Icon(Icons.star, color: _terracotta, size: 15);
-      }
-      if (i < r) {
-        return const Icon(Icons.star_half, color: _terracotta, size: 15);
-      }
-      return const Icon(Icons.star_border, color: _terracotta, size: 15);
-    });
+}
+
+class _ReviewSummary extends StatelessWidget {
+  final String siteId;
+  const _ReviewSummary({required this.siteId});
+
+  @override
+  Widget build(BuildContext context) => StreamBuilder(
+    stream: FirebaseFirestore.instance
+        .collection('sites')
+        .doc(siteId)
+        .collection('reviews')
+        .snapshots(),
+    builder: (context, snapshot) {
+      final reviews = snapshot.data?.docs ?? [];
+      final count = reviews.length;
+      final average = count == 0
+          ? 0.0
+          : reviews.fold<double>(
+                  0,
+                  (sum, doc) => sum + ((doc.data()['rating'] as num?)?.toDouble() ?? 0),
+                ) /
+                count;
+      return Text(
+        count == 0 ? 'No ratings' : '${average.toStringAsFixed(1)} ($count)',
+        style: const TextStyle(
+          fontSize: 13,
+          color: _terracotta,
+          fontWeight: FontWeight.w600,
+        ),
+      );
+    },
+  );
+}
+
+class _SiteReviewSection extends StatefulWidget {
+  final String siteId;
+  final bool isDark;
+  const _SiteReviewSection({required this.siteId, required this.isDark});
+
+  @override
+  State<_SiteReviewSection> createState() => _SiteReviewSectionState();
+}
+
+class _SiteReviewSectionState extends State<_SiteReviewSection> {
+  final _commentController = TextEditingController();
+  double _rating = 5;
+  bool _saving = false;
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
   }
+
+  Future<void> _submit() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final comment = _commentController.text.trim();
+    if (user == null) {
+      Get.snackbar('Sign in required', 'Please sign in to leave a review.');
+      return;
+    }
+    if (comment.isEmpty) {
+      Get.snackbar('Review required', 'Write a comment before submitting.');
+      return;
+    }
+    setState(() => _saving = true);
+    try {
+      final userProfile = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      final profile = userProfile.data() ?? const <String, dynamic>{};
+      final first = profile['firstName'] as String? ?? '';
+      final last = profile['lastName'] as String? ?? '';
+      final author = '$first $last'.trim().isEmpty
+          ? (user.displayName ?? user.email ?? 'User')
+          : '$first $last'.trim();
+      await FirebaseFirestore.instance
+          .collection('sites')
+          .doc(widget.siteId)
+          .collection('reviews')
+          .doc(user.uid)
+          .set({
+            'userId': user.uid,
+            'author': author,
+            'rating': _rating,
+            'comment': comment,
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+      if (!mounted) return;
+      _commentController.clear();
+      Get.snackbar('Review saved', 'Your review is now visible.');
+    } on FirebaseException catch (error) {
+      Get.snackbar('Could not save review', error.message ?? error.code);
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance
+            .collection('sites')
+            .doc(widget.siteId)
+            .collection('reviews')
+            .orderBy('createdAt', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) return Text('Could not load reviews: ${snapshot.error}');
+          final docs = snapshot.data?.docs ?? [];
+          if (docs.isEmpty) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text('No reviews yet. Be the first to share your experience.', style: TextStyle(color: Colors.grey[600])),
+            );
+          }
+          return Column(
+            children: docs.map((doc) {
+              final data = doc.data();
+              final createdAt = data['createdAt'];
+              final date = createdAt is Timestamp
+                  ? '${createdAt.toDate().year}-${createdAt.toDate().month.toString().padLeft(2, '0')}'
+                  : 'Just now';
+              return _ReviewCard(
+                review: SiteReview(
+                  author: data['author'] as String? ?? 'User',
+                  rating: (data['rating'] as num?)?.toDouble() ?? 0,
+                  comment: data['comment'] as String? ?? '',
+                  date: date,
+                ),
+                isDark: widget.isDark,
+              );
+            }).toList(),
+          );
+        },
+      ),
+      const SizedBox(height: 8),
+      Text('Your rating', style: TextStyle(fontWeight: FontWeight.bold, color: widget.isDark ? Colors.white : Colors.black87)),
+      Row(
+        children: List.generate(5, (index) => IconButton(
+          visualDensity: VisualDensity.compact,
+          onPressed: () => setState(() => _rating = index + 1.0),
+          icon: Icon(index < _rating ? Icons.star : Icons.star_border, color: _terracotta),
+        )),
+      ),
+      TextField(
+        controller: _commentController,
+        minLines: 2,
+        maxLines: 4,
+        decoration: const InputDecoration(
+          labelText: 'Write your review',
+          border: OutlineInputBorder(),
+        ),
+      ),
+      const SizedBox(height: 8),
+      Align(
+        alignment: AlignmentDirectional.centerEnd,
+        child: FilledButton.icon(
+          onPressed: _saving ? null : _submit,
+          icon: _saving
+              ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+              : const Icon(Icons.send),
+          label: const Text('Submit review'),
+        ),
+      ),
+    ],
+  );
 }
 
 // ── Hero Image ──────────────────────────────────────────────────────────────────

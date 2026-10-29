@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zanyar/admin/admin_content_screen.dart';
+import 'package:zanyar/admin/admin_reviews_screen.dart';
+import 'package:zanyar/admin/admin_users_screen.dart';
 import 'package:zanyar/login_signup/login_screen.dart';
 
 class AdminPanel extends StatefulWidget {
@@ -27,6 +31,7 @@ class _AdminPanelState extends State<AdminPanel> {
               final prefs = await SharedPreferences.getInstance();
               await prefs.remove('isLoggedIn');
               await prefs.remove('userRole');
+              await FirebaseAuth.instance.signOut();
               if (mounted) Get.offAll(() => const LoginScreen());
             },
           ),
@@ -49,6 +54,7 @@ class _AdminPanelState extends State<AdminPanel> {
                 ),
 
                 trailing: Icon(Icons.chevron_right),
+                onTap: () => Get.to(() => const AdminUsersScreen()),
               ),
             ),
             Card(
@@ -62,6 +68,8 @@ class _AdminPanelState extends State<AdminPanel> {
                   child: Icon(Icons.fact_check, color: Color(0xFF1F4E4C)),
                 ),
                 trailing: Icon(Icons.chevron_right),
+                onTap: () =>
+                    Get.to(() => const AdminContentScreen(manageSites: true)),
               ),
             ),
             Card(
@@ -75,6 +83,8 @@ class _AdminPanelState extends State<AdminPanel> {
                   child: Icon(Icons.business, color: Color(0xFF1F4E4C)),
                 ),
                 trailing: Icon(Icons.chevron_right),
+                onTap: () =>
+                    Get.to(() => const AdminContentScreen(manageSites: false)),
               ),
             ),
 
@@ -90,6 +100,7 @@ class _AdminPanelState extends State<AdminPanel> {
                 ),
                 //leading: Icon(Icons.gavel, color: Color(0xFF1F4E4C)),
                 trailing: Icon(Icons.chevron_right),
+                onTap: () => Get.to(() => const AdminReviewsScreen()),
                 //onTap:
               ),
             ),

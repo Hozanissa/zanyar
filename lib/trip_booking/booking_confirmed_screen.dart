@@ -31,7 +31,7 @@ class BookingConfirmedScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Success icon
+              // Pending state until a payment provider confirms the payment.
               Container(
                 width: 100,
                 height: 100,
@@ -39,11 +39,11 @@ class BookingConfirmedScreen extends StatelessWidget {
                   color: _teal.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.check_circle, color: _teal, size: 56),
+                child: const Icon(Icons.hourglass_top, color: _teal, size: 56),
               ),
               const SizedBox(height: 24),
               Text(
-                'booking_confirmed'.tr,
+                'Booking request saved',
                 style: GoogleFonts.lora(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class BookingConfirmedScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'booking_confirmed_sub'.tr,
+                'Payment is not configured yet. This request is pending and you have not been charged.',
                 style: TextStyle(
                   fontSize: 15,
                   color: isDark ? Colors.grey[400] : Colors.grey[600],
@@ -110,7 +110,7 @@ class BookingConfirmedScreen extends StatelessWidget {
                     const SizedBox(height: 12),
                     _Row(
                       label: 'price'.tr,
-                      value: '\$${company.price.toInt()}',
+                      value: '${company.price.toInt()} IQD',
                       isDark: isDark,
                       icon: Icons.payments,
                       valueColor: _terracotta,

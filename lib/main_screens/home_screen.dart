@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/bnb.dart';
@@ -32,19 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
   final _searchCtrl = TextEditingController();
   String _search = '';
   String _selectedCity = 'All';
+  List<HistoricalSite> _sites = [];
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _sitesSubscription;
+  bool _loadingSites = true;
+  String? _sitesError;
 
-  final List<String> _cities = [
-    'All',
-    'Erbil',
-    'Duhok',
-    'Sulaymaniyah',
-    'Erbil (Bradost)',
-    'Shekhan (Duhok)',
-    'Kalar (Garmian)',
-  ];
+  List<String> get _cities {
+    final cities = _sites.map((site) => site.city).toSet().toList()..sort();
+    return ['All', ...cities];
+  }
 
   List<HistoricalSite> get _filtered {
-    return kAllSites.where((s) {
+    return _sites.where((s) {
       final matchCity = _selectedCity == 'All' || s.city == _selectedCity;
       final q = _search.toLowerCase().trim();
       final matchSearch =
@@ -60,8 +61,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _sitesSubscription = FirebaseFirestore.instance
+        .collection('sites')
+        .snapshots()
+        .listen((snapshot) {
+          if (!mounted) return;
+          setState(() {
+            _sites = snapshot.docs.map(HistoricalSite.fromFirestore).toList();
+            _loadingSites = false;
+            _sitesError = null;
+          });
+        }, onError: (Object error) {
+          if (!mounted) return;
+          setState(() {
+            _loadingSites = false;
+            _sitesError = error.toString();
+          });
+        });
+  }
+
+  @override
   void dispose() {
     _searchCtrl.dispose();
+    _sitesSubscription?.cancel();
     super.dispose();
   }
 
@@ -233,7 +257,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
             // ── Site list ──────────────────────────────────────────
             Expanded(
-              child: _filtered.isEmpty
+              child: _loadingSites
+                  ? const Center(child: CircularProgressIndicator())
+                  : _sitesError != null
+                  ? Center(child: Text('Could not load sites: $_sitesError'))
+                  : _filtered.isEmpty
                   ? Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -327,20 +355,7 @@ class _SiteCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        Row(
-                          children: [
-                            ..._buildStars(site.rating),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${site.rating} (${site.reviewCount})',
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFFC4704B),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
+                        _SiteRating(siteId: site.id),
                       ],
                     ),
                   ),
@@ -368,16 +383,53 @@ class _SiteCard extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildStars(double rating) {
-    return List.generate(5, (i) {
-      if (i < rating.floor()) {
-        return const Icon(Icons.star, color: Color(0xFFC4704B), size: 15);
-      } else if (i < rating) {
-        return const Icon(Icons.star_half, color: Color(0xFFC4704B), size: 15);
-      }
-      return const Icon(Icons.star_border, color: Color(0xFFC4704B), size: 15);
-    });
-  }
+}
+
+class _SiteRating extends StatelessWidget {
+  final String siteId;
+  const _SiteRating({required this.siteId});
+
+  @override
+  Widget build(BuildContext context) => StreamBuilder(
+    stream: FirebaseFirestore.instance
+        .collection('sites')
+        .doc(siteId)
+        .collection('reviews')
+        .snapshots(),
+    builder: (context, snapshot) {
+      final reviews = snapshot.data?.docs ?? [];
+      final count = reviews.length;
+      final rating = count == 0
+          ? 0.0
+          : reviews.fold<double>(
+                  0,
+                  (sum, doc) => sum + ((doc.data()['rating'] as num?)?.toDouble() ?? 0),
+                ) /
+                count;
+      return Row(
+        children: [
+          ...List.generate(5, (index) => Icon(
+                index < rating.floor()
+                    ? Icons.star
+                    : index < rating
+                    ? Icons.star_half
+                    : Icons.star_border,
+                color: _terracotta,
+                size: 15,
+              )),
+          const SizedBox(width: 4),
+          Text(
+            count == 0 ? 'No reviews' : '${rating.toStringAsFixed(1)} ($count)',
+            style: const TextStyle(
+              fontSize: 13,
+              color: _terracotta,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class _SiteHeroImage extends StatelessWidget {

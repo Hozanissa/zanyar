@@ -1,4 +1,6 @@
-﻿class TravelCompany {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class TravelCompany {
   final String id;
   final String name;
   final double rating;
@@ -16,43 +18,29 @@
     required this.price,
     required this.spotsAvailable,
   });
-}
 
-const List<TravelCompany> kTravelCompanies = [
-  TravelCompany(
-    id: 'kurdistan_tours',
-    name: 'Kurdistan Tours Co.',
-    rating: 4.6,
-    tripDate: 'Sat, Nov 1',
-    tripType: 'Full day',
-    price: 25,
-    spotsAvailable: 4,
-  ),
-  TravelCompany(
-    id: 'zagros_travel',
-    name: 'Zagros Travel',
-    rating: 4.2,
-    tripDate: 'Sun, Nov 2',
-    tripType: 'Half day',
-    price: 22,
-    spotsAvailable: 8,
-  ),
-  TravelCompany(
-    id: 'hawler_journeys',
-    name: 'Hawler Journeys',
-    rating: 4.8,
-    tripDate: 'Fri, Nov 7',
-    tripType: 'Full day',
-    price: 30,
-    spotsAvailable: 2,
-  ),
-  TravelCompany(
-    id: 'sipan_adventures',
-    name: 'Sipan Adventures',
-    rating: 4.3,
-    tripDate: 'Sat, Nov 8',
-    tripType: 'Full day',
-    price: 28,
-    spotsAvailable: 6,
-  ),
-];
+  factory TravelCompany.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+  ) => TravelCompany.fromMap(snapshot.id, snapshot.data() ?? const {});
+
+  factory TravelCompany.fromMap(String id, Map<String, dynamic> data) {
+    return TravelCompany(
+      id: id,
+      name: data['name'] as String? ?? '',
+      rating: (data['rating'] as num?)?.toDouble() ?? 0,
+      tripDate: data['tripDate'] as String? ?? '',
+      tripType: data['tripType'] as String? ?? '',
+      price: (data['price'] as num?)?.toDouble() ?? 0,
+      spotsAvailable: (data['spotsAvailable'] as num?)?.toInt() ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toFirestore() => {
+    'name': name,
+    'rating': rating,
+    'tripDate': tripDate,
+    'tripType': tripType,
+    'price': price,
+    'spotsAvailable': spotsAvailable,
+  };
+}

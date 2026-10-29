@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/notification/app_controller.dart';
@@ -21,6 +23,7 @@ class TripBookingScreen extends StatefulWidget {
 
 class _TripBookingScreenState extends State<TripBookingScreen> {
   TravelCompany? _selected;
+  bool _saving = false;
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +79,36 @@ class _TripBookingScreenState extends State<TripBookingScreen> {
             ),
             const SizedBox(height: 12),
             Expanded(
-              child: ListView.separated(
-                itemCount: kTravelCompanies.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 12),
-                itemBuilder: (_, i) {
-                  final company = kTravelCompanies[i];
-                  final isSelected = _selected?.id == company.id;
-                  return _CompanyCard(
-                    company: company,
-                    isSelected: isSelected,
-                    isDark: isDark,
-                    onTap: () => setState(() => _selected = company),
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: FirebaseFirestore.instance
+                    .collection('companies')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Could not load companies: ${snapshot.error}'));
+                  }
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final companies = snapshot.data!.docs
+                      .map(TravelCompany.fromFirestore)
+                      .toList();
+                  if (companies.isEmpty) {
+                    return const Center(child: Text('No trips are available yet.'));
+                  }
+                  return ListView.separated(
+                    itemCount: companies.length,
+                    separatorBuilder: (_, _) => const SizedBox(height: 12),
+                    itemBuilder: (_, i) {
+                      final company = companies[i];
+                      final isSelected = _selected?.id == company.id;
+                      return _CompanyCard(
+                        company: company,
+                        isSelected: isSelected,
+                        isDark: isDark,
+                        onTap: () => setState(() => _selected = company),
+                      );
+                    },
                   );
                 },
               ),
@@ -100,23 +122,29 @@ class _TripBookingScreenState extends State<TripBookingScreen> {
           child: SizedBox(
             height: 52,
             child: ElevatedButton(
-              onPressed: _selected == null
+              onPressed: _selected == null || _saving
                   ? null
-                  : () {
+                  : () async {
+                      setState(() => _saving = true);
                       final appCtrl = Get.find<AppController>();
-                      appCtrl.addBooking(
-                        TripBooking(
+                      try {
+                        await appCtrl.addBooking(TripBooking(
                           site: widget.site,
                           company: _selected!,
                           bookedAt: DateTime.now(),
-                        ),
-                      );
-                      Get.off(
-                        () => BookingConfirmedScreen(
-                          site: widget.site,
-                          company: _selected!,
-                        ),
-                      );
+                        ));
+                        if (!mounted) return;
+                        Get.off(() => BookingConfirmedScreen(
+                              site: widget.site,
+                              company: _selected!,
+                            ));
+                      } on FirebaseException catch (error) {
+                        Get.snackbar('Booking failed', error.message ?? error.code);
+                      } catch (error) {
+                        Get.snackbar('Booking failed', error.toString());
+                      } finally {
+                        if (mounted) setState(() => _saving = false);
+                      }
                     },
               style: ElevatedButton.styleFrom(
                 backgroundColor: _selected == null
@@ -133,6 +161,8 @@ class _TripBookingScreenState extends State<TripBookingScreen> {
               child: Text(
                 _selected == null
                     ? 'select_trip_above'.tr
+                    : _saving
+                    ? 'Saving booking…'
                     : 'confirm_booking'.tr,
                 style: const TextStyle(
                   fontSize: 16,
@@ -221,7 +251,7 @@ class _CompanyCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\$${company.price.toInt()}',
+                  '${company.price.toInt()} IQD',
                   style: GoogleFonts.lora(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

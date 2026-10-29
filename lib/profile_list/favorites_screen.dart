@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/notification/app_controller.dart';
@@ -28,9 +29,16 @@ class FavoritesScreen extends StatelessWidget {
         foregroundColor: isDark ? Colors.white : _teal,
         elevation: 0,
       ),
-      body: Obx(() {
+      body: Obx(() => StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance.collection('sites').snapshots(),
+        builder: (context, snapshot) {
+        if (snapshot.hasError) return Center(child: Text('Could not load favorites: ${snapshot.error}'));
+        if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
         final ids = appCtrl.favoriteSiteIds;
-        final sites = kAllSites.where((s) => ids.contains(s.id)).toList();
+        final sites = snapshot.data!.docs
+            .map(HistoricalSite.fromFirestore)
+            .where((site) => ids.contains(site.id))
+            .toList();
         if (sites.isEmpty) {
           return Center(
             child: Column(
@@ -77,7 +85,7 @@ class FavoritesScreen extends StatelessWidget {
             );
           },
         );
-      }),
+      })),
     );
   }
 }

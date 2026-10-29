@@ -27,6 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final adminNameController = TextEditingController();
   final adminIdController = TextEditingController();
+  final adminEmailController = TextEditingController(
+    text: 'hozanissa98@gmail.com',
+  );
+  final adminPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -34,6 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     adminNameController.dispose();
     adminIdController.dispose();
+    adminEmailController.dispose();
+    adminPasswordController.dispose();
     super.dispose();
   }
 
@@ -52,16 +58,28 @@ class _LoginScreenState extends State<LoginScreen> {
       if (_isAdmin) {
         final name = adminNameController.text.trim();
         final id = adminIdController.text.trim();
-        final admins = await FirebaseFirestore.instance
-            .collection('admins')
-            .where('name', isEqualTo: name)
-            .where('id', isEqualTo: id)
-            .limit(1)
-            .get();
-        if (admins.docs.isEmpty) {
+        final email = adminEmailController.text.trim();
+        final adminRef = FirebaseFirestore.instance.collection('admins').doc(email);
+        final adminSnapshot = await adminRef.get();
+        final adminData = adminSnapshot.data();
+        if (adminData == null ||
+            adminData['name'] != name ||
+            adminData['id'] != id ||
+            adminData['enabled'] != true) {
           _showMessage('Invalid admin name or ID.');
           return;
         }
+        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: adminPasswordController.text,
+        );
+        final adminUser = credential.user;
+        if (adminUser == null || adminUser.email != email) {
+          await FirebaseAuth.instance.signOut();
+          _showMessage('The admin account email did not match.');
+          return;
+        }
+        await adminRef.set({'uid': adminUser.uid}, SetOptions(merge: true));
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isLoggedIn', true);
         await prefs.setString('userRole', 'admin');
@@ -71,7 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text.trim(),
           password: passwordController.text,
         );
-        await _ensureUserProfile(credential.user!);
+        final accountIsActive = await _ensureUserProfile(credential.user!);
+        if (!accountIsActive) {
+          await FirebaseAuth.instance.signOut();
+          _showMessage('This account has been suspended. Contact support.');
+          return;
+        }
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isLoggedIn', true);
         await prefs.setString('userRole', 'user');
@@ -88,11 +111,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> _ensureUserProfile(User user) async {
+  Future<bool> _ensureUserProfile(User user) async {
     final profile = FirebaseFirestore.instance.collection('users').doc(user.uid);
     try {
       final snapshot = await profile.get();
-      if (snapshot.exists) return;
+      if (snapshot.exists) {
+        return snapshot.data()?['status'] != 'suspended';
+      }
 
       final nameParts = (user.displayName ?? '').trim().split(RegExp(r'\s+'));
       await profile.set({
@@ -101,13 +126,16 @@ class _LoginScreenState extends State<LoginScreen> {
         'lastName': nameParts.length < 2 ? '' : nameParts.skip(1).join(' '),
         'phone': user.phoneNumber ?? '',
         'email': user.email ?? '',
+        'status': 'active',
         'createdAt': user.metadata.creationTime == null
             ? FieldValue.serverTimestamp()
             : Timestamp.fromDate(user.metadata.creationTime!),
       });
+      return true;
     } on FirebaseException catch (error) {
       // Keep login working even if profile sync is blocked by Firestore rules.
       debugPrint('Could not create user profile in Firestore: ${error.message}');
+      return true;
     }
   }
 
@@ -226,6 +254,32 @@ class _LoginScreenState extends State<LoginScreen> {
                                     validator: (v) =>
                                         (v == null || v.trim().isEmpty)
                                         ? 'Admin ID is required.'
+                                        : null,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    controller: adminEmailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    decoration: InputDecoration(
+                                      border: const OutlineInputBorder(),
+                                      labelText: 'Admin Firebase email',
+                                      prefixIcon: Icon(Icons.email, color: accent),
+                                    ),
+                                    validator: (v) => (v == null || !GetUtils.isEmail(v.trim()))
+                                        ? 'Enter the admin Firebase email.'
+                                        : null,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    controller: adminPasswordController,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      border: const OutlineInputBorder(),
+                                      labelText: 'Admin Firebase password',
+                                      prefixIcon: Icon(Icons.lock, color: accent),
+                                    ),
+                                    validator: (v) => (v == null || v.isEmpty)
+                                        ? 'Admin password is required.'
                                         : null,
                                   ),
                                 ] else ...[

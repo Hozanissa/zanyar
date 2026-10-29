@@ -95,6 +95,7 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
           'email': email,
           'createdAt': FieldValue.serverTimestamp(),
         });
+        await FirebaseAuth.instance.signOut();
         if (!mounted) return;
         _showMessage('account_created'.tr);
         Get.off(() => const LoginScreen());

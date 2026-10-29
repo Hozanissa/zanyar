@@ -80,7 +80,7 @@ class TripRequests extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '\$${b.company.price.toInt()}',
+                        '${b.company.price.toInt()} IQD',
                         style: const TextStyle(
                           color: _terracotta,
                           fontWeight: FontWeight.bold,
@@ -95,6 +95,15 @@ class TripRequests extends StatelessWidget {
                     style: TextStyle(
                       color: isDark ? Colors.grey[400] : Colors.grey[600],
                       fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    b.paymentStatus == 'paid' ? 'Paid' : 'Payment pending',
+                    style: TextStyle(
+                      color: b.paymentStatus == 'paid' ? _teal : Colors.orange[800],
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
                     ),
                   ),
                   const SizedBox(height: 4),

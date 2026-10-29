@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,88 +52,9 @@ class _MapScreenState extends State<MapScreen> {
   String _selectedCategory = 'All';
   HistoricalSite? _selectedSite;
 
-  final List<HistoricalSite> _sites = const [
-    HistoricalSite(
-      id: 'erbil_citadel',
-      name: 'Erbil Citadel',
-      kurdishName: 'قەڵای هەولێر',
-      city: 'Erbil',
-      category: 'Citadel',
-      description: 'One of the oldest continuously inhabited places on Earth, dating back over 6,000 years, and recognized as a UNESCO World Heritage site.',
-      location: LatLng(36.1911, 44.0091),
-      icon: Icons.fort,
-    ),
-    HistoricalSite(
-      id: 'amadiya',
-      name: 'Amadiya Citadel',
-      kurdishName: 'قەڵای ئامێدی',
-      city: 'Duhok',
-      category: 'Citadel',
-      description: 'An ancient cliff-top fortress town founded around 800 BC, perched on a mesa mountain with spectacular historical gates.',
-      location: LatLng(37.0911, 43.4878),
-      icon: Icons.location_city,
-    ),
-    HistoricalSite(
-      id: 'shanidar_cave',
-      name: 'Shanidar Cave',
-      kurdishName: 'ئەشکەوتی شانەدەر',
-      city: 'Erbil (Bradost)',
-      category: 'Cave',
-      description: 'World-famous archaeological site containing Neanderthal remains and early funeral flower burial evidence in the Bradost Mountain.',
-      location: LatLng(36.8333, 44.2167),
-      icon: Icons.landscape,
-    ),
-    HistoricalSite(
-      id: 'lalish',
-      name: 'Lalish Sanctuary',
-      kurdishName: 'پەرستگای لالش',
-      city: 'Shekhan (Duhok)',
-      category: 'Sanctuary',
-      description: 'The holiest site of the Yazidi community, a peaceful mountain sanctuary with iconic conical spires and centuries-old stone pathways.',
-      location: LatLng(36.7719, 43.3039),
-      icon: Icons.account_balance,
-    ),
-    HistoricalSite(
-      id: 'sherwana_castle',
-      name: 'Sherwana Castle',
-      kurdishName: 'قەڵای شێروانە',
-      city: 'Kalar (Garmian)',
-      category: 'Castle',
-      description: 'Historic 19th-century palace fortress built by Muhammad Pasha Jaff on top of an ancient tell overlooking the Sirwan river.',
-      location: LatLng(34.6247, 45.3125),
-      icon: Icons.castle,
-    ),
-    HistoricalSite(
-      id: 'khanzad_castle',
-      name: 'Khanzad Castle',
-      kurdishName: 'قەڵای خانزاد',
-      city: 'Erbil',
-      category: 'Castle',
-      description: 'A stone fortress constructed in the 16th century during the Soran Emirate by Princess Khanzad along the historic road to Soran.',
-      location: LatLng(36.3375, 44.1167),
-      icon: Icons.shield,
-    ),
-    HistoricalSite(
-      id: 'dwin_castle',
-      name: 'Dwin Castle',
-      kurdishName: 'قەڵای دوین',
-      city: 'Erbil',
-      category: 'Castle',
-      description: 'Ancient medieval fortress linked to the ancestry of Sultan Saladin (Salah ad-Din), offering panoramic views of historical trade routes.',
-      location: LatLng(36.4250, 44.2056),
-      icon: Icons.castle,
-    ),
-    HistoricalSite(
-      id: 'slemani_heritage',
-      name: 'Sulaymaniyah Heritage',
-      kurdishName: 'شوێنەواری سلێمانی',
-      city: 'Sulaymaniyah',
-      category: 'Heritage',
-      description: 'The cultural heart of southern Kurdistan, celebrated for traditional grand bazaars, Goyzha viewpoints, and heritage archives.',
-      location: LatLng(35.5558, 45.4351),
-      icon: Icons.museum,
-    ),
-  ];
+
+  List<HistoricalSite> _sites = [];
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _sitesSubscription;
 
   List<String> get _categories {
     final set = {'All', ..._sites.map((s) => s.category)};
@@ -166,12 +89,58 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final id = widget.initialSiteId;
-      if (id == null) return;
-      final match = _sites.where((s) => s.id == id);
-      if (match.isNotEmpty) _moveToSite(match.first);
-    });
+    _sitesSubscription = FirebaseFirestore.instance
+        .collection('sites')
+        .snapshots()
+        .listen((snapshot) {
+          if (!mounted) return;
+          final sites = snapshot.docs.map((doc) {
+            final data = doc.data();
+            final category = data['category'] as String? ?? 'Heritage';
+            return HistoricalSite(
+              id: doc.id,
+              name: data['name'] as String? ?? '',
+              kurdishName: data['kurdishName'] as String? ?? '',
+              city: data['city'] as String? ?? '',
+              category: category,
+              description: data['description'] as String? ?? '',
+              location: LatLng(
+                (data['lat'] as num?)?.toDouble() ?? 0,
+                (data['lng'] as num?)?.toDouble() ?? 0,
+              ),
+              icon: _iconForCategory(category),
+            );
+          }).toList();
+          setState(() {
+            _sites = sites;
+            if (_selectedSite != null) {
+              final matches = sites.where((site) => site.id == _selectedSite!.id);
+              _selectedSite = matches.isEmpty ? null : matches.first;
+            }
+          });
+          final id = widget.initialSiteId;
+          if (id != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) return;
+              final matches = _sites.where((site) => site.id == id);
+              if (matches.isNotEmpty) _moveToSite(matches.first);
+            });
+          }
+        });
+  }
+
+  static IconData _iconForCategory(String category) => switch (category.toLowerCase()) {
+    'citadel' => Icons.account_balance,
+    'sanctuary' => Icons.temple_buddhist,
+    'cave' => Icons.landscape,
+    'castle' => Icons.castle,
+    _ => Icons.museum,
+  };
+
+  @override
+  void dispose() {
+    _sitesSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _openExternalDirections(HistoricalSite site) async {
