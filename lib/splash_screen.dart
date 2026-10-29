@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -42,28 +41,121 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF1F4E4C),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(image: AssetImage('app-icon3.png')),
-            SizedBox(height: 24),
-            Text(
-              'welcome_to_zanyar'.tr,
-              style: GoogleFonts.lora(fontSize: 20, color: Colors.white),
-            ),
+    const Color teal = Color(0xFF1F4E4C);
+    const Color niceGold = Color(0xFFD4AF37);
+    const Color somehowWhite = Color(0xFFF5F0E6);
 
-            SizedBox(height: 24),
-            LinearProgressIndicator(
-              value: counter / 100,
-              minHeight: 10,
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xFFC4704B),
+    return Scaffold(
+      backgroundColor: teal,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(flex: 3),
+
+                Icon(
+                  Icons.fort_rounded,
+                  size: 54,
+                  color: niceGold.withOpacity(0.9),
+                ),
+
+                const SizedBox(height: 28),
+
+                // App Title
+                const Text(
+                  'ZANYAR',
+                  style: TextStyle(
+                    color: somehowWhite,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 3.5,
+                    fontFamily: 'serif',
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                // Subtle Cultural Tagline
+                Text(
+                  'Ancient Sites & Heritage of Kurdistan',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: somehowWhite.withOpacity(0.75),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.8,
+                  ),
+                ),
+
+                const Spacer(flex: 3),
+
+                // Minimal, elegant loading indicator
+                // Elegant Pill-shaped Linear Progress Indicator
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        height: 8,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: LinearProgressIndicator(
+                            value: counter / 100,
+                            minHeight: 8,
+                            color: const Color(
+                              0xFFC4704B,
+                            ), // Warm terracotta clay
+                            backgroundColor: Colors.white.withOpacity(
+                              0.12,
+                            ), // Subtle translucent track
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      // Optional subtle percentage text
+                      Text(
+                        '$counter%',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.6),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 1.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const Spacer(flex: 1),
+
+                // Minimalist Footer
+                Text(
+                  'KURDISTAN',
+                  style: TextStyle(
+                    color: somehowWhite.withOpacity(0.35),
+                    fontSize: 11,
+                    letterSpacing: 2.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
