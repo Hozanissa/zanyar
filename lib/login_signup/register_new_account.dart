@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/login_signup/login_screen.dart';
@@ -50,12 +52,14 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
     );
   }
 
-  void register() {
+  bool _isRegistering = false;
+
+  Future<void> register() async {
     final firstName = firstNameController.text.trim();
     final lastName = lastNameController.text.trim();
     final phone = phoneController.text.trim();
     final email = emailController.text.trim();
-    final password = passwordController.text.trim();
+    final password = passwordController.text;
 
     if (firstName.isEmpty) {
       _showMessage('first_name_required'.tr);
@@ -69,21 +73,40 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
       _showMessage('phone_short'.tr);
     } else if (email.isEmpty) {
       _showMessage('email_required'.tr);
-    } else if (!email.contains('@') || !email.contains('.')) {
+    } else if (!GetUtils.isEmail(email)) {
       _showMessage('invalid_email'.tr);
     } else if (password.isEmpty) {
       _showMessage('password_required'.tr);
     } else if (password.length < 6) {
       _showMessage('password_short'.tr);
     } else {
-      // Every field passed, so the account is "created".
-      _showMessage('account_created'.tr);
-
-      firstNameController.clear();
-      lastNameController.clear();
-      phoneController.clear();
-      emailController.clear();
-      passwordController.clear();
+      setState(() => _isRegistering = true);
+      try {
+        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        await credential.user!.updateDisplayName('$firstName $lastName');
+        await FirebaseFirestore.instance.collection('users').doc(credential.user!.uid).set({
+          'uid': credential.user!.uid,
+          'firstName': firstName,
+          'lastName': lastName,
+          'phone': phone,
+          'email': email,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+        if (!mounted) return;
+        _showMessage('account_created'.tr);
+        Get.off(() => const LoginScreen());
+      } on FirebaseAuthException catch (error) {
+        _showMessage(error.message ?? 'Unable to create account.');
+      } on FirebaseException catch (error) {
+        _showMessage(error.message ?? 'Account was created, but its profile could not be saved.');
+      } catch (_) {
+        _showMessage('Unable to create account. Please try again.');
+      } finally {
+        if (mounted) setState(() => _isRegistering = false);
+      }
     }
   }
 
@@ -225,9 +248,9 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
                               ),
                               const SizedBox(height: 25),
                               ElevatedButton(
-                                onPressed: register,
+                                onPressed: _isRegistering ? null : register,
                                 child: Text(
-                                  'create_account'.tr,
+                                  _isRegistering ? 'Creating account…' : 'create_account'.tr,
                                   style: const TextStyle(
                                     color: AppTheme.terracotta,
                                     fontWeight: FontWeight.bold,

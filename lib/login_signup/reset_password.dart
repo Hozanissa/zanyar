@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/theme/app_theme.dart';
@@ -15,8 +16,7 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   final TextEditingController emailController = TextEditingController();
 
-  // Same email the login screen accepts.
-  final String registeredEmail = "hozanissa98@gmail.com";
+  bool _isSending = false;
 
   @override
   void dispose() {
@@ -42,18 +42,27 @@ class _ResetPasswordState extends State<ResetPassword> {
     );
   }
 
-  void sendLink() {
+  Future<void> sendLink() async {
     final email = emailController.text.trim();
 
     if (email.isEmpty) {
       _showMessage('email_required'.tr);
     } else if (!email.contains('@') || !email.contains('.')) {
       _showMessage('invalid_email'.tr);
-    } else if (email != registeredEmail) {
-      _showMessage('no_account'.tr);
     } else {
-      _showMessage('link_sent'.tr);
-      emailController.clear();
+      setState(() => _isSending = true);
+      try {
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        if (!mounted) return;
+        _showMessage('link_sent'.tr);
+        emailController.clear();
+      } on FirebaseAuthException catch (error) {
+        _showMessage(error.message ?? 'Unable to send a reset link.');
+      } catch (_) {
+        _showMessage('Unable to send a reset link. Please try again.');
+      } finally {
+        if (mounted) setState(() => _isSending = false);
+      }
     }
   }
 
@@ -145,9 +154,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ),
                       const SizedBox(height: 25),
                       ElevatedButton(
-                        onPressed: sendLink,
+                        onPressed: _isSending ? null : sendLink,
                         child: Text(
-                          'send_link'.tr,
+                          _isSending ? 'Sending…' : 'send_link'.tr,
                           style: const TextStyle(
                             color: AppTheme.terracotta,
                             fontWeight: FontWeight.bold,

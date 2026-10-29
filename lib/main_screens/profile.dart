@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +34,8 @@ class _ProfileState extends State<Profile> {
   Future<void> _logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('isLoggedIn');
+    await prefs.remove('userRole');
+    await FirebaseAuth.instance.signOut();
 
     Get.offAllNamed('/loginScreen');
   }
@@ -109,12 +114,30 @@ class _ProfileState extends State<Profile> {
                 padding: const EdgeInsets.all(8),
                 children: [
                   // User card
-                  const Card(
-                    child: ListTile(
-                      leading: CircleAvatar(child: Text('H')),
-                      title: Text('Hozan Issa'),
-                      subtitle: Text('hozan@example.com'),
-                    ),
+                  StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                    stream: FirebaseAuth.instance.currentUser == null
+                        ? null
+                        : FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .snapshots(),
+                    builder: (context, snapshot) {
+                      final user = FirebaseAuth.instance.currentUser;
+                      final data = snapshot.data?.data();
+                      final name = [
+                        data?['firstName'],
+                        data?['lastName'],
+                      ].whereType<String>().where((part) => part.isNotEmpty).join(' ');
+                      return Card(
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Text(name.isEmpty ? 'U' : name[0].toUpperCase()),
+                          ),
+                          title: Text(name.isEmpty ? (user?.displayName ?? 'User') : name),
+                          subtitle: Text(data?['email'] as String? ?? user?.email ?? ''),
+                        ),
+                      );
+                    },
                   ),
 
                   // Language toggle

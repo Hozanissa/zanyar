@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Let signed-in users manage only their own profile.
+    match /users/{userId} {
+      allow create, read, update, delete:
+        if request.auth != null && request.auth.uid == userId;
+    }
+
+    // The current admin login checks name and ID from the client before
+    // authenticating, so it needs to read admin records. Do not store any
+    // other sensitive information in these documents.
+    match /admins/{adminId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

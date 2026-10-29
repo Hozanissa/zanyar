@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zanyar/login_signup/login_screen.dart';
 
 class AdminPanel extends StatefulWidget {
   const AdminPanel({super.key});
@@ -16,6 +19,18 @@ class _AdminPanelState extends State<AdminPanel> {
         foregroundColor: Colors.grey[300],
         title: Text("Admin Control Panel"),
         centerTitle: true,
+        actions: [
+          IconButton(
+            tooltip: 'Sign out',
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.remove('isLoggedIn');
+              await prefs.remove('userRole');
+              if (mounted) Get.offAll(() => const LoginScreen());
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

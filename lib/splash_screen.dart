@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zanyar/admin/admin_panel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,12 +28,16 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     final prefs = await SharedPreferences.getInstance();
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    final userRole = prefs.getString('userRole');
 
     if (!mounted) return;
 
     if (isLoggedIn) {
-      //navigate to home_screen.dart if the user is already logged in
-      Get.offNamed('/homeScreen');
+      if (userRole == 'admin') {
+        Get.off(() => const AdminPanel());
+      } else {
+        Get.offNamed('/homeScreen');
+      }
       //navigate to login screen if the user is not logged in.
     } else {
       Get.offNamed('/loginScreen');
