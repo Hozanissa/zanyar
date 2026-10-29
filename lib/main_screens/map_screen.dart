@@ -422,8 +422,10 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Widget _buildSelectedSiteCard(HistoricalSite site) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     const primaryTeal = Color(0xFF1F4E4C);
     const terracotta = Color(0xFFC4704B);
+    const lightTeal = Color(0xFF7CB8AE);
 
     return Card(
       elevation: 6,
@@ -461,7 +463,9 @@ class _MapScreenState extends State<MapScreen> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Colors.grey[600],
+                              color: isDark
+                                  ? Colors.grey[400]
+                                  : Colors.grey[600],
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -471,14 +475,15 @@ class _MapScreenState extends State<MapScreen> {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: primaryTeal.withValues(alpha: 0.1),
+                              color: (isDark ? lightTeal : primaryTeal)
+                                  .withValues(alpha: isDark ? 0.2 : 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
                               site.city.tr,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 11,
-                                color: primaryTeal,
+                                color: isDark ? lightTeal : primaryTeal,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -512,6 +517,7 @@ class _MapScreenState extends State<MapScreen> {
                   child: FilledButton.icon(
                     style: FilledButton.styleFrom(
                       backgroundColor: primaryTeal,
+                      foregroundColor: isDark ? lightTeal : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
