@@ -262,7 +262,7 @@ class AppTranslations extends Translations {
     'contact_facebook_subtitle': 'فۆڵۆمان بکە و نامەمان بۆ بنێرە',
     'contact_sms': 'نامەی کورت (SMS)',
     'contact_sms_subtitle': 'نامەیەکی دەقمان بۆ بنێرە',
-    'contact_github_subtitle': 'سەردانی پڕۆفایلی گیت‌هەبمان بکە',
+    'contact_github_subtitle': 'سەردانی پڕۆفایلی گیت‌هەب مان بکە',
     'contact_phone': 'تەلەفۆن',
     'contact_could_not_open': 'نەتوانرا ئەپەکە بکرێتەوە',
     'about': 'دەربارەی ئێمە',
