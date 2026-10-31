@@ -104,20 +104,6 @@ class _AdminPanelState extends State<AdminPanel> {
                 //onTap:
               ),
             ),
-            Card(
-              child: ListTile(
-                title: Text("Analytics"),
-                subtitle: Text(
-                  "View Number of users, trip request, and most-viewed sites",
-                ),
-
-                leading: CircleAvatar(
-                  backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),
-                  child: Icon(Icons.analytics, color: Color(0xFF1F4E4C)),
-                ),
-                trailing: Icon(Icons.chevron_right),
-              ),
-            ),
           ],
         ),
       ),
