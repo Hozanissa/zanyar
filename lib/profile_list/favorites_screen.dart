@@ -29,63 +29,65 @@ class FavoritesScreen extends StatelessWidget {
         foregroundColor: isDark ? Colors.white : _teal,
         elevation: 0,
       ),
-      body: Obx(() => StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection('sites').snapshots(),
         builder: (context, snapshot) {
         if (snapshot.hasError) return Center(child: Text('Could not load favorites: ${snapshot.error}'));
         if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-        final ids = appCtrl.favoriteSiteIds;
-        final sites = snapshot.data!.docs
-            .map(HistoricalSite.fromFirestore)
-            .where((site) => ids.contains(site.id))
-            .toList();
-        if (sites.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.favorite_border, size: 56, color: Colors.grey),
-                const SizedBox(height: 12),
-                Text(
-                  'no_favorites'.tr,
-                  style: const TextStyle(color: Colors.grey, fontSize: 15),
-                ),
-              ],
-            ),
-          );
-        }
-        return ListView.separated(
-          padding: const EdgeInsets.all(16),
-          itemCount: sites.length,
-          separatorBuilder: (_, _) => const SizedBox(height: 10),
-          itemBuilder: (_, i) {
-            final site = sites[i];
-            return ListTile(
-              tileColor: isDark ? const Color(0xFF1C2422) : Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+        return Obx(() {
+          final ids = appCtrl.favoriteSiteIds.toSet();
+          final sites = snapshot.data!.docs
+              .map(HistoricalSite.fromFirestore)
+              .where((site) => ids.contains(site.id))
+              .toList();
+          if (sites.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.favorite_border, size: 56, color: Colors.grey),
+                  const SizedBox(height: 12),
+                  Text(
+                    'no_favorites'.tr,
+                    style: const TextStyle(color: Colors.grey, fontSize: 15),
+                  ),
+                ],
               ),
-              leading: CircleAvatar(
-                backgroundColor: _teal.withValues(alpha: 0.1),
-                child: Icon(site.icon, color: _teal, size: 20),
-              ),
-              title: Text(
-                site.localizedName,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                site.city.tr,
-                style: TextStyle(color: Colors.grey[500]),
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.favorite, color: Colors.red, size: 20),
-                onPressed: () => appCtrl.toggleFavorite(site),
-              ),
-              onTap: () => Get.to(() => SiteDetailScreen(site: site)),
             );
-          },
-        );
-      })),
+          }
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: sites.length,
+            separatorBuilder: (_, _) => const SizedBox(height: 10),
+            itemBuilder: (_, i) {
+              final site = sites[i];
+              return ListTile(
+                tileColor: isDark ? const Color(0xFF1C2422) : Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                leading: CircleAvatar(
+                  backgroundColor: _teal.withValues(alpha: 0.1),
+                  child: Icon(site.icon, color: _teal, size: 20),
+                ),
+                title: Text(
+                  site.localizedName,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  site.city.tr,
+                  style: TextStyle(color: Colors.grey[500]),
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.favorite, color: Colors.red, size: 20),
+                  onPressed: () => appCtrl.toggleFavorite(site),
+                ),
+                onTap: () => Get.to(() => SiteDetailScreen(site: site)),
+              );
+            },
+          );
+        });
+      }),
     );
   }
 }

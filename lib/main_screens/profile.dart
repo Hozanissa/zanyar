@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -124,17 +123,23 @@ class _ProfileState extends State<Profile> {
                     builder: (context, snapshot) {
                       final user = FirebaseAuth.instance.currentUser;
                       final data = snapshot.data?.data();
-                      final name = [
-                        data?['firstName'],
-                        data?['lastName'],
-                      ].whereType<String>().where((part) => part.isNotEmpty).join(' ');
+                      final name = [data?['firstName'], data?['lastName']]
+                          .whereType<String>()
+                          .where((part) => part.isNotEmpty)
+                          .join(' ');
                       return Card(
                         child: ListTile(
                           leading: CircleAvatar(
-                            child: Text(name.isEmpty ? 'U' : name[0].toUpperCase()),
+                            child: Text(
+                              name.isEmpty ? 'U' : name[0].toUpperCase(),
+                            ),
                           ),
-                          title: Text(name.isEmpty ? (user?.displayName ?? 'User') : name),
-                          subtitle: Text(data?['email'] as String? ?? user?.email ?? ''),
+                          title: Text(
+                            name.isEmpty ? (user?.displayName ?? 'User') : name,
+                          ),
+                          subtitle: Text(
+                            data?['email'] as String? ?? user?.email ?? '',
+                          ),
                         ),
                       );
                     },
