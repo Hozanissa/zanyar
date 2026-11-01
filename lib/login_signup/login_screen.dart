@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zanyar/admin/admin_panel.dart';
 import 'package:zanyar/theme/app_theme.dart';
 import 'package:zanyar/widgets/auth_toggles.dart';
@@ -51,6 +52,25 @@ class _LoginScreenState extends State<LoginScreen> {
       );
   }
 
+  Future<void> _contactSupport() async {
+    await _openContact(Uri(scheme: 'mailto', path: 'hozanissa98@gmail.com'));
+  }
+
+  Future<void> _callSupport() async {
+    await _openContact(Uri(scheme: 'tel', path: '+9647511292504'));
+  }
+
+  Future<void> _openContact(Uri uri) async {
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
+          mounted) {
+        _showMessage('Could not open the requested app.');
+      }
+    } catch (_) {
+      if (mounted) _showMessage('Could not open the requested app.');
+    }
+  }
+
   Future<void> login() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isLoading = true);
@@ -59,7 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
         final name = adminNameController.text.trim();
         final id = adminIdController.text.trim();
         final email = adminEmailController.text.trim();
-        final adminRef = FirebaseFirestore.instance.collection('admins').doc(email);
+        final adminRef = FirebaseFirestore.instance
+            .collection('admins')
+            .doc(email);
         final adminSnapshot = await adminRef.get();
         final adminData = adminSnapshot.data();
         if (adminData == null ||
@@ -69,10 +91,11 @@ class _LoginScreenState extends State<LoginScreen> {
           _showMessage('Invalid admin name or ID.');
           return;
         }
-        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: adminPasswordController.text,
-        );
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+              email: email,
+              password: adminPasswordController.text,
+            );
         final adminUser = credential.user;
         if (adminUser == null || adminUser.email != email) {
           await FirebaseAuth.instance.signOut();
@@ -85,10 +108,11 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('userRole', 'admin');
         if (mounted) Get.offAll(() => const AdminPanel());
       } else {
-        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text,
-        );
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text,
+            );
         final accountIsActive = await _ensureUserProfile(credential.user!);
         if (!accountIsActive) {
           await FirebaseAuth.instance.signOut();
@@ -112,7 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<bool> _ensureUserProfile(User user) async {
-    final profile = FirebaseFirestore.instance.collection('users').doc(user.uid);
+    final profile = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid);
     try {
       final snapshot = await profile.get();
       if (snapshot.exists) {
@@ -134,7 +160,9 @@ class _LoginScreenState extends State<LoginScreen> {
       return true;
     } on FirebaseException catch (error) {
       // Keep login working even if profile sync is blocked by Firestore rules.
-      debugPrint('Could not create user profile in Firestore: ${error.message}');
+      debugPrint(
+        'Could not create user profile in Firestore: ${error.message}',
+      );
       return true;
     }
   }
@@ -263,9 +291,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     decoration: InputDecoration(
                                       border: const OutlineInputBorder(),
                                       labelText: 'Admin Firebase email',
-                                      prefixIcon: Icon(Icons.email, color: accent),
+                                      prefixIcon: Icon(
+                                        Icons.email,
+                                        color: accent,
+                                      ),
                                     ),
-                                    validator: (v) => (v == null || !GetUtils.isEmail(v.trim()))
+                                    validator: (v) =>
+                                        (v == null ||
+                                            !GetUtils.isEmail(v.trim()))
                                         ? 'Enter the admin Firebase email.'
                                         : null,
                                   ),
@@ -276,7 +309,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     decoration: InputDecoration(
                                       border: const OutlineInputBorder(),
                                       labelText: 'Admin Firebase password',
-                                      prefixIcon: Icon(Icons.lock, color: accent),
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: accent,
+                                      ),
                                     ),
                                     validator: (v) => (v == null || v.isEmpty)
                                         ? 'Admin password is required.'
@@ -396,6 +432,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.only(end: 12, bottom: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton.icon(
+                    onPressed: _contactSupport,
+                    icon: const Icon(Icons.email_outlined),
+                    label: const Text('hozanissa98@gmail.com'),
+                  ),
+                  TextButton.icon(
+                    onPressed: _callSupport,
+                    icon: const Icon(Icons.phone_outlined),
+                    label: const Text('+9647511292504'),
+                  ),
+                ],
               ),
             ),
           ],
