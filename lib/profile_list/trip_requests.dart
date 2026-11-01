@@ -200,7 +200,7 @@ class TripRequests extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
+            onPressed: () => Get.back(),
             child: Text(
               'cancel'.tr,
               style: TextStyle(
@@ -217,7 +217,7 @@ class TripRequests extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Navigator.of(ctx).pop();
+              Get.back();
               appCtrl.cancelBooking(booking);
               Get.snackbar(
                 'cancel_trip'.tr,

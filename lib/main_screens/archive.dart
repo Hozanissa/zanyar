@@ -178,9 +178,7 @@ class _ArchiveState extends State<Archive> {
   }
 
   void _openDetail(ArchiveItem item) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => ArchiveDetailScreen(item: item)),
-    );
+    Get.to(() => ArchiveDetailScreen(item: item));
   }
 
   @override
@@ -545,7 +543,7 @@ class ArchiveDetailScreen extends StatelessWidget {
             children: [
               // Back Button
               InkWell(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () => Get.back(),
                 borderRadius: BorderRadius.circular(12),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),

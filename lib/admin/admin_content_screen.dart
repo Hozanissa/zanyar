@@ -156,7 +156,7 @@ class AdminContentScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
+          TextButton(onPressed: () => Get.back(result: false), child: const Text('Cancel')),
           FilledButton(
             onPressed: () async {
               if (!formKey.currentState!.validate()) return;
@@ -183,7 +183,7 @@ class AdminContentScreen extends StatelessWidget {
                 } else {
                   await document.reference.set(result, SetOptions(merge: true));
                 }
-                if (dialogContext.mounted) Navigator.pop(dialogContext, true);
+                if (dialogContext.mounted) Get.back(result: true);
               } on FirebaseException catch (error) {
                 Get.snackbar('Save failed', error.message ?? error.code);
               }
@@ -206,8 +206,8 @@ class AdminContentScreen extends StatelessWidget {
         title: const Text('Delete this item?'),
         content: const Text('This removes it from the app for all users.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
-          TextButton(onPressed: () => Navigator.pop(dialogContext, true), child: const Text('Delete')),
+          TextButton(onPressed: () => Get.back(result: false), child: const Text('Cancel')),
+          TextButton(onPressed: () => Get.back(result: true), child: const Text('Delete')),
         ],
       ),
     );
