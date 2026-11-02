@@ -52,6 +52,21 @@ class _LoginScreenState extends State<LoginScreen> {
       );
   }
 
+  String _authErrorMessage(FirebaseAuthException error) {
+    final key = switch (error.code) {
+      'invalid-email' => 'invalid_email',
+      'user-not-found' => 'incorrect_email',
+      'wrong-password' => 'incorrect_password',
+      'invalid-credential' ||
+      'invalid-login-credentials' => 'invalid_credentials',
+      'too-many-requests' => 'too_many_attempts',
+      'network-request-failed' => 'network_error',
+      'user-disabled' => 'account_disabled',
+      _ => 'sign_in_failed',
+    };
+    return key.tr;
+  }
+
   Future<void> _contactSupport() async {
     await _openContact(Uri(scheme: 'mailto', path: 'hozanissa98@gmail.com'));
   }
@@ -88,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
             adminData['name'] != name ||
             adminData['id'] != id ||
             adminData['enabled'] != true) {
-          _showMessage('Invalid admin name or ID.');
+          _showMessage('invalid_admin_credentials'.tr);
           return;
         }
         final credential = await FirebaseAuth.instance
@@ -99,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final adminUser = credential.user;
         if (adminUser == null || adminUser.email != email) {
           await FirebaseAuth.instance.signOut();
-          _showMessage('The admin account email did not match.');
+          _showMessage('admin_email_mismatch'.tr);
           return;
         }
         await adminRef.set({'uid': adminUser.uid}, SetOptions(merge: true));
@@ -116,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final accountIsActive = await _ensureUserProfile(credential.user!);
         if (!accountIsActive) {
           await FirebaseAuth.instance.signOut();
-          _showMessage('This account has been suspended. Contact support.');
+          _showMessage('account_suspended'.tr);
           return;
         }
         final prefs = await SharedPreferences.getInstance();
@@ -125,11 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (mounted) Get.offAllNamed('/homeScreen');
       }
     } on FirebaseAuthException catch (error) {
-      _showMessage(error.message ?? 'Unable to sign in. Check your details.');
+      _showMessage(_authErrorMessage(error));
     } on FirebaseException catch (error) {
-      _showMessage(error.message ?? 'Unable to verify admin details.');
+      debugPrint('Login verification failed: ${error.message}');
+      _showMessage('admin_verification_failed'.tr);
     } catch (_) {
-      _showMessage('Unable to sign in. Please try again.');
+      _showMessage('sign_in_failed'.tr);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

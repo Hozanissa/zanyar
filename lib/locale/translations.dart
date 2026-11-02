@@ -70,6 +70,14 @@ class AppTranslations extends Translations {
     'incorrect_password': 'Incorrect Password',
     'incorrect_email': 'Incorrect email',
     'invalid_credentials': 'Invalid email or password',
+    'too_many_attempts': 'Too many attempts. Please try again later.',
+    'network_error': 'Network error. Check your internet connection and try again.',
+    'account_disabled': 'This account has been disabled. Contact support.',
+    'sign_in_failed': 'Unable to sign in. Please try again.',
+    'invalid_admin_credentials': 'The admin name or ID is incorrect.',
+    'admin_email_mismatch': 'The admin account email did not match.',
+    'account_suspended': 'This account has been suspended. Contact support.',
+    'admin_verification_failed': 'Unable to verify admin details.',
 
     // Register
     'create_account_title': 'Create a new account',
@@ -305,6 +313,14 @@ class AppTranslations extends Translations {
     'incorrect_password': 'وشەی نهێنی هەڵەیە',
     'incorrect_email': 'ئیمەیڵ هەڵەیە',
     'invalid_credentials': 'ئیمەیڵ یان وشەی نهێنی هەڵەیە',
+    'too_many_attempts': 'هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدەرەوە.',
+    'network_error': 'کێشە لە پەیوەندی ئینتەرنێتدا هەیە. تکایە پەیوەندییەکەت بپشکنە.',
+    'account_disabled': 'ئەم هەژمارە ناچالاک کراوە. پەیوەندی بە پشتگیری بکە.',
+    'sign_in_failed': 'چوونەژوورەوە سەرکەوتوو نەبوو. تکایە دووبارە هەوڵ بدەرەوە.',
+    'invalid_admin_credentials': 'ناوی بەڕێوەبەر یان ژمارەی ناسنامە هەڵەیە.',
+    'admin_email_mismatch': 'ئیمەیڵی هەژماری بەڕێوەبەر یەک ناگرێتەوە.',
+    'account_suspended': 'ئەم هەژمارە ڕاگیراوە. پەیوەندی بە پشتگیری بکە.',
+    'admin_verification_failed': 'نەتوانرا زانیارییەکانی بەڕێوەبەر پشتڕاست بکرێنەوە.',
 
     // Register
     'create_account_title': 'هەژمارێکی نوێ دروست بکە',
