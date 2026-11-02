@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zanyar/admin/admin_archive_screen.dart';
 import 'package:zanyar/admin/admin_content_screen.dart';
 import 'package:zanyar/admin/admin_reviews_screen.dart';
 import 'package:zanyar/admin/admin_users_screen.dart';
@@ -59,9 +60,27 @@ class _AdminPanelState extends State<AdminPanel> {
             ),
             Card(
               child: ListTile(
+                title: const Text('Archive Management'),
+                subtitle: const Text(
+                  'Add, edit, and remove the stories shown in the cultural archive.',
+                ),
+                leading: CircleAvatar(
+                  backgroundColor: const Color(0xFF1F4E4C)
+                      .withValues(alpha: 0.10),
+                  child: const Icon(
+                    Icons.auto_stories,
+                    color: Color(0xFF1F4E4C),
+                  ),
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Get.to(() => const AdminArchiveScreen()),
+              ),
+            ),
+            Card(
+              child: ListTile(
                 title: Text("Content Management"),
                 subtitle: Text(
-                  "Used to manage sites, archive, and approve/reject trip listings",
+                  "Used to manage sites, and approve/reject trip listings",
                 ),
                 leading: CircleAvatar(
                   backgroundColor: Color(0xFF1F4E4C).withValues(alpha: 0.10),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,10 +12,15 @@ class ArchiveItem {
   final String title;
   final String kurdishTitle;
   final String subtitle;
+  final String kurdishSubtitle;
   final String badge;
+  final String kurdishBadge;
   final String period;
+  final String kurdishPeriod;
   final String story;
   final String significance;
+  final String kurdishStory;
+  final String kurdishSignificance;
 
   const ArchiveItem({
     required this.id,
@@ -22,14 +28,73 @@ class ArchiveItem {
     required this.title,
     required this.kurdishTitle,
     required this.subtitle,
+    this.kurdishSubtitle = '',
     required this.badge,
+    this.kurdishBadge = '',
     required this.period,
+    this.kurdishPeriod = '',
     required this.story,
     required this.significance,
+    this.kurdishStory = '',
+    this.kurdishSignificance = '',
   });
 
   /// Kurdish title in Kurdish mode, English title otherwise.
-  String get displayTitle => LocaleController.kurdishNow ? kurdishTitle : title;
+  String get displayTitle => LocaleController.kurdishNow && kurdishTitle.isNotEmpty
+      ? kurdishTitle
+      : title;
+  String get displaySubtitle =>
+      LocaleController.kurdishNow && kurdishSubtitle.isNotEmpty
+      ? kurdishSubtitle
+      : subtitle;
+  String get displayBadge => LocaleController.kurdishNow && kurdishBadge.isNotEmpty
+      ? kurdishBadge
+      : badge;
+  String get displayPeriod =>
+      LocaleController.kurdishNow && kurdishPeriod.isNotEmpty
+      ? kurdishPeriod
+      : period;
+  String get displayStory => LocaleController.kurdishNow && kurdishStory.isNotEmpty
+      ? kurdishStory
+      : story;
+  String get displaySignificance =>
+      LocaleController.kurdishNow && kurdishSignificance.isNotEmpty
+      ? kurdishSignificance
+      : significance;
+
+  factory ArchiveItem.fromMap(String id, Map<String, dynamic> data) =>
+      ArchiveItem(
+        id: id,
+        category: data['category'] as String? ?? 'Folklore',
+        title: data['title'] as String? ?? '',
+        kurdishTitle: data['kurdishTitle'] as String? ?? '',
+        subtitle: data['subtitle'] as String? ?? '',
+        kurdishSubtitle: data['kurdishSubtitle'] as String? ?? '',
+        badge: data['badge'] as String? ?? '',
+        kurdishBadge: data['kurdishBadge'] as String? ?? '',
+        period: data['period'] as String? ?? '',
+        kurdishPeriod: data['kurdishPeriod'] as String? ?? '',
+        story: data['story'] as String? ?? '',
+        significance: data['significance'] as String? ?? '',
+        kurdishStory: data['kurdishStory'] as String? ?? '',
+        kurdishSignificance: data['kurdishSignificance'] as String? ?? '',
+      );
+
+  Map<String, dynamic> toMap() => {
+    'category': category,
+    'title': title,
+    'kurdishTitle': kurdishTitle,
+    'subtitle': subtitle,
+    'kurdishSubtitle': kurdishSubtitle,
+    'badge': badge,
+    'kurdishBadge': kurdishBadge,
+    'period': period,
+    'kurdishPeriod': kurdishPeriod,
+    'story': story,
+    'significance': significance,
+    'kurdishStory': kurdishStory,
+    'kurdishSignificance': kurdishSignificance,
+  };
 }
 
 const Color _primaryTeal = Color(0xFF1F4E4C);
@@ -49,112 +114,6 @@ class _ArchiveState extends State<Archive> {
 
   final List<String> _categories = const ['Folklore', 'Poets', 'Scholars'];
 
-  final List<ArchiveItem> _archiveItems = const [
-    // Folklore
-    ArchiveItem(
-      id: 'mem_u_zin',
-      category: 'Folklore',
-      title: 'The tale of Mem u Zin',
-      kurdishTitle: 'مەم و زین',
-      subtitle: 'Classic Kurdish love epic, 17th century',
-      badge: 'Epic',
-      period: '1695',
-      story: 'Mem û Zîn is a Kurdish love epic written by Ehmedê Xanî in 1695, drawing on an older oral story. Set in the principality of Botan, it follows Mem and Zîn, whose love is thwarted by intrigue and social barriers. Their tragic story intertwines devotion, loss, and spiritual longing.',
-      significance: 'Written in Kurmanji, the epic is a landmark of Kurdish literature. Beyond its love story, it reflects on division, power, and the place of the Kurdish language. It continues to inspire storytelling, theatre, and literary study.',
-    ),
-    ArchiveItem(
-      id: 'dawrese_evdi',
-      category: 'Folklore',
-      title: 'Dawrêşê Evdî',
-      kurdishTitle: 'دەورێشێ عەڤدی',
-      subtitle: 'Heroic folk ballad, oral tradition',
-      badge: 'Ballad',
-      period: 'Oral',
-      story: 'A legendary dengbêj ballad recounting the chivalric bravery and tragic romance of Dawrêşê Evdî, a Yazidi warrior from the Sharqi region. When hostile confederations threatened the tribal lands, Dawrêş led an outnumbered defense for honor, love for Edûlê, and selfless devotion.',
-      significance: 'Considered the pinnacle of Kurdish oral dengbêj tradition, Dawrêşê Evdî preserves centuries of historical resilience, oral poetic meters, and heroic folklore across generations.',
-    ),
-    ArchiveItem(
-      id: 'kawa_blacksmith',
-      category: 'Folklore',
-      title: 'Kawa the Blacksmith',
-      kurdishTitle: 'کاوەی ئاسنگەر',
-      subtitle: 'The legend of Newroz and freedom',
-      badge: 'Myth',
-      period: 'Ancient',
-      story: 'The epic folk legend of Kawa, a blacksmith who rose up against the merciless serpent tyrant Zahhak. Refusing to sacrifice the youth of his land, Kawa forged a rebellion, struck down the tyrant, and lit great fires upon the rugged mountain peaks to herald liberation.',
-      significance: 'Celebrated every year on Newroz (March 21st), Kawa’s revolt is the defining symbol of Kurdish rebirth, resistance against oppression, and the arrival of light and spring.',
-    ),
-    ArchiveItem(
-      id: 'siyabend_xec',
-      category: 'Folklore',
-      title: 'Siyabend and Xecê',
-      kurdishTitle: 'سیابەند و خەجێ',
-      subtitle: 'Tragic romantic myth of Mount Sipan',
-      badge: 'Romance',
-      period: 'Oral',
-      story: 'A heart-rending tale of love set on Mount Sipan. Siyabend, an orphan and skilled hunter, wins the hand of Xecê against high odds, only for tragedy to strike along the mountain cliffs in a moment of fateful misfortune.',
-      significance: 'A core pastoral love poem recited by oral bards, symbolizing the dramatic intimacy between Kurdish wanderers, untamed nature, and tragic sacrifice.',
-    ),
-
-    // Poets
-    ArchiveItem(
-      id: 'melaye_ciziri',
-      category: 'Poets',
-      title: 'Melayê Cizîrî',
-      kurdishTitle: 'مەلای جزیری',
-      subtitle: 'Master of Kurdish mystical poetry',
-      badge: 'Classical',
-      period: '1570–1640',
-      story: 'Born in Cizre, Melayê Cizîrî was a premier luminary of classical Kurdish literature. His Divan elevated the Kurmanji dialect to the heights of high mystical poetry, weaving Sufi metaphysics, radiant imagery, and romantic devotion.',
-      significance: 'Established the classical Kurdish poetic tradition alongside Persian and Arabic masters, creating verses treasured across centuries of scholars.',
-    ),
-    ArchiveItem(
-      id: 'nali',
-      category: 'Poets',
-      title: 'Nalî (Mullah Khidr)',
-      kurdishTitle: 'نالی',
-      subtitle: 'Pioneer of Sorani classical poetry',
-      badge: 'Sorani',
-      period: '1797–1855',
-      story: 'Hailing from Sharazoor, Nalî inaugurated the golden age of classical Sorani poetry in the cultural capital of the Baban Emirate in Sulaymaniyah. His verses blend poignant longing, philosophical wit, and refined linguistic mastery.',
-      significance: 'Nalî transformed Sorani into a dominant literary medium and founded the legendary Nalî School of poetry with Salim and Kurdi.',
-    ),
-    ArchiveItem(
-      id: 'sherko_bekas',
-      category: 'Poets',
-      title: 'Sherko Bekas',
-      kurdishTitle: 'شێرکۆ بێکەس',
-      subtitle: 'Poet of freedom and nature',
-      badge: 'Modern',
-      period: '1940–2013',
-      story: 'A revolutionary pioneer of modern Kurdish free verse (Ruwanga movement), Sherko Bekas gave voice to the Kurdish soul, mountains, tragic national struggles, and cosmic themes of human liberty.',
-      significance: 'Winner of the Swedish Tucholsky Prize, his works have been translated into dozens of world languages, making him one of Kurdistan’s most celebrated modern bards.',
-    ),
-
-    // Scholars
-    ArchiveItem(
-      id: 'sharafkhan_bidlisi',
-      category: 'Scholars',
-      title: 'Sharafkhan Bidlisi',
-      kurdishTitle: 'شەرەفخانی بەدلیسی',
-      subtitle: 'Author of the Sharafnama',
-      badge: 'Chronicle',
-      period: '1543–1603',
-      story: 'Prince of Bitlis and renowned statesman who compiled the monumental Sharafnama in 1597, the earliest comprehensive history and dynastic genealogy of the Kurdish principalities.',
-      significance: 'The Sharafnama stands as the premier primary historiographical work documenting medieval Kurdish politics, territorial kingdoms, and cultural life.',
-    ),
-    ArchiveItem(
-      id: 'ibn_al_athir',
-      category: 'Scholars',
-      title: 'Ibn al-Athir',
-      kurdishTitle: 'ئیبن ئەلئەسیر',
-      subtitle: 'Great medieval historian of Cizre',
-      badge: 'History',
-      period: '1160–1233',
-      story: 'Born in Cizre (Jazirat Ibn Umar), Ibn al-Athir authored Al-Kamil fi al-Tarikh (The Complete History), one of the most authoritative and comprehensive chronicles of the Islamic medieval era.',
-      significance: 'An irreplaceable universal source providing firsthand documentation of the Crusades, Seljuk and Ayyubid realms, and early medieval Eurasia.',
-    ),
-  ];
 
   @override
   void dispose() {
@@ -162,8 +121,8 @@ class _ArchiveState extends State<Archive> {
     super.dispose();
   }
 
-  List<ArchiveItem> get _filteredItems {
-    return _archiveItems.where((item) {
+  List<ArchiveItem> _filteredItems(List<ArchiveItem> items) {
+    return items.where((item) {
       final matchesCategory = item.category == _selectedCategory;
       if (!matchesCategory) return false;
 
@@ -171,9 +130,9 @@ class _ArchiveState extends State<Archive> {
 
       final query = _searchQuery.toLowerCase();
       return item.title.toLowerCase().contains(query) ||
-          item.subtitle.toLowerCase().contains(query) ||
+          item.displaySubtitle.toLowerCase().contains(query) ||
           item.kurdishTitle.toLowerCase().contains(query) ||
-          item.badge.toLowerCase().contains(query);
+          item.displayBadge.toLowerCase().contains(query);
     }).toList();
   }
 
@@ -347,47 +306,60 @@ class _ArchiveState extends State<Archive> {
             ),
             const SizedBox(height: 6),
 
-            // Archive Cards List
-            Expanded(
-              child: _filteredItems.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.auto_stories_outlined,
-                            size: 48,
-                            color: isDark ? Colors.grey[600] : Colors.grey[400],
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            'no_items'.tr,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: isDark
-                                  ? Colors.grey[400]
-                                  : Colors.grey[600],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
-                      itemCount: _filteredItems.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 14),
-                      itemBuilder: (context, index) {
-                        final item = _filteredItems[index];
-                        return _buildArchiveCard(context, item, isDark);
-                      },
-                    ),
-            ),
+            _buildArchiveList(isDark),
           ],
         ),
       ),
       bottomNavigationBar: const BNB(currentIndex: 2),
+    );
+  }
+
+  Widget _buildArchiveList(bool isDark) {
+    final collection = FirebaseFirestore.instance.collection('archiveItems');
+    return Expanded(
+      child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: collection.snapshots(),
+        builder: (context, itemsSnapshot) {
+          if (itemsSnapshot.hasError) {
+            return Center(
+              child: Text('Could not load archive: ${itemsSnapshot.error}'),
+            );
+          }
+          if (!itemsSnapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final items = itemsSnapshot.data!.docs
+              .map((doc) => ArchiveItem.fromMap(doc.id, doc.data()))
+              .toList();
+          return _buildItemList(items, isDark);
+        },
+      ),
+    );
+  }
+
+  Widget _buildItemList(List<ArchiveItem> items, bool isDark) {
+    final filteredItems = _filteredItems(items);
+    if (filteredItems.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.auto_stories_outlined, size: 48,
+                color: isDark ? Colors.grey[600] : Colors.grey[400]),
+            const SizedBox(height: 12),
+            Text('no_items'.tr, style: TextStyle(fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.grey[400] : Colors.grey[600])),
+          ],
+        ),
+      );
+    }
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+      itemCount: filteredItems.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 14),
+      itemBuilder: (context, index) =>
+          _buildArchiveCard(context, filteredItems[index], isDark),
     );
   }
 
@@ -453,7 +425,7 @@ class _ArchiveState extends State<Archive> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: Text(
-                        item.badge,
+                        item.displayBadge,
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -471,7 +443,7 @@ class _ArchiveState extends State<Archive> {
                   children: [
                     Expanded(
                       child: Text(
-                        item.subtitle,
+                        item.displaySubtitle,
                         style: TextStyle(
                           fontSize: 13,
                           color: isDark
@@ -482,7 +454,7 @@ class _ArchiveState extends State<Archive> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      item.period,
+                      item.displayPeriod,
                       style: TextStyle(
                         fontSize: 13,
                         fontFamily: 'monospace',
@@ -590,7 +562,7 @@ class ArchiveDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Text(
-                      item.badge,
+                      item.displayBadge,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -600,7 +572,7 @@ class ArchiveDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    item.period,
+                    item.displayPeriod,
                     style: TextStyle(
                       fontSize: 14,
                       color: isDark
@@ -624,7 +596,7 @@ class ArchiveDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                item.subtitle,
+                item.displaySubtitle,
                 style: TextStyle(
                   fontSize: 15,
                   color: isDark ? Colors.grey[400] : const Color(0xFF756F68),
@@ -643,7 +615,7 @@ class ArchiveDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                item.story,
+                item.displayStory,
                 style: TextStyle(
                   fontSize: 15,
                   height: 1.6,
@@ -681,7 +653,7 @@ class ArchiveDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      item.significance,
+                      item.displaySignificance,
                       style: TextStyle(
                         fontSize: 14.5,
                         height: 1.55,
