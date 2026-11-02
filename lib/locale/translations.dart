@@ -74,8 +74,9 @@ class AppTranslations extends Translations {
     'network_error': 'Network error. Check your internet connection and try again.',
     'account_disabled': 'This account has been disabled. Contact support.',
     'sign_in_failed': 'Unable to sign in. Please try again.',
-    'invalid_admin_credentials': 'The admin name or ID is incorrect.',
-    'admin_email_mismatch': 'The admin account email did not match.',
+    'admin_account_disabled': 'This admin account is disabled. Contact support.',
+    'admin_email_verification_required': 'Verify the admin email address before signing in.',
+    'admin_verification_sent': 'Account created. Check your email to verify the admin address, then sign in.',
     'account_suspended': 'This account has been suspended. Contact support.',
     'admin_verification_failed': 'Unable to verify admin details.',
 
@@ -317,8 +318,9 @@ class AppTranslations extends Translations {
     'network_error': 'کێشە لە پەیوەندی ئینتەرنێتدا هەیە. تکایە پەیوەندییەکەت بپشکنە.',
     'account_disabled': 'ئەم هەژمارە ناچالاک کراوە. پەیوەندی بە پشتگیری بکە.',
     'sign_in_failed': 'چوونەژوورەوە سەرکەوتوو نەبوو. تکایە دووبارە هەوڵ بدەرەوە.',
-    'invalid_admin_credentials': 'ناوی بەڕێوەبەر یان ژمارەی ناسنامە هەڵەیە.',
-    'admin_email_mismatch': 'ئیمەیڵی هەژماری بەڕێوەبەر یەک ناگرێتەوە.',
+    'admin_account_disabled': 'ئەم هەژمارەی بەڕێوەبەر ناچالاکە. پەیوەندی بە پشتگیرییەوە بکە.',
+    'admin_email_verification_required': 'پێش چوونەژوورەوە، ئیمەیڵی بەڕێوەبەر پشتڕاست بکەرەوە.',
+    'admin_verification_sent': 'هەژمار دروستکرا. ئیمەیڵەکەت بپشکنە و پاشان بچۆ ژوورەوە.',
     'account_suspended': 'ئەم هەژمارە ڕاگیراوە. پەیوەندی بە پشتگیری بکە.',
     'admin_verification_failed': 'نەتوانرا زانیارییەکانی بەڕێوەبەر پشتڕاست بکرێنەوە.',
 

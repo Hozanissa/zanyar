@@ -58,7 +58,7 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
     final firstName = firstNameController.text.trim();
     final lastName = lastNameController.text.trim();
     final phone = phoneController.text.trim();
-    final email = emailController.text.trim();
+    final email = emailController.text.trim().toLowerCase();
     final password = passwordController.text;
 
     if (firstName.isEmpty) {
@@ -86,6 +86,10 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
           email: email,
           password: password,
         );
+        final adminRecord = await FirebaseFirestore.instance
+            .collection('admins')
+            .doc(email)
+            .get();
         await credential.user!.updateDisplayName('$firstName $lastName');
         await FirebaseFirestore.instance.collection('users').doc(credential.user!.uid).set({
           'uid': credential.user!.uid,
@@ -95,9 +99,16 @@ class _RegisterNewAccountState extends State<RegisterNewAccount> {
           'email': email,
           'createdAt': FieldValue.serverTimestamp(),
         });
+        if (adminRecord.exists) {
+          await credential.user!.sendEmailVerification();
+        }
         await FirebaseAuth.instance.signOut();
         if (!mounted) return;
-        _showMessage('account_created'.tr);
+        _showMessage(
+          adminRecord.exists
+              ? 'admin_verification_sent'.tr
+              : 'account_created'.tr,
+        );
         Get.off(() => const LoginScreen());
       } on FirebaseAuthException catch (error) {
         _showMessage(error.message ?? 'Unable to create account.');

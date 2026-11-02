@@ -4,17 +4,20 @@ service cloud.firestore {
     function signedInAdmin() {
       return request.auth != null
         && request.auth.token.email is string
+        && request.auth.token.email_verified == true
         && exists(/databases/$(database)/documents/admins/$(request.auth.token.email))
         && get(/databases/$(database)/documents/admins/$(request.auth.token.email)).data.enabled == true
         && get(/databases/$(database)/documents/admins/$(request.auth.token.email)).data.uid == request.auth.uid;
     }
 
     match /admins/{adminEmail} {
-      // The name/ID lookup happens before password authentication.
-      allow read: if true;
-      // After signing in as this email, the app can bind the Auth UID once.
+      // An authenticated account may inspect only its own admin record.
+      allow read: if request.auth != null
+        && request.auth.token.email == adminEmail;
+      // Bind a recreated/first-time Auth account to this admin record once verified.
       allow update: if request.auth != null
         && request.auth.token.email == adminEmail
+        && request.auth.token.email_verified == true
         && resource.data.email == adminEmail
         && resource.data.enabled == true
         && request.resource.data.uid == request.auth.uid

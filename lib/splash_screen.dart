@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zanyar/admin/admin_panel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,16 +32,38 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     final userRole = prefs.getString('userRole');
 
+    final currentUser = FirebaseAuth.instance.currentUser;
+    var hasValidAdminSession = false;
+    if (currentUser?.email != null && userRole == 'admin') {
+      try {
+        final admin = await FirebaseFirestore.instance
+            .collection('admins')
+            .doc(currentUser!.email!.toLowerCase())
+            .get();
+        hasValidAdminSession = currentUser.emailVerified &&
+            admin.data()?['enabled'] == true &&
+            admin.data()?['uid'] == currentUser.uid;
+      } on FirebaseException {
+        hasValidAdminSession = false;
+      }
+    }
+
     if (!mounted) return;
 
-    if (isLoggedIn) {
-      if (userRole == 'admin') {
+    if (isLoggedIn && currentUser != null) {
+      if (userRole == 'admin' && hasValidAdminSession) {
         Get.off(() => const AdminPanel());
-      } else {
+      } else if (userRole != 'admin') {
         Get.offNamed('/homeScreen');
+      } else {
+        await prefs.remove('isLoggedIn');
+        await prefs.remove('userRole');
+        await FirebaseAuth.instance.signOut();
+        Get.offNamed('/loginScreen');
       }
-      //navigate to login screen if the user is not logged in.
     } else {
+      await prefs.remove('isLoggedIn');
+      await prefs.remove('userRole');
       Get.offNamed('/loginScreen');
     }
   }

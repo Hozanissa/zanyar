@@ -22,25 +22,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _obsecureText = true;
   bool _isLoading = false;
-  bool _isAdmin = false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final adminNameController = TextEditingController();
-  final adminIdController = TextEditingController();
-  final adminEmailController = TextEditingController(
-    text: 'hozanissa98@gmail.com',
-  );
-  final adminPasswordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    adminNameController.dispose();
-    adminIdController.dispose();
-    adminEmailController.dispose();
-    adminPasswordController.dispose();
     super.dispose();
   }
 
@@ -90,55 +79,48 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isLoading = true);
     try {
-      if (_isAdmin) {
-        final name = adminNameController.text.trim();
-        final id = adminIdController.text.trim();
-        final email = adminEmailController.text.trim();
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim().toLowerCase(),
+        password: passwordController.text,
+      );
+      final user = credential.user!;
+      final email = user.email?.toLowerCase();
+      if (email != null) {
         final adminRef = FirebaseFirestore.instance
             .collection('admins')
             .doc(email);
         final adminSnapshot = await adminRef.get();
-        final adminData = adminSnapshot.data();
-        if (adminData == null ||
-            adminData['name'] != name ||
-            adminData['id'] != id ||
-            adminData['enabled'] != true) {
-          _showMessage('invalid_admin_credentials'.tr);
+        if (adminSnapshot.exists) {
+          final adminData = adminSnapshot.data();
+          if (adminData?['enabled'] != true) {
+            await FirebaseAuth.instance.signOut();
+            _showMessage('admin_account_disabled'.tr);
+            return;
+          }
+          if (!user.emailVerified) {
+            await FirebaseAuth.instance.signOut();
+            _showMessage('admin_email_verification_required'.tr);
+            return;
+          }
+          await adminRef.update({'uid': user.uid});
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('userRole', 'admin');
+          if (mounted) Get.offAll(() => const AdminPanel());
           return;
         }
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-              email: email,
-              password: adminPasswordController.text,
-            );
-        final adminUser = credential.user;
-        if (adminUser == null || adminUser.email != email) {
-          await FirebaseAuth.instance.signOut();
-          _showMessage('admin_email_mismatch'.tr);
-          return;
-        }
-        await adminRef.set({'uid': adminUser.uid}, SetOptions(merge: true));
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('userRole', 'admin');
-        if (mounted) Get.offAll(() => const AdminPanel());
-      } else {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-              email: emailController.text.trim(),
-              password: passwordController.text,
-            );
-        final accountIsActive = await _ensureUserProfile(credential.user!);
-        if (!accountIsActive) {
-          await FirebaseAuth.instance.signOut();
-          _showMessage('account_suspended'.tr);
-          return;
-        }
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('userRole', 'user');
-        if (mounted) Get.offAllNamed('/homeScreen');
       }
+
+      final accountIsActive = await _ensureUserProfile(user);
+      if (!accountIsActive) {
+        await FirebaseAuth.instance.signOut();
+        _showMessage('account_suspended'.tr);
+        return;
+      }
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('userRole', 'user');
+      if (mounted) Get.offAllNamed('/homeScreen');
     } on FirebaseAuthException catch (error) {
       _showMessage(_authErrorMessage(error));
     } on FirebaseException catch (error) {
@@ -244,98 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             key: _formKey,
                             child: Column(
                               children: [
-                                SegmentedButton<bool>(
-                                  segments: [
-                                    ButtonSegment(
-                                      value: false,
-                                      label: Text('User'),
-                                      icon: const Icon(Icons.person_outline),
-                                    ),
-                                    ButtonSegment(
-                                      value: true,
-                                      label: Text('Admin'),
-                                      icon: const Icon(
-                                        Icons.admin_panel_settings_outlined,
-                                      ),
-                                    ),
-                                  ],
-                                  selected: {_isAdmin},
-                                  onSelectionChanged: (selection) =>
-                                      setState(() {
-                                        _isAdmin = selection.first;
-                                        _formKey.currentState?.reset();
-                                      }),
-                                ),
-                                const SizedBox(height: 20),
-                                if (_isAdmin) ...[
-                                  TextFormField(
-                                    controller: adminNameController,
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      border: const OutlineInputBorder(),
-                                      labelText: 'Admin name',
-                                      prefixIcon: Icon(
-                                        Icons.person,
-                                        color: accent,
-                                      ),
-                                    ),
-                                    validator: (v) =>
-                                        (v == null || v.trim().isEmpty)
-                                        ? 'Admin name is required.'
-                                        : null,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  TextFormField(
-                                    controller: adminIdController,
-                                    decoration: InputDecoration(
-                                      border: const OutlineInputBorder(),
-                                      labelText: 'Admin ID',
-                                      prefixIcon: Icon(
-                                        Icons.badge,
-                                        color: accent,
-                                      ),
-                                    ),
-                                    validator: (v) =>
-                                        (v == null || v.trim().isEmpty)
-                                        ? 'Admin ID is required.'
-                                        : null,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  TextFormField(
-                                    controller: adminEmailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    decoration: InputDecoration(
-                                      border: const OutlineInputBorder(),
-                                      labelText: 'Admin Firebase email',
-                                      prefixIcon: Icon(
-                                        Icons.email,
-                                        color: accent,
-                                      ),
-                                    ),
-                                    validator: (v) =>
-                                        (v == null ||
-                                            !GetUtils.isEmail(v.trim()))
-                                        ? 'Enter the admin Firebase email.'
-                                        : null,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  TextFormField(
-                                    controller: adminPasswordController,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: const OutlineInputBorder(),
-                                      labelText: 'Admin Firebase password',
-                                      prefixIcon: Icon(
-                                        Icons.lock,
-                                        color: accent,
-                                      ),
-                                    ),
-                                    validator: (v) => (v == null || v.isEmpty)
-                                        ? 'Admin password is required.'
-                                        : null,
-                                  ),
-                                ] else ...[
-                                  TextFormField(
+                                TextFormField(
                                     controller: emailController,
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
@@ -352,9 +243,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                             !GetUtils.isEmail(v.trim()))
                                         ? 'invalid_email'.tr
                                         : null,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  TextFormField(
+                                ),
+                                const SizedBox(height: 20),
+                                TextFormField(
                                     controller: passwordController,
                                     obscureText: _obsecureText,
                                     decoration: InputDecoration(
@@ -380,8 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     validator: (v) => (v == null || v.isEmpty)
                                         ? 'password_required'.tr
                                         : null,
-                                  ),
-                                ],
+                                ),
                                 const SizedBox(height: 20),
                                 ElevatedButton(
                                   onPressed: _isLoading ? null : login,
@@ -406,8 +296,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      if (!_isAdmin) ...[
-                        Wrap(
+                      Wrap(
                           alignment: WrapAlignment.center,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
@@ -424,8 +313,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             Text('to_register'.tr),
                           ],
-                        ),
-                        Wrap(
+                      ),
+                      Wrap(
                           alignment: WrapAlignment.center,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
@@ -442,8 +331,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ],
-                        ),
-                      ],
+                      ),
                       const SizedBox(height: 16),
                     ],
                   ),
