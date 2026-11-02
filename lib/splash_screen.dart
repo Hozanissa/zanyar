@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const Color teal = Color(0xFF1F4E4C);
+    const Color teal = Color(0xFF1F4E4B);
     const Color niceGold = Color(0xFFD4AF37);
     const Color somehowWhite = Color(0xFFF5F0E6);
 
@@ -61,10 +61,11 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 const Spacer(flex: 3),
 
-                Icon(
-                  Icons.fort_rounded,
-                  size: 54,
-                  color: niceGold.withOpacity(0.9),
+                Image.asset(
+                  'image/app-logo.png',
+                  width: 112,
+                  height: 112,
+                  fit: BoxFit.contain,
                 ),
 
                 const SizedBox(height: 28),
