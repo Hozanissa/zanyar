@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zanyar/main_screens/map_screen.dart' show MapScreen;
@@ -297,7 +297,6 @@ class SiteDetailScreen extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class _ReviewSummary extends StatelessWidget {
@@ -318,7 +317,8 @@ class _ReviewSummary extends StatelessWidget {
           ? 0.0
           : reviews.fold<double>(
                   0,
-                  (sum, doc) => sum + ((doc.data()['rating'] as num?)?.toDouble() ?? 0),
+                  (sum, doc) =>
+                      sum + ((doc.data()['rating'] as num?)?.toDouble() ?? 0),
                 ) /
                 count;
       return Text(
@@ -410,12 +410,16 @@ class _SiteReviewSectionState extends State<_SiteReviewSection> {
             .orderBy('createdAt', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.hasError) return Text('Could not load reviews: ${snapshot.error}');
+          if (snapshot.hasError)
+            return Text('Could not load reviews: ${snapshot.error}');
           final docs = snapshot.data?.docs ?? [];
           if (docs.isEmpty) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: Text('No reviews yet. Be the first to share your experience.', style: TextStyle(color: Colors.grey[600])),
+              child: Text(
+                'no_reviews_yet'.tr,
+                style: TextStyle(color: Colors.grey[600]),
+              ),
             );
           }
           return Column(
@@ -439,20 +443,32 @@ class _SiteReviewSectionState extends State<_SiteReviewSection> {
         },
       ),
       const SizedBox(height: 8),
-      Text('Your rating', style: TextStyle(fontWeight: FontWeight.bold, color: widget.isDark ? Colors.white : Colors.black87)),
+      Text(
+        'your_rating'.tr,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: widget.isDark ? Colors.white : Colors.black87,
+        ),
+      ),
       Row(
-        children: List.generate(5, (index) => IconButton(
-          visualDensity: VisualDensity.compact,
-          onPressed: () => setState(() => _rating = index + 1.0),
-          icon: Icon(index < _rating ? Icons.star : Icons.star_border, color: _terracotta),
-        )),
+        children: List.generate(
+          5,
+          (index) => IconButton(
+            visualDensity: VisualDensity.compact,
+            onPressed: () => setState(() => _rating = index + 1.0),
+            icon: Icon(
+              index < _rating ? Icons.star : Icons.star_border,
+              color: _terracotta,
+            ),
+          ),
+        ),
       ),
       TextField(
         controller: _commentController,
         minLines: 2,
         maxLines: 4,
-        decoration: const InputDecoration(
-          labelText: 'Write your review',
+        decoration: InputDecoration(
+          labelText: 'write_your_review'.tr,
           border: OutlineInputBorder(),
         ),
       ),
@@ -462,9 +478,13 @@ class _SiteReviewSectionState extends State<_SiteReviewSection> {
         child: FilledButton.icon(
           onPressed: _saving ? null : _submit,
           icon: _saving
-              ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+              ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
               : const Icon(Icons.send),
-          label: const Text('Submit review'),
+          label: Text('submit_review'.tr),
         ),
       ),
     ],

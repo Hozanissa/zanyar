@@ -123,6 +123,10 @@ class AppTranslations extends Translations {
     'period': 'PERIOD',
     'status': 'STATUS',
     'reviews': 'Reviews',
+    'no_reviews_yet': 'No reviews yet. Be the first to share your experience.',
+    'your_rating': 'Your rating',
+    'write_your_review': 'Write your review',
+    'submit_review': 'Submit review',
     'open_map': 'Open interactive map',
     'join_a_trip': 'Join a trip',
 
@@ -368,6 +372,10 @@ class AppTranslations extends Translations {
     'period': 'سەردەم',
     'status': 'دۆخ',
     'reviews': 'ڕای کەسان',
+    'no_reviews_yet': 'هێشتا هیچ ڕایەک نییە. یەکەم کەس بە کە ئەزموونەکەت هاوبەش دەکات.',
+    'your_rating': 'هەڵسەنگاندنی تۆ',
+    'write_your_review': 'ڕای خۆت بنووسە',
+    'submit_review': 'ناردنی ڕا',
     'open_map': 'کردنەوەی نەخشەی کارلێکبەر',
     'join_a_trip': 'بەشداری گەشتێک بکە',
 
